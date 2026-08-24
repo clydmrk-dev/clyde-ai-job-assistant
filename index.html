@@ -841,7 +841,138 @@
       .recommendation-content {
         flex-direction: column;
       }
-    }
+    }/* =========================
+   ACTIONS
+========================= */
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 22px;
+  flex-wrap: wrap;
+}
+
+.action-button {
+  border-radius: 10px;
+  padding: 11px 16px;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.action-button.primary {
+  border: none;
+  background: var(--text);
+  color: white;
+}
+
+.action-button.primary:hover {
+  transform: translateY(-1px);
+  background: #242832;
+}
+
+.action-button.secondary {
+  border: 1px solid var(--border);
+  background: white;
+  color: var(--text);
+}
+
+.action-button.secondary:hover {
+  background: var(--surface-soft);
+}
+
+
+/* =========================
+   COVER LETTER
+========================= */
+
+.cover-letter-card {
+  display: none;
+
+  margin-top: 18px;
+
+  background: var(--surface);
+
+  border: 1px solid var(--border);
+
+  border-radius: 18px;
+
+  padding: 21px;
+
+  box-shadow:
+    0 5px 20px rgba(17, 19, 24, 0.035);
+
+  animation: fadeIn 0.4s ease;
+}
+
+.cover-letter-loading {
+  display: none;
+
+  color: var(--muted);
+
+  font-size: 12px;
+
+  padding: 25px 0;
+
+  text-align: center;
+}
+
+.small-loader {
+  width: 25px;
+  height: 25px;
+
+  margin: 0 auto 10px;
+
+  border-radius: 50%;
+
+  border: 3px solid #e5e7eb;
+
+  border-top-color: var(--text);
+
+  animation: spin 0.8s linear infinite;
+}
+
+.cover-letter-content {
+  white-space: pre-wrap;
+
+  color: #4d535e;
+
+  font-size: 14px;
+
+  line-height: 1.85;
+
+  padding: 5px 2px;
+}
+
+.cover-letter-actions {
+  display: none;
+
+  margin-top: 18px;
+
+  padding-top: 15px;
+
+  border-top: 1px solid #f0f1f3;
+}
+
+.cover-letter-actions button {
+  border: 1px solid var(--border);
+
+  background: white;
+
+  color: var(--text);
+
+  padding: 9px 13px;
+
+  border-radius: 9px;
+
+  font-size: 11px;
+
+  font-weight: 800;
+
+  cursor: pointer;
+}
   </style>
 </head>
 
@@ -1184,19 +1315,77 @@
 
       <!-- NEW ANALYSIS -->
 
-      <div class="new-analysis">
+   <!-- ACTIONS -->
 
-        <button
-          onclick="resetAnalysis()"
-        >
-          ↻ Analyze Another Job
-        </button>
+<div class="actions">
 
-      </div>
+  <button
+    class="action-button primary"
+    id="coverLetterBtn"
+    onclick="generateCoverLetter()"
+  >
+    ✍️ Generate Cover Letter
+  </button>
 
-    </section>
+  <button
+    class="action-button secondary"
+    onclick="resetAnalysis()"
+  >
+    ↻ Analyze Another Job
+  </button>
+
+</div>
+
+
+<!-- COVER LETTER -->
+
+<div
+  class="cover-letter-card"
+  id="coverLetterCard"
+>
+
+  <div class="card-heading">
+
+    <div class="card-icon">
+      ✍️
+    </div>
+
+    <div class="card-title">
+      AI Cover Letter
+    </div>
 
   </div>
+
+
+  <div
+    class="cover-letter-loading"
+    id="coverLetterLoading"
+  >
+    <div class="small-loader"></div>
+    Clyde is writing your personalized cover letter...
+  </div>
+
+
+  <div
+    class="cover-letter-content"
+    id="coverLetterContent"
+  ></div>
+
+
+  <div
+    class="cover-letter-actions"
+    id="coverLetterActions"
+  >
+
+    <button
+      onclick="copyCoverLetter()"
+    >
+      📋 Copy Cover Letter
+    </button>
+
+  </div>
+
+</div>
 
 
   <script>
@@ -1678,7 +1867,172 @@
         );
 
     }
+async function generateCoverLetter() {
 
+  const job =
+    jobDescription.value.trim();
+
+  if (!job) {
+
+    showError(
+      "Analyze a job first."
+    );
+
+    return;
+  }
+
+  const card =
+    document.getElementById(
+      "coverLetterCard"
+    );
+
+  const loading =
+    document.getElementById(
+      "coverLetterLoading"
+    );
+
+  const content =
+    document.getElementById(
+      "coverLetterContent"
+    );
+
+  const actions =
+    document.getElementById(
+      "coverLetterActions"
+    );
+
+  const button =
+    document.getElementById(
+      "coverLetterBtn"
+    );
+
+
+  card.style.display =
+    "block";
+
+  loading.style.display =
+    "block";
+
+  content.textContent =
+    "";
+
+  actions.style.display =
+    "none";
+
+  button.disabled =
+    true;
+
+
+  try {
+
+    const response =
+      await fetch(
+        "/api/cover-letter",
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type":
+              "application/json"
+          },
+
+          body: JSON.stringify({
+            jobDescription: job
+          })
+        }
+      );
+
+
+    const data =
+      await response.json();
+
+
+    if (!response.ok) {
+
+      throw new Error(
+        data.error ||
+        "Cover letter generation failed."
+      );
+
+    }
+
+
+    content.textContent =
+      data.coverLetter ||
+      "No cover letter was generated.";
+
+
+    actions.style.display =
+      "block";
+
+
+  } catch (error) {
+
+    console.error(error);
+
+    content.textContent =
+      error.message ||
+      "Something went wrong.";
+
+  } finally {
+
+    loading.style.display =
+      "none";
+
+    button.disabled =
+      false;
+
+  }
+
+}
+
+
+async function copyCoverLetter() {
+
+  const content =
+    document.getElementById(
+      "coverLetterContent"
+    );
+
+
+  try {
+
+    await navigator.clipboard.writeText(
+      content.textContent
+    );
+
+
+    const button =
+      document.querySelector(
+        ".cover-letter-actions button"
+      );
+
+
+    const original =
+      button.textContent;
+
+
+    button.textContent =
+      "✓ Copied!";
+
+
+    setTimeout(() => {
+
+      button.textContent =
+        original;
+
+    }, 1500);
+
+
+  } catch (error) {
+
+    showError(
+      "Unable to copy the cover letter."
+    );
+
+  }
+
+}
   </script>
 
 </body>
