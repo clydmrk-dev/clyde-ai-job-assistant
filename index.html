@@ -1774,7 +1774,7 @@
     }
 
   </style>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 </head>
 
 
@@ -1852,67 +1852,13 @@
 
 <p class="login-footer">
   Don't have an account?
-  <button
-    type="button"
+  <strong
     id="createAccountBtn"
-    class="create-account-link"
+    style="cursor: pointer;"
   >
     Get started with Clyde AI
-  </button>
+  </strong>
 </p>
-
-  </div>
-
-</div>
-  <div class="create-account-screen" id="createAccountScreen">
-
-  <div class="login-card">
-
-    <div class="login-logo">
-      C
-    </div>
-
-    <h1>Create your account</h1>
-
-    <p class="login-description">
-      Create your Clyde AI account to continue.
-    </p>
-
-    <form id="createAccountForm">
-
-      <input
-        type="email"
-        id="createEmail"
-        placeholder="Email address"
-        required
-      />
-
-      <input
-        type="password"
-        id="createPassword"
-        placeholder="Create a password"
-        required
-      />
-
-      <button
-        type="submit"
-        class="login-button"
-      >
-        Create Account
-      </button>
-
-    </form>
-
-    <p class="login-footer">
-      Already have an account?
-      <button
-        type="button"
-        id="backToLoginBtn"
-        class="create-account-link"
-      >
-        Sign in
-      </button>
-    </p>
 
   </div>
 
@@ -2641,94 +2587,7 @@ if (
   <!-- =========================
        JAVASCRIPT
   ========================= -->
-const SUPABASE_URL =
-  "https://bicdawajnksfzvjmgjsk.supabase.co";
 
-const SUPABASE_ANON_KEY =
-  "PASTE_YOUR_ANON_KEY_HERE";
-
-const supabaseClient =
-  window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_ANON_KEY
-  );
-  const createAccountScreen =
-  document.getElementById("createAccountScreen");
-
-const createAccountForm =
-  document.getElementById("createAccountForm");
-
-const backToLoginBtn =
-  document.getElementById("backToLoginBtn");
-
-const createAccountBtn =
-  document.getElementById("createAccountBtn");
-
-
-createAccountBtn.addEventListener("click", function () {
-
-  loginScreen.style.display = "none";
-
-  createAccountScreen.style.display = "flex";
-
-});
-
-
-backToLoginBtn.addEventListener("click", function () {
-
-  createAccountScreen.style.display = "none";
-
-  loginScreen.style.display = "flex";
-
-});
-
-
-createAccountForm.addEventListener("submit", async function (event) {
-
-  event.preventDefault();
-
-  const email =
-    document.getElementById("createEmail").value.trim();
-
-  const password =
-    document.getElementById("createPassword").value;
-
-  if (!email || !password) {
-    return;
-  }
-
-  try {
-
-    const { data, error } =
-      await supabaseClient.auth.signUp({
-        email: email,
-        password: password
-      });
-
-    if (error) {
-      alert(error.message);
-      return;
-    }
-
-    alert(
-      "Account created successfully! Please check your email to verify your account."
-    );
-
-    createAccountScreen.style.display = "none";
-
-    loginScreen.style.display = "flex";
-
-  } catch (error) {
-
-    console.error(error);
-
-    alert(
-      "Something went wrong while creating your account."
-    );
-
-  }
-
-});
   <script>
 
 
