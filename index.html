@@ -973,6 +973,77 @@
 
   cursor: pointer;
 }
+    <!-- COVER LETTER -->
+
+<div
+  class="cover-letter-card"
+  id="coverLetterCard"
+>
+
+  <div class="card-heading">
+
+    <div class="card-icon">
+      ✍️
+    </div>
+
+    <div>
+      <div class="card-title">
+        AI Cover Letter
+      </div>
+
+      <div class="card-subtitle">
+        Tailored to this job and your professional profile
+      </div>
+    </div>
+
+  </div>
+
+
+  <div
+    class="cover-letter-loading"
+    id="coverLetterLoading"
+  >
+
+    <div class="small-loader"></div>
+
+    <div>
+      <strong>Clyde is writing your cover letter...</strong>
+      <div class="loading-subtext">
+        Matching your experience with the employer's requirements
+      </div>
+    </div>
+
+  </div>
+
+
+  <div
+    class="cover-letter-content"
+    id="coverLetterContent"
+  ></div>
+
+
+  <div
+    class="cover-letter-actions"
+    id="coverLetterActions"
+  >
+
+    <button
+      class="cover-action primary"
+      onclick="copyCoverLetter()"
+    >
+      📋 Copy Cover Letter
+    </button>
+
+    <button
+      class="cover-action secondary"
+      onclick="generateCoverLetter()"
+    >
+      🔄 Regenerate
+    </button>
+
+  </div>
+
+</div>
   </style>
 </head>
 
