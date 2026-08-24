@@ -1411,15 +1411,27 @@
   analyzeJob
 );
 
-jobDescription.addEventListener(
-  "keydown",
-  (event) => {
-    if (event.key === "Enter" && !event.shiftKey) {
-      event.preventDefault();
-      analyzeJob();
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Enter" && !event.shiftKey) {
+    const activeElement = document.activeElement;
+
+    // Don't trigger while typing in other fields
+    if (
+      activeElement.tagName === "INPUT" ||
+      activeElement.tagName === "TEXTAREA"
+    ) {
+      if (activeElement === jobDescription) {
+        event.preventDefault();
+        analyzeJob();
+      }
+
+      return;
     }
+
+    event.preventDefault();
+    analyzeJob();
   }
-);
+});
 
 
     async function analyzeJob() {
