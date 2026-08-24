@@ -1642,7 +1642,228 @@
 
 </div>
 
+async function generateInterviewPrep() {
+  const jobDescription =
+    document.getElementById("jobDescription").value.trim();
 
+  const loading =
+    document.getElementById("interviewPrepLoading");
+
+  const content =
+    document.getElementById("interviewPrepContent");
+
+  const button =
+    document.getElementById("interviewPrepBtn");
+
+  if (!jobDescription) {
+    alert("Please enter a job description first.");
+    return;
+  }
+
+  loading.style.display = "flex";
+  content.innerHTML = "";
+  button.disabled = true;
+  button.textContent = "⏳ Preparing...";
+
+  try {
+    const response = await fetch("/api/interview-prep", {
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json"
+      },
+
+      body: JSON.stringify({
+        jobDescription
+      })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        data.error || "Interview preparation failed."
+      );
+    }
+
+    renderInterviewPrep(data);
+
+  } catch (error) {
+    console.error("Interview Prep Error:", error);
+
+    content.innerHTML = `
+      <div class="interview-question">
+        ❌ ${error.message}
+      </div>
+    `;
+
+  } finally {
+    loading.style.display = "none";
+    button.disabled = false;
+    button.textContent = "🎤 Prepare for Interview";
+  }
+}
+
+
+function renderInterviewPrep(data) {
+  const content =
+    document.getElementById("interviewPrepContent");
+
+  let html = "";
+
+
+  // =========================
+  // LIKELY QUESTIONS
+  // =========================
+
+  if (data.questions?.length) {
+
+    html += `
+      <div class="interview-section">
+
+        <div class="interview-section-title">
+          🎯 Likely Interview Questions
+        </div>
+    `;
+
+    data.questions.forEach((item, index) => {
+
+      html += `
+        <div class="interview-question">
+
+          <div class="interview-question-title">
+            ${index + 1}. ${item.question}
+          </div>
+
+          ${
+            item.why
+              ? `
+                <div class="interview-question-why">
+                  ${item.why}
+                </div>
+              `
+              : ""
+          }
+
+          ${
+            item.suggestedAnswer
+              ? `
+                <div class="interview-answer">
+                  <strong>💡 Suggested Answer</strong>
+                  <br><br>
+                  ${item.suggestedAnswer}
+                </div>
+              `
+              : ""
+          }
+
+        </div>
+      `;
+    });
+
+    html += `</div>`;
+  }
+
+
+  // =========================
+  // TECHNICAL QUESTIONS
+  // =========================
+
+  if (data.technicalQuestions?.length) {
+
+    html += `
+      <div class="interview-section">
+
+        <div class="interview-section-title">
+          🧠 Technical Questions
+        </div>
+    `;
+
+    data.technicalQuestions.forEach((item, index) => {
+
+      html += `
+        <div class="interview-question">
+
+          <div class="interview-question-title">
+            ${index + 1}. ${item.question}
+          </div>
+
+          ${
+            item.suggestedAnswer
+              ? `
+                <div class="interview-answer">
+                  <strong>💡 Suggested Answer</strong>
+                  <br><br>
+                  ${item.suggestedAnswer}
+                </div>
+              `
+              : ""
+          }
+
+        </div>
+      `;
+    });
+
+    html += `</div>`;
+  }
+
+
+  // =========================
+  // QUESTIONS TO ASK
+  // =========================
+
+  if (data.questionsToAsk?.length) {
+
+    html += `
+      <div class="interview-section">
+
+        <div class="interview-section-title">
+          ❓ Questions You Should Ask
+        </div>
+    `;
+
+    data.questionsToAsk.forEach(question => {
+
+      html += `
+        <div class="interview-ask">
+          ${question}
+        </div>
+      `;
+    });
+
+    html += `</div>`;
+  }
+
+
+  // =========================
+  // INTERVIEW TIPS
+  // =========================
+
+  if (data.interviewTips?.length) {
+
+    html += `
+      <div class="interview-section">
+
+        <div class="interview-section-title">
+          💎 Interview Tips
+        </div>
+    `;
+
+    data.interviewTips.forEach(tip => {
+
+      html += `
+        <div class="interview-tip">
+          ${tip}
+        </div>
+      `;
+    });
+
+    html += `</div>`;
+  }
+
+
+  content.innerHTML = html;
+}
   <script>
 
     const analyzeBtn =
