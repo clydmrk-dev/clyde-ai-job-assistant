@@ -1675,6 +1675,45 @@
 
   transform: translateY(-1px);
 }
+    .create-account {
+  margin-top: 22px;
+
+  padding-top: 20px;
+
+  border-top: 1px solid var(--border);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+
+  font-size: 11px;
+
+  color: var(--muted);
+}
+
+.create-account button {
+  border: none;
+
+  background: none;
+
+  color: var(--text);
+
+  font-family: inherit;
+
+  font-size: 11px;
+
+  font-weight: 800;
+
+  cursor: pointer;
+
+  padding: 0;
+}
+
+.create-account button:hover {
+  text-decoration: underline;
+}
+    
     /* =========================
        MOBILE
     ========================= */
@@ -1849,7 +1888,16 @@
     >
       Continue with Demo
     </button>
+<div class="create-account">
+  <span>Don't have an account?</span>
 
+  <button
+    type="button"
+    id="createAccountBtn"
+  >
+    Create an account
+  </button>
+</div>
     <p class="login-footer">
       Don't have an account?
       <strong>Get started with Clyde AI</strong>
