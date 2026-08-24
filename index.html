@@ -1,228 +1,980 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clyde AI Job Assistant</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+  <title>Clyde AI Job Assistant</title>
 
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f5f7fb;
-            color: #1f2937;
-        }
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        .container {
-            max-width: 900px;
-            margin: 50px auto;
-            padding: 30px;
-        }
+    body {
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, Helvetica, Arial, sans-serif;
+      background: #f6f7fb;
+      color: #17181c;
+      min-height: 100vh;
+    }
 
-        .header {
-            background: white;
-            padding: 30px;
-            border-radius: 16px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
-            margin-bottom: 20px;
-        }
+    .app {
+      max-width: 1180px;
+      margin: auto;
+      padding: 32px 24px 60px;
+    }
 
-        h1 {
-            margin: 0 0 10px;
-        }
+    /* HEADER */
 
-        .subtitle {
-            color: #6b7280;
-            margin-bottom: 20px;
-        }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 42px;
+    }
 
-        .status {
-            display: inline-block;
-            padding: 8px 12px;
-            background: #dcfce7;
-            color: #166534;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: bold;
-        }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
 
-        .card {
-            background: white;
-            padding: 30px;
-            border-radius: 16px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
-        }
+    .logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #111827;
+      color: white;
+      font-size: 20px;
+      font-weight: 700;
+    }
 
-        label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
+    .brand h1 {
+      font-size: 19px;
+      letter-spacing: -0.4px;
+    }
 
-        textarea {
-            width: 100%;
-            min-height: 250px;
-            padding: 15px;
-            border: 1px solid #d1d5db;
-            border-radius: 10px;
-            resize: vertical;
-            font-family: inherit;
-            font-size: 15px;
-        }
+    .brand span {
+      display: block;
+      color: #7b8190;
+      font-size: 12px;
+      margin-top: 2px;
+    }
 
-        textarea:focus {
-            outline: none;
-            border-color: #2563eb;
-        }
+    .linkedin-status {
+      background: #eaf7ef;
+      color: #18864b;
+      border: 1px solid #ccebd8;
+      padding: 9px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+    }
 
-        button {
-            margin-top: 15px;
-            padding: 13px 20px;
-            border: none;
-            border-radius: 8px;
-            background: #2563eb;
-            color: white;
-            font-size: 15px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+    /* HERO */
 
-        button:hover {
-            background: #1d4ed8;
-        }
+    .hero {
+      margin-bottom: 28px;
+    }
 
-        button:disabled {
-            background: #9ca3af;
-            cursor: not-allowed;
-        }
+    .eyebrow {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #7a8190;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
 
-        #result {
-            margin-top: 25px;
-            padding: 20px;
-            background: #f9fafb;
-            border-radius: 10px;
-            white-space: pre-wrap;
-            line-height: 1.6;
-            display: none;
-        }
+    .hero h2 {
+      font-size: clamp(32px, 5vw, 54px);
+      letter-spacing: -2.5px;
+      line-height: 1;
+      max-width: 700px;
+      margin-bottom: 14px;
+    }
 
-        .loading {
-            color: #6b7280;
-        }
+    .hero p {
+      color: #6c7280;
+      max-width: 650px;
+      font-size: 16px;
+      line-height: 1.6;
+    }
 
-        .privacy {
-            display: block;
-            margin-top: 20px;
-            color: #6b7280;
-            font-size: 14px;
-        }
-    </style>
+    /* INPUT */
+
+    .input-card {
+      background: white;
+      border: 1px solid #e7e9ef;
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: 0 8px 30px rgba(20, 25, 40, 0.05);
+      margin-bottom: 28px;
+    }
+
+    .input-card label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 210px;
+      border: 1px solid #e2e5eb;
+      border-radius: 14px;
+      padding: 16px;
+      resize: vertical;
+      font-family: inherit;
+      font-size: 14px;
+      line-height: 1.6;
+      outline: none;
+      transition: 0.2s;
+    }
+
+    textarea:focus {
+      border-color: #111827;
+      box-shadow: 0 0 0 3px rgba(17, 24, 39, 0.06);
+    }
+
+    .analyze-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 14px;
+      gap: 12px;
+    }
+
+    .helper {
+      font-size: 12px;
+      color: #8a909d;
+    }
+
+    button {
+      border: none;
+      background: #111827;
+      color: white;
+      padding: 13px 20px;
+      border-radius: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      background: #202938;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* LOADING */
+
+    .loading {
+      display: none;
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    .spinner {
+      width: 36px;
+      height: 36px;
+      border: 3px solid #e4e6eb;
+      border-top-color: #111827;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 16px;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .loading p {
+      color: #737986;
+      font-size: 14px;
+    }
+
+    /* RESULTS */
+
+    #results {
+      display: none;
+    }
+
+    .result-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .result-header h3 {
+      font-size: 26px;
+      letter-spacing: -1px;
+      margin-bottom: 6px;
+    }
+
+    .result-header p {
+      color: #747a87;
+      font-size: 14px;
+    }
+
+    .score-card {
+      background: #111827;
+      color: white;
+      border-radius: 18px;
+      padding: 18px 22px;
+      min-width: 145px;
+      text-align: center;
+    }
+
+    .score {
+      font-size: 36px;
+      font-weight: 800;
+      letter-spacing: -2px;
+    }
+
+    .score-label {
+      font-size: 11px;
+      opacity: 0.65;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .match-level {
+      margin-top: 5px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    /* GRID */
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 18px;
+    }
+
+    .card {
+      background: white;
+      border: 1px solid #e7e9ef;
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: 0 5px 20px rgba(20, 25, 40, 0.035);
+    }
+
+    .card.full {
+      grid-column: 1 / -1;
+    }
+
+    .card-title {
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #7a8190;
+      margin-bottom: 16px;
+    }
+
+    .summary {
+      font-size: 16px;
+      line-height: 1.7;
+      color: #454b57;
+    }
+
+    /* STRENGTHS */
+
+    .strength {
+      display: flex;
+      gap: 12px;
+      padding: 13px 0;
+      border-bottom: 1px solid #f0f1f4;
+    }
+
+    .strength:last-child {
+      border-bottom: none;
+    }
+
+    .check {
+      width: 28px;
+      height: 28px;
+      border-radius: 9px;
+      background: #eaf7ef;
+      color: #18864b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-weight: 800;
+    }
+
+    .strength strong {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .strength p {
+      color: #747a87;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    /* SKILLS */
+
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .skill {
+      padding: 8px 11px;
+      border-radius: 9px;
+      background: #f2f3f6;
+      font-size: 12px;
+      font-weight: 600;
+      color: #4c5260;
+    }
+
+    .skill.high {
+      background: #edf2ff;
+      color: #4056a1;
+    }
+
+    /* GAPS */
+
+    .gap {
+      padding: 13px 0;
+      border-bottom: 1px solid #f0f1f4;
+    }
+
+    .gap:last-child {
+      border-bottom: none;
+    }
+
+    .gap strong {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .gap p {
+      font-size: 13px;
+      color: #747a87;
+      line-height: 1.5;
+    }
+
+    /* RECOMMENDATION */
+
+    .recommendation {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .recommendation-badge {
+      font-size: 25px;
+      font-weight: 900;
+      letter-spacing: -1px;
+    }
+
+    .recommendation p {
+      color: #747a87;
+      font-size: 14px;
+      line-height: 1.6;
+      max-width: 700px;
+      margin-top: 6px;
+    }
+
+    .apply {
+      background: #eaf7ef;
+      color: #18864b;
+      padding: 10px 16px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    /* ERROR */
+
+    .error {
+      display: none;
+      background: #fff1f1;
+      color: #b42318;
+      border: 1px solid #ffd5d2;
+      padding: 14px 16px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      font-size: 13px;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 760px) {
+      .app {
+        padding: 22px 16px 40px;
+      }
+
+      header {
+        align-items: flex-start;
+      }
+
+      .linkedin-status {
+        display: none;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .card.full {
+        grid-column: auto;
+      }
+
+      .result-header {
+        flex-direction: column;
+      }
+
+      .score-card {
+        width: 100%;
+      }
+
+      .analyze-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      button {
+        width: 100%;
+      }
+
+      .recommendation {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="app">
 
-    <div class="header">
-        <h1>🤖 Clyde AI Job Assistant</h1>
+  <header>
+    <div class="brand">
+      <div class="logo">C</div>
+      <div>
+        <h1>Clyde AI</h1>
+        <span>Job Assistant</span>
+      </div>
+    </div>
 
-        <p class="subtitle">
-            Your AI-powered assistant for job discovery,
-            application preparation, and career workflows.
+    <div class="linkedin-status">
+      ● LinkedIn Connected
+    </div>
+  </header>
+
+
+  <section class="hero">
+    <div class="eyebrow">AI Career Intelligence</div>
+
+    <h2>Find out if the job is right for you.</h2>
+
+    <p>
+      Paste a job description and Clyde will analyze the role,
+      identify key skills, highlight strengths, and recommend
+      whether you should apply.
+    </p>
+  </section>
+
+
+  <section class="input-card">
+
+    <label for="jobDescription">
+      Job Description
+    </label>
+
+    <textarea
+      id="jobDescription"
+      placeholder="Paste the complete job description here..."
+    ></textarea>
+
+    <div class="analyze-row">
+
+      <div class="helper">
+        Clyde analyzes requirements, skills, and responsibilities.
+      </div>
+
+      <button id="analyzeBtn">
+        ✨ Analyze Job
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <div class="error" id="error"></div>
+
+
+  <div class="loading" id="loading">
+
+    <div class="spinner"></div>
+
+    <p>
+      Clyde is analyzing the opportunity...
+    </p>
+
+  </div>
+
+
+  <section id="results">
+
+    <div class="result-header">
+
+      <div>
+        <h3 id="jobTitle">
+          Job Analysis
+        </h3>
+
+        <p>
+          AI-powered career assessment
         </p>
+      </div>
 
-        <span class="status">
-            LinkedIn Connected ✅
-        </span>
-    </div>
+      <div class="score-card">
 
-    <div class="card">
+        <div class="score">
+          <span id="matchScore">0</span>%
+        </div>
 
-        <label for="jobDescription">
-            Paste a Job Description
-        </label>
+        <div class="score-label">
+          Match Score
+        </div>
 
-        <textarea
-            id="jobDescription"
-            placeholder="Paste the complete job description here..."
-        ></textarea>
+        <div class="match-level" id="matchLevel">
+          —
+        </div>
 
-        <button id="analyzeBtn" onclick="analyzeJob()">
-            Analyze Job
-        </button>
-
-        <div id="result"></div>
+      </div>
 
     </div>
 
-    <a class="privacy" href="/privacy.html">
-        Privacy Policy
-    </a>
+
+    <div class="grid">
+
+      <!-- SUMMARY -->
+
+      <div class="card full">
+
+        <div class="card-title">
+          ✨ AI Assessment
+        </div>
+
+        <div class="summary" id="summary"></div>
+
+      </div>
+
+
+      <!-- STRENGTHS -->
+
+      <div class="card">
+
+        <div class="card-title">
+          🎯 Strengths
+        </div>
+
+        <div id="strengths"></div>
+
+      </div>
+
+
+      <!-- SKILLS -->
+
+      <div class="card">
+
+        <div class="card-title">
+          🧠 Required Skills
+        </div>
+
+        <div class="skills" id="skills"></div>
+
+      </div>
+
+
+      <!-- GAPS -->
+
+      <div class="card">
+
+        <div class="card-title">
+          ⚠️ Potential Gaps
+        </div>
+
+        <div id="gaps"></div>
+
+      </div>
+
+
+      <!-- RECOMMENDATION -->
+
+      <div class="card">
+
+        <div class="card-title">
+          🚀 Recommendation
+        </div>
+
+        <div class="recommendation">
+
+          <div>
+            <div
+              class="recommendation-badge"
+              id="recommendation"
+            >
+              APPLY
+            </div>
+
+            <p id="recommendationReason"></p>
+          </div>
+
+          <div
+            class="apply"
+            id="recommendationBadge"
+          >
+            APPLY
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
 
 </div>
 
+
 <script>
-async function analyzeJob() {
 
-    const jobDescription =
-        document.getElementById("jobDescription").value.trim();
+  const analyzeBtn =
+    document.getElementById("analyzeBtn");
 
-    const button =
-        document.getElementById("analyzeBtn");
+  const jobDescription =
+    document.getElementById("jobDescription");
 
-    const result =
-        document.getElementById("result");
+  const loading =
+    document.getElementById("loading");
 
-    if (!jobDescription) {
-        alert("Please paste a job description first.");
-        return;
+  const results =
+    document.getElementById("results");
+
+  const errorBox =
+    document.getElementById("error");
+
+
+  analyzeBtn.addEventListener("click", analyzeJob);
+
+
+  async function analyzeJob() {
+
+    const job = jobDescription.value.trim();
+
+    if (!job) {
+
+      showError(
+        "Please paste a job description first."
+      );
+
+      return;
+
     }
 
-    button.disabled = true;
-    button.textContent = "Analyzing...";
 
-    result.style.display = "block";
-    result.innerHTML =
-        '<span class="loading">🤖 Clyde is analyzing the job description...</span>';
+    errorBox.style.display = "none";
+
+    results.style.display = "none";
+
+    loading.style.display = "block";
+
+    analyzeBtn.disabled = true;
+
 
     try {
 
-        const response = await fetch("/api/ai", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                jobDescription
-            })
-        });
+      const response = await fetch(
+        "/api/ai",
+        {
+          method: "POST",
 
-        const data = await response.json();
+          headers: {
+            "Content-Type": "application/json"
+          },
 
-        if (!response.ok) {
-            throw new Error(
-                data.error || "AI request failed."
-            );
+          body: JSON.stringify({
+            jobDescription: job
+          })
         }
+      );
 
-        result.textContent = data.result;
+
+      const data =
+        await response.json();
+
+
+      if (!response.ok) {
+
+        throw new Error(
+          data.error ||
+          "Something went wrong."
+        );
+
+      }
+
+
+      renderResults(data);
+
 
     } catch (error) {
 
-        result.textContent =
-            "Something went wrong: " + error.message;
+      console.error(error);
+
+      showError(
+        error.message ||
+        "Something went wrong."
+      );
 
     } finally {
 
-        button.disabled = false;
-        button.textContent = "Analyze Job";
+      loading.style.display = "none";
+
+      analyzeBtn.disabled = false;
 
     }
-}
+
+  }
+
+
+  function renderResults(data) {
+
+    document.getElementById("jobTitle")
+      .textContent =
+      data.jobTitle ||
+      "Job Analysis";
+
+
+    document.getElementById("matchScore")
+      .textContent =
+      data.matchScore ?? 0;
+
+
+    document.getElementById("matchLevel")
+      .textContent =
+      data.matchLevel ||
+      "Match";
+
+
+    document.getElementById("summary")
+      .textContent =
+      data.summary ||
+      "No summary available.";
+
+
+    renderStrengths(
+      data.strengths || []
+    );
+
+
+    renderSkills(
+      data.skills || []
+    );
+
+
+    renderGaps(
+      data.gaps || []
+    );
+
+
+    document.getElementById(
+      "recommendation"
+    ).textContent =
+      data.recommendation ||
+      "CONSIDER";
+
+
+    document.getElementById(
+      "recommendationBadge"
+    ).textContent =
+      data.recommendation ||
+      "CONSIDER";
+
+
+    document.getElementById(
+      "recommendationReason"
+    ).textContent =
+      data.recommendationReason ||
+      "";
+
+
+    results.style.display =
+      "block";
+
+
+    results.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+
+  }
+
+
+  function renderStrengths(items) {
+
+    const container =
+      document.getElementById("strengths");
+
+    container.innerHTML = "";
+
+
+    items.forEach(item => {
+
+      const element =
+        document.createElement("div");
+
+      element.className =
+        "strength";
+
+      element.innerHTML = `
+        <div class="check">✓</div>
+
+        <div>
+          <strong>
+            ${escapeHtml(item.title)}
+          </strong>
+
+          <p>
+            ${escapeHtml(item.description)}
+          </p>
+        </div>
+      `;
+
+      container.appendChild(element);
+
+    });
+
+  }
+
+
+  function renderSkills(items) {
+
+    const container =
+      document.getElementById("skills");
+
+    container.innerHTML = "";
+
+
+    items.forEach(item => {
+
+      const element =
+        document.createElement("span");
+
+      element.className =
+        "skill " +
+        (item.importance === "High"
+          ? "high"
+          : "");
+
+      element.textContent =
+        item.name;
+
+      container.appendChild(element);
+
+    });
+
+  }
+
+
+  function renderGaps(items) {
+
+    const container =
+      document.getElementById("gaps");
+
+    container.innerHTML = "";
+
+
+    if (!items.length) {
+
+      container.innerHTML =
+        "<p style='color:#747a87;font-size:13px;'>No major gaps identified.</p>";
+
+      return;
+
+    }
+
+
+    items.forEach(item => {
+
+      const element =
+        document.createElement("div");
+
+      element.className =
+        "gap";
+
+      element.innerHTML = `
+        <strong>
+          ${escapeHtml(item.title)}
+        </strong>
+
+        <p>
+          ${escapeHtml(item.description)}
+        </p>
+      `;
+
+      container.appendChild(element);
+
+    });
+
+  }
+
+
+  function showError(message) {
+
+    errorBox.textContent =
+      message;
+
+    errorBox.style.display =
+      "block";
+
+  }
+
+
+  function escapeHtml(value) {
+
+    return String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+
+  }
+
 </script>
 
 </body>
