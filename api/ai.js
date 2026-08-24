@@ -1,14 +1,5 @@
-export default function handler(request) {
-  return new Response(
-    JSON.stringify({
-      success: true,
-      message: "Clyde API is working"
-    }),
-    {
-      status: 200,
-      headers: {
-        "Content-Type": "application/json"
-      }
-    }
-  );
+export default function handler() {
+  return new Response("Clyde API is working", {
+    status: 200
+  });
 }
