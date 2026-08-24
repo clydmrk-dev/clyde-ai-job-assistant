@@ -6,6 +6,10 @@
     <title>Clyde AI Job Assistant</title>
 
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -14,42 +18,105 @@
         }
 
         .container {
-            max-width: 800px;
-            margin: 80px auto;
-            padding: 40px;
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 30px;
+        }
+
+        .header {
             background: white;
+            padding: 30px;
             border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            text-align: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+            margin-bottom: 20px;
         }
 
         h1 {
-            margin-bottom: 10px;
+            margin: 0 0 10px;
         }
 
-        p {
+        .subtitle {
             color: #6b7280;
-            line-height: 1.6;
+            margin-bottom: 20px;
         }
 
-        .linkedin-btn {
+        .status {
             display: inline-block;
-            margin-top: 25px;
-            padding: 14px 24px;
-            background: #0a66c2;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
+            padding: 8px 12px;
+            background: #dcfce7;
+            color: #166534;
+            border-radius: 20px;
+            font-size: 14px;
             font-weight: bold;
         }
 
-        .linkedin-btn:hover {
-            background: #004182;
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 250px;
+            padding: 15px;
+            border: 1px solid #d1d5db;
+            border-radius: 10px;
+            resize: vertical;
+            font-family: inherit;
+            font-size: 15px;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #2563eb;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 13px 20px;
+            border: none;
+            border-radius: 8px;
+            background: #2563eb;
+            color: white;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        button:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+        }
+
+        #result {
+            margin-top: 25px;
+            padding: 20px;
+            background: #f9fafb;
+            border-radius: 10px;
+            white-space: pre-wrap;
+            line-height: 1.6;
+            display: none;
+        }
+
+        .loading {
+            color: #6b7280;
         }
 
         .privacy {
             display: block;
-            margin-top: 30px;
+            margin-top: 20px;
             color: #6b7280;
             font-size: 14px;
         }
@@ -58,25 +125,105 @@
 
 <body>
 
-    <div class="container">
+<div class="container">
+
+    <div class="header">
         <h1>🤖 Clyde AI Job Assistant</h1>
 
-        <p>
+        <p class="subtitle">
             Your AI-powered assistant for job discovery,
             application preparation, and career workflows.
         </p>
 
-        <a
-            class="linkedin-btn"
-            href="https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=86youeic9znnda&redirect_uri=https%3A%2F%2Fclyde-ai-job-assistant.vercel.app%2Fapi%2Fauth%2Flinkedin%2Fcallback&scope=openid%20profile%20email"
-        >
-            Connect LinkedIn
-        </a>
-
-        <a class="privacy" href="/privacy.html">
-            Privacy Policy
-        </a>
+        <span class="status">
+            LinkedIn Connected ✅
+        </span>
     </div>
+
+    <div class="card">
+
+        <label for="jobDescription">
+            Paste a Job Description
+        </label>
+
+        <textarea
+            id="jobDescription"
+            placeholder="Paste the complete job description here..."
+        ></textarea>
+
+        <button id="analyzeBtn" onclick="analyzeJob()">
+            Analyze Job
+        </button>
+
+        <div id="result"></div>
+
+    </div>
+
+    <a class="privacy" href="/privacy.html">
+        Privacy Policy
+    </a>
+
+</div>
+
+<script>
+async function analyzeJob() {
+
+    const jobDescription =
+        document.getElementById("jobDescription").value.trim();
+
+    const button =
+        document.getElementById("analyzeBtn");
+
+    const result =
+        document.getElementById("result");
+
+    if (!jobDescription) {
+        alert("Please paste a job description first.");
+        return;
+    }
+
+    button.disabled = true;
+    button.textContent = "Analyzing...";
+
+    result.style.display = "block";
+    result.innerHTML =
+        '<span class="loading">🤖 Clyde is analyzing the job description...</span>';
+
+    try {
+
+        const response = await fetch("/api/ai", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                jobDescription
+            })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(
+                data.error || "AI request failed."
+            );
+        }
+
+        result.textContent = data.result;
+
+    } catch (error) {
+
+        result.textContent =
+            "Something went wrong: " + error.message;
+
+    } finally {
+
+        button.disabled = false;
+        button.textContent = "Analyze Job";
+
+    }
+}
+</script>
 
 </body>
 </html>
