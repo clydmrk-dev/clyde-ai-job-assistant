@@ -50,12 +50,14 @@ ${jobDescription}`,
 
     const data = await response.json();
 
-    if (!response.ok) {
-      return res.status(500).json({
-        error: "OpenAI request failed",
-        details: data,
-      });
-    }
+  if (!response.ok) {
+  console.error("OpenAI API error:", data);
+
+  return res.status(response.status).json({
+    error: "OpenAI request failed",
+    details: data,
+  });
+}
 
     return res.status(200).json({
       result: data.output_text,
