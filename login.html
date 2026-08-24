@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>Sign In — Clyde AI</title>
+
+  <link
+    rel="icon"
+    type="image/svg+xml"
+    href="/logo.svg"
+  />
+
+  <meta
+    name="theme-color"
+    content="#111318"
+  />
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #f5f6f8;
+      --surface: #ffffff;
+      --border: #e7e9ee;
+      --text: #111318;
+      --muted: #707783;
+      --green: #16a05d;
+    }
+
+    body {
+      min-height: 100vh;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 24px;
+
+      background: var(--bg);
+
+      color: var(--text);
+
+      font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+    }
+
+    .login-wrapper {
+      width: 100%;
+      max-width: 430px;
+    }
+
+    .brand {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .logo {
+      width: 52px;
+      height: 52px;
+
+      margin: 0 auto 14px;
+
+      border-radius: 15px;
+
+      overflow: hidden;
+    }
+
+    .logo img {
+      width: 100%;
+      height: 100%;
+
+      display: block;
+    }
+
+    .brand-name {
+      font-size: 21px;
+      font-weight: 800;
+
+      letter-spacing: -0.6px;
+    }
+
+    .brand-subtitle {
+      margin-top: 4px;
+
+      color: var(--muted);
+
+      font-size: 12px;
+    }
+
+    .card {
+      background: var(--surface);
+
+      border: 1px solid var(--border);
+
+      border-radius: 22px;
+
+      padding: 32px;
+
+      box-shadow:
+        0 18px 50px rgba(17, 19, 24, 0.07);
+    }
+
+    .heading {
+      margin-bottom: 26px;
+    }
+
+    .heading h1 {
+      font-size: 28px;
+
+      letter-spacing: -1.3px;
+
+      margin-bottom: 7px;
+    }
+
+    .heading p {
+      color: var(--muted);
+
+      font-size: 13px;
+
+      line-height: 1.6;
+    }
+
+    .field {
+      margin-bottom: 17px;
+    }
+
+    .field label {
+      display: block;
+
+      margin-bottom: 7px;
+
+      font-size: 12px;
+
+      font-weight: 800;
+    }
+
+    .field input {
+      width: 100%;
+
+      padding: 13px 14px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 11px;
+
+      outline: none;
+
+      background: #f8f9fb;
+
+      color: var(--text);
+
+      font-size: 13px;
+
+      transition:
+        border 0.2s,
+        box-shadow 0.2s,
+        background 0.2s;
+    }
+
+    .field input:focus {
+      background: white;
+
+      border-color: #cfd3da;
+
+      box-shadow:
+        0 0 0 4px rgba(17, 19, 24, 0.04);
+    }
+
+    .password-row {
+      display: flex;
+
+      justify-content: space-between;
+
+      align-items: center;
+
+      margin-bottom: 7px;
+    }
+
+    .forgot {
+      border: none;
+
+      background: none;
+
+      color: var(--muted);
+
+      font-size: 11px;
+
+      cursor: pointer;
+    }
+
+    .forgot:hover {
+      color: var(--text);
+    }
+
+    .login-button {
+      width: 100%;
+
+      margin-top: 7px;
+
+      padding: 13px;
+
+      border: none;
+
+      border-radius: 11px;
+
+      background: var(--text);
+
+      color: white;
+
+      font-size: 13px;
+
+      font-weight: 800;
+
+      cursor: pointer;
+
+      transition:
+        transform 0.2s,
+        background 0.2s;
+    }
+
+    .login-button:hover {
+      background: #242832;
+
+      transform: translateY(-1px);
+    }
+
+    .login-button:disabled {
+      opacity: 0.6;
+
+      cursor: wait;
+
+      transform: none;
+    }
+
+    .divider {
+      display: flex;
+
+      align-items: center;
+
+      gap: 12px;
+
+      margin: 23px 0;
+
+      color: #a0a5ae;
+
+      font-size: 10px;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: "";
+
+      flex: 1;
+
+      height: 1px;
+
+      background: var(--border);
+    }
+
+    .signup {
+      text-align: center;
+
+      color: var(--muted);
+
+      font-size: 12px;
+    }
+
+    .signup a {
+      color: var(--text);
+
+      font-weight: 800;
+
+      text-decoration: none;
+    }
+
+    .signup a:hover {
+      text-decoration: underline;
+    }
+
+    .footer {
+      text-align: center;
+
+      margin-top: 22px;
+
+      color: #969ca7;
+
+      font-size: 10px;
+    }
+
+    .error {
+      display: none;
+
+      margin-bottom: 17px;
+
+      padding: 11px 13px;
+
+      border-radius: 10px;
+
+      background: #fff0f0;
+
+      border: 1px solid #ffd7d7;
+
+      color: #c24141;
+
+      font-size: 11px;
+
+      line-height: 1.5;
+    }
+
+    @media (max-width: 480px) {
+
+      .card {
+        padding: 25px 20px;
+
+        border-radius: 18px;
+      }
+
+      .heading h1 {
+        font-size: 25px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+  <main class="login-wrapper">
+
+    <div class="brand">
+
+      <div class="logo">
+
+        <img
+          src="/logo.svg"
+          alt="Clyde AI"
+        />
+
+      </div>
+
+      <div class="brand-name">
+        Clyde AI
+      </div>
+
+      <div class="brand-subtitle">
+        AI Career Intelligence
+      </div>
+
+    </div>
+
+
+    <section class="card">
+
+      <div class="heading">
+
+        <h1>
+          Welcome back
+        </h1>
+
+        <p>
+          Sign in to continue using Clyde AI.
+        </p>
+
+      </div>
+
+
+      <div
+        class="error"
+        id="error"
+      ></div>
+
+
+      <form id="loginForm">
+
+        <div class="field">
+
+          <label for="email">
+            Email
+          </label>
+
+          <input
+            type="email"
+            id="email"
+            placeholder="you@example.com"
+            autocomplete="email"
+            required
+          />
+
+        </div>
+
+
+        <div class="field">
+
+          <div class="password-row">
+
+            <label for="password">
+              Password
+            </label>
+
+            <button
+              type="button"
+              class="forgot"
+              onclick="forgotPassword()"
+            >
+              Forgot password?
+            </button>
+
+          </div>
+
+          <input
+            type="password"
+            id="password"
+            placeholder="Enter your password"
+            autocomplete="current-password"
+            required
+          />
+
+        </div>
+
+
+        <button
+          class="login-button"
+          id="loginButton"
+          type="submit"
+        >
+          Sign In
+        </button>
+
+      </form>
+
+
+      <div class="divider">
+        OR
+      </div>
+
+
+      <div class="signup">
+
+        Don't have an account?
+
+        <a href="/signup.html">
+          Create one
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <div class="footer">
+      © 2026 Clyde AI · AI-powered career intelligence
+    </div>
+
+  </main>
+
+
+  <script>
+
+    const form =
+      document.getElementById("loginForm");
+
+    const button =
+      document.getElementById("loginButton");
+
+    const error =
+      document.getElementById("error");
+
+
+    form.addEventListener(
+      "submit",
+      async function(event) {
+
+        event.preventDefault();
+
+        error.style.display = "none";
+
+        button.disabled = true;
+
+        button.textContent = "Signing in...";
+
+
+        const email =
+          document
+            .getElementById("email")
+            .value
+            .trim();
+
+        const password =
+          document
+            .getElementById("password")
+            .value;
+
+
+        try {
+
+          /*
+            Authentication will be connected here.
+          */
+
+          if (!email || !password) {
+
+            throw new Error(
+              "Please enter your email and password."
+            );
+
+          }
+
+          /*
+            Temporary UI test.
+
+            This does NOT authenticate
+            a real user yet.
+          */
+
+          window.location.href = "/";
+
+        } catch (err) {
+
+          error.textContent =
+            err.message;
+
+          error.style.display =
+            "block";
+
+        } finally {
+
+          button.disabled = false;
+
+          button.textContent =
+            "Sign In";
+
+        }
+
+      }
+    );
+
+
+    function forgotPassword() {
+
+      error.textContent =
+        "Password recovery will be available once authentication is connected.";
+
+      error.style.display =
+        "block";
+
+    }
+
+  </script>
+
+</body>
+
+</html>
