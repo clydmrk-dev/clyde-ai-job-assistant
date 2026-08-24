@@ -1,12 +1,20 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
 
   <title>Clyde AI — Job Intelligence</title>
 
+
   <style>
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -32,6 +40,7 @@
       --shadow: 0 12px 40px rgba(17, 19, 24, 0.06);
     }
 
+
     body {
       font-family:
         Inter,
@@ -47,10 +56,12 @@
       min-height: 100vh;
     }
 
+
     button,
     textarea {
       font-family: inherit;
     }
+
 
     /* =========================
        APP
@@ -61,6 +72,7 @@
       margin: auto;
       padding: 28px 24px 80px;
     }
+
 
     /* =========================
        HEADER
@@ -73,11 +85,13 @@
       margin-bottom: 55px;
     }
 
+
     .brand {
       display: flex;
       align-items: center;
       gap: 12px;
     }
+
 
     .logo {
       width: 42px;
@@ -96,17 +110,20 @@
       font-weight: 800;
     }
 
+
     .brand-name {
       font-size: 18px;
       font-weight: 800;
       letter-spacing: -0.5px;
     }
 
+
     .brand-subtitle {
       font-size: 11px;
       color: var(--muted);
       margin-top: 2px;
     }
+
 
     .status {
       display: flex;
@@ -126,12 +143,14 @@
       font-weight: 700;
     }
 
+
     .status-dot {
       width: 7px;
       height: 7px;
       border-radius: 50%;
       background: var(--green);
     }
+
 
     /* =========================
        HERO
@@ -142,6 +161,7 @@
       margin-bottom: 30px;
     }
 
+
     .eyebrow {
       font-size: 11px;
       font-weight: 800;
@@ -151,6 +171,7 @@
       margin-bottom: 13px;
     }
 
+
     .hero h1 {
       font-size: clamp(38px, 6vw, 66px);
       line-height: 0.98;
@@ -158,9 +179,11 @@
       margin-bottom: 18px;
     }
 
+
     .hero h1 span {
       color: #858b96;
     }
+
 
     .hero-description {
       font-size: 16px;
@@ -168,6 +191,7 @@
       color: var(--muted);
       max-width: 650px;
     }
+
 
     /* =========================
        INPUT
@@ -185,6 +209,7 @@
       margin-bottom: 28px;
     }
 
+
     .input-header {
       display: flex;
       justify-content: space-between;
@@ -193,15 +218,18 @@
       margin-bottom: 12px;
     }
 
+
     .input-title {
       font-size: 13px;
       font-weight: 800;
     }
 
+
     .input-hint {
       font-size: 11px;
       color: var(--muted-light);
     }
+
 
     textarea {
       width: 100%;
@@ -229,9 +257,11 @@
         background 0.2s;
     }
 
+
     textarea::placeholder {
       color: #a2a7b1;
     }
+
 
     textarea:focus {
       background: white;
@@ -242,6 +272,7 @@
         0 0 0 4px rgba(17, 19, 24, 0.04);
     }
 
+
     .input-footer {
       display: flex;
       justify-content: space-between;
@@ -250,10 +281,12 @@
       margin-top: 13px;
     }
 
+
     .input-helper {
       color: var(--muted-light);
       font-size: 11px;
     }
+
 
     .analyze-button {
       display: flex;
@@ -279,16 +312,19 @@
         background 0.2s;
     }
 
+
     .analyze-button:hover {
       transform: translateY(-1px);
       background: #242832;
     }
+
 
     .analyze-button:disabled {
       opacity: 0.55;
       cursor: wait;
       transform: none;
     }
+
 
     /* =========================
        ERROR
@@ -311,6 +347,7 @@
       font-size: 12px;
     }
 
+
     /* =========================
        LOADING
     ========================= */
@@ -322,6 +359,7 @@
 
       padding: 70px 20px;
     }
+
 
     .loader {
       width: 42px;
@@ -337,11 +375,13 @@
       animation: spin 0.8s linear infinite;
     }
 
+
     @keyframes spin {
       to {
         transform: rotate(360deg);
       }
     }
+
 
     .loading-title {
       font-weight: 800;
@@ -349,10 +389,12 @@
       margin-bottom: 5px;
     }
 
+
     .loading-text {
       font-size: 12px;
       color: var(--muted);
     }
+
 
     /* =========================
        RESULTS
@@ -362,6 +404,7 @@
       display: none;
       animation: fadeIn 0.45s ease;
     }
+
 
     @keyframes fadeIn {
       from {
@@ -375,6 +418,7 @@
       }
     }
 
+
     .result-top {
       display: flex;
       align-items: center;
@@ -384,6 +428,7 @@
 
       margin-bottom: 20px;
     }
+
 
     .result-label {
       font-size: 10px;
@@ -399,6 +444,7 @@
       margin-bottom: 7px;
     }
 
+
     .result-title {
       font-size: 30px;
 
@@ -407,10 +453,12 @@
       margin-bottom: 6px;
     }
 
+
     .result-subtitle {
       font-size: 12px;
       color: var(--muted);
     }
+
 
     /* =========================
        SCORE
@@ -421,6 +469,7 @@
       align-items: center;
       gap: 15px;
     }
+
 
     .score-ring {
       width: 96px;
@@ -441,6 +490,7 @@
         );
     }
 
+
     .score-ring::after {
       content: "";
 
@@ -454,6 +504,7 @@
       border-radius: 50%;
     }
 
+
     .score-number {
       position: relative;
       z-index: 2;
@@ -464,9 +515,11 @@
       letter-spacing: -1px;
     }
 
+
     .score-meta {
       min-width: 125px;
     }
+
 
     .score-caption {
       font-size: 10px;
@@ -480,10 +533,12 @@
       margin-bottom: 5px;
     }
 
+
     .score-level {
       font-size: 13px;
       font-weight: 800;
     }
+
 
     /* =========================
        GRID
@@ -499,6 +554,7 @@
       gap: 17px;
     }
 
+
     .card {
       background: var(--surface);
 
@@ -512,9 +568,11 @@
         0 5px 20px rgba(17, 19, 24, 0.035);
     }
 
+
     .full {
       grid-column: 1 / -1;
     }
+
 
     .card-heading {
       display: flex;
@@ -525,6 +583,7 @@
 
       margin-bottom: 16px;
     }
+
 
     .card-icon {
       width: 29px;
@@ -541,6 +600,7 @@
       font-size: 14px;
     }
 
+
     .card-title {
       font-size: 12px;
 
@@ -551,6 +611,14 @@
       letter-spacing: 1px;
     }
 
+
+    .card-subtitle {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 3px;
+    }
+
+
     .summary {
       color: #4d535e;
 
@@ -558,6 +626,7 @@
 
       line-height: 1.75;
     }
+
 
     /* =========================
        STRENGTHS
@@ -573,14 +642,17 @@
       border-bottom: 1px solid #f0f1f3;
     }
 
+
     .strength:first-child {
       padding-top: 0;
     }
+
 
     .strength:last-child {
       border-bottom: none;
       padding-bottom: 0;
     }
+
 
     .check {
       width: 27px;
@@ -602,12 +674,14 @@
       font-weight: 900;
     }
 
+
     .strength-title {
       font-size: 13px;
       font-weight: 800;
 
       margin-bottom: 3px;
     }
+
 
     .strength-description {
       color: var(--muted);
@@ -616,6 +690,7 @@
 
       line-height: 1.55;
     }
+
 
     /* =========================
        SKILLS
@@ -628,6 +703,7 @@
 
       gap: 7px;
     }
+
 
     .skill {
       padding: 7px 10px;
@@ -643,10 +719,12 @@
       font-weight: 700;
     }
 
+
     .skill.high {
       background: var(--blue-bg);
       color: var(--blue);
     }
+
 
     /* =========================
        GAPS
@@ -658,14 +736,17 @@
       border-bottom: 1px solid #f0f1f3;
     }
 
+
     .gap:first-child {
       padding-top: 0;
     }
+
 
     .gap:last-child {
       border-bottom: none;
       padding-bottom: 0;
     }
+
 
     .gap-title {
       font-size: 13px;
@@ -673,6 +754,7 @@
 
       margin-bottom: 3px;
     }
+
 
     .gap-description {
       color: var(--muted);
@@ -682,6 +764,7 @@
       line-height: 1.55;
     }
 
+
     .no-gaps {
       color: var(--green);
 
@@ -689,6 +772,7 @@
 
       font-weight: 700;
     }
+
 
     /* =========================
        RECOMMENDATION
@@ -699,14 +783,18 @@
       overflow: hidden;
     }
 
+
     .recommendation-card.apply {
       border-color: #cdebd9;
-      background: linear-gradient(
-        135deg,
-        #ffffff,
-        #f4fbf7
-      );
+
+      background:
+        linear-gradient(
+          135deg,
+          #ffffff,
+          #f4fbf7
+        );
     }
+
 
     .recommendation-content {
       display: flex;
@@ -718,6 +806,7 @@
       gap: 20px;
     }
 
+
     .recommendation-title {
       font-size: 28px;
 
@@ -725,6 +814,7 @@
 
       font-weight: 900;
     }
+
 
     .recommendation-reason {
       color: var(--muted);
@@ -737,6 +827,7 @@
 
       margin-top: 6px;
     }
+
 
     .recommendation-badge {
       padding: 9px 13px;
@@ -754,35 +845,536 @@
       white-space: nowrap;
     }
 
+
     /* =========================
-       NEW ANALYSIS
+       ACTIONS
     ========================= */
 
-    .new-analysis {
+    .actions {
       display: flex;
 
       justify-content: center;
 
+      gap: 10px;
+
       margin-top: 22px;
+
+      flex-wrap: wrap;
     }
 
-    .new-analysis button {
-      border: 1px solid var(--border);
 
-      background: white;
-
-      color: var(--text);
-
-      padding: 10px 16px;
-
+    .action-button {
       border-radius: 10px;
+
+      padding: 11px 16px;
 
       font-size: 12px;
 
       font-weight: 800;
 
       cursor: pointer;
+
+      transition: 0.2s;
     }
+
+
+    .action-button.primary {
+      border: none;
+
+      background: var(--text);
+
+      color: white;
+    }
+
+
+    .action-button.primary:hover {
+      transform: translateY(-1px);
+
+      background: #242832;
+    }
+
+
+    .action-button.secondary {
+      border: 1px solid var(--border);
+
+      background: white;
+
+      color: var(--text);
+    }
+
+
+    .action-button.secondary:hover {
+      background: var(--surface-soft);
+    }
+
+
+    .action-button:disabled {
+      opacity: 0.55;
+
+      cursor: wait;
+
+      transform: none;
+    }
+
+
+    /* =========================
+       COVER LETTER
+    ========================= */
+
+    .cover-letter-card {
+      display: none;
+
+      margin-top: 18px;
+
+      background: var(--surface);
+
+      border: 1px solid var(--border);
+
+      border-radius: 18px;
+
+      padding: 21px;
+
+      box-shadow:
+        0 5px 20px rgba(17, 19, 24, 0.035);
+
+      animation: fadeIn 0.4s ease;
+    }
+
+
+    .cover-letter-loading {
+      display: none;
+
+      color: var(--muted);
+
+      font-size: 12px;
+
+      padding: 25px 0;
+
+      text-align: center;
+    }
+
+
+    .small-loader {
+      width: 25px;
+      height: 25px;
+
+      margin: 0 auto 10px;
+
+      border-radius: 50%;
+
+      border: 3px solid #e5e7eb;
+
+      border-top-color: var(--text);
+
+      animation: spin 0.8s linear infinite;
+    }
+
+
+    .cover-letter-content {
+      white-space: pre-wrap;
+
+      color: #4d535e;
+
+      font-size: 14px;
+
+      line-height: 1.85;
+
+      padding: 5px 2px;
+    }
+
+
+    .cover-letter-actions {
+      display: none;
+
+      margin-top: 18px;
+
+      padding-top: 15px;
+
+      border-top: 1px solid #f0f1f3;
+
+      display: flex;
+
+      gap: 10px;
+
+      flex-wrap: wrap;
+    }
+
+
+    .cover-letter-actions button {
+      border: 1px solid var(--border);
+
+      background: white;
+
+      color: var(--text);
+
+      padding: 9px 13px;
+
+      border-radius: 9px;
+
+      font-size: 11px;
+
+      font-weight: 800;
+
+      cursor: pointer;
+    }
+
+
+    .cover-action.primary {
+      background: var(--text) !important;
+      color: white !important;
+      border-color: var(--text) !important;
+    }
+
+
+    .cover-action.secondary:hover,
+    .cover-action.primary:hover {
+      opacity: 0.85;
+    }
+
+
+    /* =========================
+       INTERVIEW PREP
+    ========================= */
+
+    .interview-prep-card {
+      margin-top: 28px;
+
+      padding: 30px;
+
+      border-radius: 24px;
+
+      background: #ffffff;
+
+      border: 1px solid #e9e9ee;
+
+      box-shadow:
+        0 18px 45px rgba(20, 20, 40, 0.07);
+    }
+
+
+    .interview-prep-intro {
+      margin-top: 22px;
+
+      padding: 22px;
+
+      border-radius: 18px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #faf9ff,
+          #f6f7fb
+        );
+
+      border: 1px solid #eceaf5;
+    }
+
+
+    .interview-prep-intro p {
+      margin: 0 0 18px;
+
+      max-width: 650px;
+
+      color: #666;
+
+      font-size: 14px;
+
+      line-height: 1.7;
+    }
+
+
+    .interview-prep-button {
+      display: inline-flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      gap: 8px;
+
+      border: none;
+
+      border-radius: 12px;
+
+      padding: 13px 20px;
+
+      background: #111111;
+
+      color: #ffffff;
+
+      font-size: 14px;
+
+      font-weight: 700;
+
+      cursor: pointer;
+
+      box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.12);
+
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        opacity 0.2s ease;
+    }
+
+
+    .interview-prep-button:hover {
+      transform: translateY(-2px);
+
+      box-shadow:
+        0 12px 26px rgba(0, 0, 0, 0.16);
+    }
+
+
+    .interview-prep-button:disabled {
+      opacity: 0.6;
+
+      cursor: wait;
+
+      transform: none;
+    }
+
+
+    .interview-prep-loading {
+      display: none;
+
+      align-items: center;
+
+      gap: 14px;
+
+      margin-top: 20px;
+
+      padding: 18px 20px;
+
+      border-radius: 16px;
+
+      background: #f8f8fb;
+
+      border: 1px solid #ececf2;
+
+      color: #444;
+    }
+
+
+    .interview-prep-loading .small-loader {
+      flex-shrink: 0;
+
+      margin: 0;
+    }
+
+
+    .interview-prep-content {
+      margin-top: 26px;
+    }
+
+
+    .interview-section {
+      margin-top: 28px;
+    }
+
+
+    .interview-section:first-child {
+      margin-top: 0;
+    }
+
+
+    .interview-section-title {
+      display: flex;
+
+      align-items: center;
+
+      gap: 9px;
+
+      margin-bottom: 14px;
+
+      font-size: 16px;
+
+      font-weight: 750;
+
+      color: #171717;
+    }
+
+
+    .interview-question {
+      position: relative;
+
+      margin-bottom: 12px;
+
+      padding: 20px 22px;
+
+      border-radius: 16px;
+
+      background: #ffffff;
+
+      border: 1px solid #ededf1;
+
+      transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease;
+    }
+
+
+    .interview-question:hover {
+      transform: translateY(-1px);
+
+      box-shadow:
+        0 8px 24px rgba(20, 20, 40, 0.06);
+    }
+
+
+    .interview-question-title {
+      font-size: 14px;
+
+      font-weight: 700;
+
+      line-height: 1.6;
+
+      color: #18181b;
+    }
+
+
+    .interview-question-why {
+      margin-top: 8px;
+
+      font-size: 12px;
+
+      line-height: 1.5;
+
+      color: #8a8a92;
+    }
+
+
+    .interview-answer {
+      margin-top: 16px;
+
+      padding: 16px 18px;
+
+      border-radius: 13px;
+
+      background: #f7f5ff;
+
+      border: 1px solid #ebe7ff;
+
+      font-size: 13px;
+
+      line-height: 1.7;
+
+      color: #444;
+    }
+
+
+    .interview-answer strong {
+      color: #5b4bb7;
+    }
+
+
+    .interview-ask {
+      position: relative;
+
+      margin-bottom: 10px;
+
+      padding: 15px 18px 15px 42px;
+
+      border-radius: 13px;
+
+      background: #fafafa;
+
+      border: 1px solid #ededed;
+
+      font-size: 13px;
+
+      line-height: 1.6;
+
+      color: #444;
+    }
+
+
+    .interview-ask::before {
+      content: "?";
+
+      position: absolute;
+
+      left: 15px;
+
+      top: 50%;
+
+      transform: translateY(-50%);
+
+      width: 20px;
+
+      height: 20px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      border-radius: 50%;
+
+      background: #111;
+
+      color: #fff;
+
+      font-size: 11px;
+
+      font-weight: 800;
+    }
+
+
+    .interview-tip {
+      position: relative;
+
+      margin-bottom: 10px;
+
+      padding: 15px 18px 15px 42px;
+
+      border-radius: 13px;
+
+      background: #fafafa;
+
+      border: 1px solid #ededed;
+
+      font-size: 13px;
+
+      line-height: 1.6;
+
+      color: #444;
+    }
+
+
+    .interview-tip::before {
+      content: "✓";
+
+      position: absolute;
+
+      left: 15px;
+
+      top: 50%;
+
+      transform: translateY(-50%);
+
+      width: 20px;
+
+      height: 20px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      border-radius: 50%;
+
+      background: #111;
+
+      color: #fff;
+
+      font-size: 11px;
+
+      font-weight: 800;
+    }
+
 
     /* =========================
        MOBILE
@@ -794,17 +1386,21 @@
         padding: 22px 16px 60px;
       }
 
+
       header {
         margin-bottom: 40px;
       }
+
 
       .status {
         display: none;
       }
 
+
       .hero h1 {
         letter-spacing: -2px;
       }
+
 
       .input-footer {
         flex-direction: column;
@@ -812,9 +1408,11 @@
         align-items: stretch;
       }
 
+
       .analyze-button {
         justify-content: center;
       }
+
 
       .result-top {
         flex-direction: column;
@@ -822,616 +1420,73 @@
         align-items: flex-start;
       }
 
+
       .score-container {
         width: 100%;
       }
+
 
       .score-meta {
         flex: 1;
       }
 
+
       .grid {
         grid-template-columns: 1fr;
       }
+
 
       .full {
         grid-column: auto;
       }
 
+
       .recommendation-content {
         flex-direction: column;
       }
-    }/* =========================
-   ACTIONS
-========================= */
 
-.actions {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 22px;
-  flex-wrap: wrap;
-}
 
-.action-button {
-  border-radius: 10px;
-  padding: 11px 16px;
-  font-size: 12px;
-  font-weight: 800;
-  cursor: pointer;
-  transition: 0.2s;
-}
+      .interview-prep-card {
+        padding: 20px;
 
-.action-button.primary {
-  border: none;
-  background: var(--text);
-  color: white;
-}
+        border-radius: 18px;
+      }
 
-.action-button.primary:hover {
-  transform: translateY(-1px);
-  background: #242832;
-}
 
-.action-button.secondary {
-  border: 1px solid var(--border);
-  background: white;
-  color: var(--text);
-}
+      .interview-prep-intro {
+        padding: 18px;
+      }
 
-.action-button.secondary:hover {
-  background: var(--surface-soft);
-}
 
+      .interview-prep-button {
+        width: 100%;
+      }
 
-/* =========================
-   COVER LETTER
-========================= */
 
-.cover-letter-card {
-  display: none;
+      .interview-question {
+        padding: 17px;
+      }
 
-  margin-top: 18px;
 
-  background: var(--surface);
+      .interview-answer {
+        padding: 14px;
+      }
 
-  border: 1px solid var(--border);
+    }
 
-  border-radius: 18px;
-
-  padding: 21px;
-
-  box-shadow:
-    0 5px 20px rgba(17, 19, 24, 0.035);
-
-  animation: fadeIn 0.4s ease;
-}
-
-.cover-letter-loading {
-  display: none;
-
-  color: var(--muted);
-
-  font-size: 12px;
-
-  padding: 25px 0;
-
-  text-align: center;
-}
-
-.small-loader {
-  width: 25px;
-  height: 25px;
-
-  margin: 0 auto 10px;
-
-  border-radius: 50%;
-
-  border: 3px solid #e5e7eb;
-
-  border-top-color: var(--text);
-
-  animation: spin 0.8s linear infinite;
-}
-
-.cover-letter-content {
-  white-space: pre-wrap;
-
-  color: #4d535e;
-
-  font-size: 14px;
-
-  line-height: 1.85;
-
-  padding: 5px 2px;
-}
-
-.cover-letter-actions {
-  display: none;
-
-  margin-top: 18px;
-
-  padding-top: 15px;
-
-  border-top: 1px solid #f0f1f3;
-}
-
-.cover-letter-actions button {
-  border: 1px solid var(--border);
-
-  background: white;
-
-  color: var(--text);
-
-  padding: 9px 13px;
-
-  border-radius: 9px;
-
-  font-size: 11px;
-
-  font-weight: 800;
-
-  cursor: pointer;
-}
-    <!-- COVER LETTER -->
-
-<div
-  class="cover-letter-card"
-  id="coverLetterCard"
->
-
-  <div class="card-heading">
-
-    <div class="card-icon">
-      ✍️
-    </div>
-
-    <div>
-      <div class="card-title">
-        AI Cover Letter
-      </div>
-
-      <div class="card-subtitle">
-        Tailored to this job and your professional profile
-      </div>
-    </div>
-
-  </div>
-
-
-  <div
-    class="cover-letter-loading"
-    id="coverLetterLoading"
-  >
-
-    <div class="small-loader"></div>
-
-    <div>
-      <strong>Clyde is writing your cover letter...</strong>
-      <div class="loading-subtext">
-        Matching your experience with the employer's requirements
-      </div>
-    </div>
-
-  </div>
-
-
-  <div
-    class="cover-letter-content"
-    id="coverLetterContent"
-  ></div>
-
-
-  <div
-    class="cover-letter-actions"
-    id="coverLetterActions"
-  >
-
-    <button
-      class="cover-action primary"
-      onclick="copyCoverLetter()"
-    >
-      📋 Copy Cover Letter
-    </button>
-
-    <button
-      class="cover-action secondary"
-      onclick="generateCoverLetter()"
-    >
-      🔄 Regenerate
-    </button>
-
-  </div>
-    <!-- INTERVIEW PREP -->
-
-<div
-  class="interview-prep-card"
-  id="interviewPrepCard"
->
-
-  <div class="card-heading">
-
-    <div class="card-icon">
-      🎤
-    </div>
-
-    <div>
-      <div class="card-title">
-        Interview Prep
-      </div>
-
-      <div class="card-subtitle">
-        Prepare for the questions you're most likely to receive
-      </div>
-    </div>
-
-  </div>
-
-
-  <div class="interview-prep-intro">
-
-    <p>
-      Get personalized interview questions and suggested answers
-      based on this job and your professional profile.
-    </p>
-
-    <button
-      class="interview-prep-button"
-      id="interviewPrepBtn"
-      onclick="generateInterviewPrep()"
-    >
-      🎤 Prepare for Interview
-    </button>
-
-  </div>
-
-
-  <div
-    class="interview-prep-loading"
-    id="interviewPrepLoading"
-  >
-
-    <div class="small-loader"></div>
-
-    <div>
-      <strong>Clyde is preparing your interview...</strong>
-
-      <div class="loading-subtext">
-        Analyzing the role and matching questions to your experience
-      </div>
-    </div>
-
-  </div>
-
-
-  <div
-    class="interview-prep-content"
-    id="interviewPrepContent"
-  ></div>
-
-</div>
-
-</div>
-/* ============================= */
-/* PREMIUM INTERVIEW PREP */
-/* ============================= */
-
-.interview-prep-card {
-  margin-top: 28px;
-  padding: 30px;
-  border-radius: 24px;
-  background: #ffffff;
-  border: 1px solid #e9e9ee;
-  box-shadow: 0 18px 45px rgba(20, 20, 40, 0.07);
-}
-
-.interview-prep-intro {
-  margin-top: 22px;
-  padding: 22px;
-  border-radius: 18px;
-  background: linear-gradient(
-    135deg,
-    #faf9ff,
-    #f6f7fb
-  );
-  border: 1px solid #eceaf5;
-}
-
-.interview-prep-intro p {
-  margin: 0 0 18px;
-  max-width: 650px;
-  color: #666;
-  font-size: 14px;
-  line-height: 1.7;
-}
-
-.interview-prep-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-
-  border: none;
-  border-radius: 12px;
-
-  padding: 13px 20px;
-
-  background: #111111;
-  color: #ffffff;
-
-  font-size: 14px;
-  font-weight: 700;
-
-  cursor: pointer;
-
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    opacity 0.2s ease;
-}
-
-.interview-prep-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.16);
-}
-
-.interview-prep-button:disabled {
-  opacity: 0.6;
-  cursor: wait;
-  transform: none;
-}
-
-
-/* LOADING */
-
-.interview-prep-loading {
-  display: none;
-  align-items: center;
-  gap: 14px;
-
-  margin-top: 20px;
-  padding: 18px 20px;
-
-  border-radius: 16px;
-
-  background: #f8f8fb;
-  border: 1px solid #ececf2;
-
-  color: #444;
-}
-
-
-/* RESULTS */
-
-.interview-prep-content {
-  margin-top: 26px;
-}
-
-
-/* SECTION */
-
-.interview-section {
-  margin-top: 28px;
-}
-
-.interview-section:first-child {
-  margin-top: 0;
-}
-
-.interview-section-title {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-
-  margin-bottom: 14px;
-
-  font-size: 16px;
-  font-weight: 750;
-  color: #171717;
-}
-
-
-/* QUESTION CARD */
-
-.interview-question {
-  position: relative;
-
-  margin-bottom: 12px;
-  padding: 20px 22px;
-
-  border-radius: 16px;
-
-  background: #ffffff;
-  border: 1px solid #ededf1;
-
-  transition:
-    transform 0.18s ease,
-    box-shadow 0.18s ease;
-}
-
-.interview-question:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 8px 24px rgba(20, 20, 40, 0.06);
-}
-
-
-/* QUESTION */
-
-.interview-question-title {
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 1.6;
-  color: #18181b;
-}
-
-
-/* WHY */
-
-.interview-question-why {
-  margin-top: 8px;
-
-  font-size: 12px;
-  line-height: 1.5;
-
-  color: #8a8a92;
-}
-
-
-/* ANSWER */
-
-.interview-answer {
-  margin-top: 16px;
-  padding: 16px 18px;
-
-  border-radius: 13px;
-
-  background: #f7f5ff;
-  border: 1px solid #ebe7ff;
-
-  font-size: 13px;
-  line-height: 1.7;
-
-  color: #444;
-}
-
-.interview-answer strong {
-  color: #5b4bb7;
-}
-
-
-/* QUESTIONS TO ASK */
-
-.interview-ask {
-  position: relative;
-
-  margin-bottom: 10px;
-  padding: 15px 18px 15px 42px;
-
-  border-radius: 13px;
-
-  background: #fafafa;
-  border: 1px solid #ededed;
-
-  font-size: 13px;
-  line-height: 1.6;
-
-  color: #444;
-}
-
-.interview-ask::before {
-  content: "?";
-
-  position: absolute;
-  left: 15px;
-  top: 50%;
-
-  transform: translateY(-50%);
-
-  width: 20px;
-  height: 20px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 50%;
-
-  background: #111;
-  color: #fff;
-
-  font-size: 11px;
-  font-weight: 800;
-}
-
-
-/* TIPS */
-
-.interview-tip {
-  position: relative;
-
-  margin-bottom: 10px;
-  padding: 15px 18px 15px 42px;
-
-  border-radius: 13px;
-
-  background: #fafafa;
-  border: 1px solid #ededed;
-
-  font-size: 13px;
-  line-height: 1.6;
-
-  color: #444;
-}
-
-.interview-tip::before {
-  content: "✓";
-
-  position: absolute;
-  left: 15px;
-  top: 50%;
-
-  transform: translateY(-50%);
-
-  width: 20px;
-  height: 20px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 50%;
-
-  background: #111;
-  color: #fff;
-
-  font-size: 11px;
-  font-weight: 800;
-}
-
-
-/* LOADER */
-
-.interview-prep-loading .small-loader {
-  flex-shrink: 0;
-}
-
-
-/* MOBILE */
-
-@media (max-width: 600px) {
-
-  .interview-prep-card {
-    padding: 20px;
-    border-radius: 18px;
-  }
-
-  .interview-prep-intro {
-    padding: 18px;
-  }
-
-  .interview-prep-button {
-    width: 100%;
-  }
-
-  .interview-question {
-    padding: 17px;
-  }
-
-  .interview-answer {
-    padding: 14px;
-  }
-
-}
   </style>
+
 </head>
+
 
 <body>
 
   <div class="app">
 
-    <!-- HEADER -->
+
+    <!-- =========================
+         HEADER
+    ========================= -->
 
     <header>
 
@@ -1455,15 +1510,21 @@
 
       </div>
 
+
       <div class="status">
+
         <span class="status-dot"></span>
+
         LinkedIn Connected
+
       </div>
 
     </header>
 
 
-    <!-- HERO -->
+    <!-- =========================
+         HERO
+    ========================= -->
 
     <section class="hero">
 
@@ -1471,21 +1532,32 @@
         AI Career Intelligence
       </div>
 
+
       <h1>
+
         Find your next
-        <span>opportunity.</span>
+
+        <span>
+          opportunity.
+        </span>
+
       </h1>
 
+
       <p class="hero-description">
+
         Paste any job description and Clyde will break down
         the opportunity, identify important skills, evaluate
         the role, and help you decide whether it's worth applying.
+
       </p>
 
     </section>
 
 
-    <!-- INPUT -->
+    <!-- =========================
+         INPUT
+    ========================= -->
 
     <section class="input-card">
 
@@ -1514,6 +1586,7 @@
           Powered by Clyde AI
         </div>
 
+
         <button
           class="analyze-button"
           id="analyzeBtn"
@@ -1526,7 +1599,9 @@
     </section>
 
 
-    <!-- ERROR -->
+    <!-- =========================
+         ERROR
+    ========================= -->
 
     <div
       class="error"
@@ -1534,7 +1609,9 @@
     ></div>
 
 
-    <!-- LOADING -->
+    <!-- =========================
+         LOADING
+    ========================= -->
 
     <div
       class="loading"
@@ -1543,9 +1620,11 @@
 
       <div class="loader"></div>
 
+
       <div class="loading-title">
         Clyde is thinking...
       </div>
+
 
       <div class="loading-text">
         Analyzing the role and identifying key requirements.
@@ -1554,9 +1633,14 @@
     </div>
 
 
-    <!-- RESULTS -->
+    <!-- =========================
+         RESULTS
+    ========================= -->
 
     <section id="results">
+
+
+      <!-- RESULT HEADER -->
 
       <div class="result-top">
 
@@ -1566,6 +1650,7 @@
             Job Analysis
           </div>
 
+
           <h2
             class="result-title"
             id="jobTitle"
@@ -1573,12 +1658,15 @@
             Job Title
           </h2>
 
+
           <div class="result-subtitle">
             Personalized AI assessment
           </div>
 
         </div>
 
+
+        <!-- SCORE -->
 
         <div class="score-container">
 
@@ -1592,7 +1680,11 @@
           >
 
             <div class="score-number">
-              <span id="matchScore">0</span>%
+
+              <span id="matchScore">
+                0
+              </span>%
+
             </div>
 
           </div>
@@ -1603,6 +1695,7 @@
             <div class="score-caption">
               Match Score
             </div>
+
 
             <div
               class="score-level"
@@ -1617,6 +1710,10 @@
 
       </div>
 
+
+      <!-- =========================
+           MAIN RESULT GRID
+      ========================= -->
 
       <div class="grid">
 
@@ -1636,6 +1733,7 @@
             </div>
 
           </div>
+
 
           <div
             class="summary"
@@ -1661,6 +1759,7 @@
 
           </div>
 
+
           <div id="strengths"></div>
 
         </div>
@@ -1681,6 +1780,7 @@
             </div>
 
           </div>
+
 
           <div
             class="skills"
@@ -1705,6 +1805,7 @@
             </div>
 
           </div>
+
 
           <div id="gaps"></div>
 
@@ -1742,6 +1843,7 @@
                 APPLY
               </div>
 
+
               <div
                 class="recommendation-reason"
                 id="recommendationReason"
@@ -1764,347 +1866,298 @@
       </div>
 
 
-      <!-- NEW ANALYSIS -->
+      <!-- =========================
+           ACTIONS
+      ========================= -->
 
-   <!-- ACTIONS -->
+      <div class="actions">
 
-<div class="actions">
-
-  <button
-    class="action-button primary"
-    id="coverLetterBtn"
-    onclick="generateCoverLetter()"
-  >
-    ✍️ Generate Cover Letter
-  </button>
-
-  <button
-    class="action-button secondary"
-    onclick="resetAnalysis()"
-  >
-    ↻ Analyze Another Job
-  </button>
-
-</div>
+        <button
+          class="action-button primary"
+          id="coverLetterBtn"
+          onclick="generateCoverLetter()"
+        >
+          ✍️ Generate Cover Letter
+        </button>
 
 
-<!-- COVER LETTER -->
+        <button
+          class="action-button secondary"
+          onclick="resetAnalysis()"
+        >
+          ↻ Analyze Another Job
+        </button>
 
-<div
-  class="cover-letter-card"
-  id="coverLetterCard"
->
-
-  <div class="card-heading">
-
-    <div class="card-icon">
-      ✍️
-    </div>
-
-    <div class="card-title">
-      AI Cover Letter
-    </div>
-
-  </div>
-
-
-  <div
-    class="cover-letter-loading"
-    id="coverLetterLoading"
-  >
-    <div class="small-loader"></div>
-    Clyde is writing your personalized cover letter...
-  </div>
-
-
-  <div
-    class="cover-letter-content"
-    id="coverLetterContent"
-  ></div>
-
-
-  <div
-    class="cover-letter-actions"
-    id="coverLetterActions"
-  >
-
-    <button
-      onclick="copyCoverLetter()"
-    >
-      📋 Copy Cover Letter
-    </button>
-
-  </div>
-
-</div>
-
-async function generateInterviewPrep() {
-  const jobDescription =
-    document.getElementById("jobDescription").value.trim();
-
-  const loading =
-    document.getElementById("interviewPrepLoading");
-
-  const content =
-    document.getElementById("interviewPrepContent");
-
-  const button =
-    document.getElementById("interviewPrepBtn");
-
-  if (!jobDescription) {
-    alert("Please enter a job description first.");
-    return;
-  }
-
-  loading.style.display = "flex";
-  content.innerHTML = "";
-  button.disabled = true;
-  button.textContent = "⏳ Preparing...";
-
-  try {
-    const response = await fetch("/api/interview-prep", {
-      method: "POST",
-
-      headers: {
-        "Content-Type": "application/json"
-      },
-
-      body: JSON.stringify({
-        jobDescription
-      })
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(
-        data.error || "Interview preparation failed."
-      );
-    }
-
-    renderInterviewPrep(data);
-
-  } catch (error) {
-    console.error("Interview Prep Error:", error);
-
-    content.innerHTML = `
-      <div class="interview-question">
-        ❌ ${error.message}
       </div>
-    `;
-
-  } finally {
-    loading.style.display = "none";
-    button.disabled = false;
-    button.textContent = "🎤 Prepare for Interview";
-  }
-}
 
 
-function renderInterviewPrep(data) {
-  const content =
-    document.getElementById("interviewPrepContent");
+      <!-- =========================
+           COVER LETTER
+      ========================= -->
 
-  let html = "";
+      <div
+        class="cover-letter-card"
+        id="coverLetterCard"
+      >
 
+        <div class="card-heading">
 
-  // =========================
-  // LIKELY QUESTIONS
-  // =========================
-
-  if (data.questions?.length) {
-
-    html += `
-      <div class="interview-section">
-
-        <div class="interview-section-title">
-          🎯 Likely Interview Questions
-        </div>
-    `;
-
-    data.questions.forEach((item, index) => {
-
-      html += `
-        <div class="interview-question">
-
-          <div class="interview-question-title">
-            ${index + 1}. ${item.question}
+          <div class="card-icon">
+            ✍️
           </div>
 
-          ${
-            item.why
-              ? `
-                <div class="interview-question-why">
-                  ${item.why}
-                </div>
-              `
-              : ""
-          }
 
-          ${
-            item.suggestedAnswer
-              ? `
-                <div class="interview-answer">
-                  <strong>💡 Suggested Answer</strong>
-                  <br><br>
-                  ${item.suggestedAnswer}
-                </div>
-              `
-              : ""
-          }
+          <div>
 
-        </div>
-      `;
-    });
-
-    html += `</div>`;
-  }
+            <div class="card-title">
+              AI Cover Letter
+            </div>
 
 
-  // =========================
-  // TECHNICAL QUESTIONS
-  // =========================
+            <div class="card-subtitle">
+              Tailored to this job and your professional profile
+            </div>
 
-  if (data.technicalQuestions?.length) {
-
-    html += `
-      <div class="interview-section">
-
-        <div class="interview-section-title">
-          🧠 Technical Questions
-        </div>
-    `;
-
-    data.technicalQuestions.forEach((item, index) => {
-
-      html += `
-        <div class="interview-question">
-
-          <div class="interview-question-title">
-            ${index + 1}. ${item.question}
           </div>
 
-          ${
-            item.suggestedAnswer
-              ? `
-                <div class="interview-answer">
-                  <strong>💡 Suggested Answer</strong>
-                  <br><br>
-                  ${item.suggestedAnswer}
-                </div>
-              `
-              : ""
-          }
+        </div>
+
+
+        <div
+          class="cover-letter-loading"
+          id="coverLetterLoading"
+        >
+
+          <div class="small-loader"></div>
+
+
+          <div>
+
+            <strong>
+              Clyde is writing your cover letter...
+            </strong>
+
+
+            <div class="loading-subtext">
+              Matching your experience with the employer's requirements
+            </div>
+
+          </div>
 
         </div>
-      `;
-    });
-
-    html += `</div>`;
-  }
 
 
-  // =========================
-  // QUESTIONS TO ASK
-  // =========================
+        <div
+          class="cover-letter-content"
+          id="coverLetterContent"
+        ></div>
 
-  if (data.questionsToAsk?.length) {
 
-    html += `
-      <div class="interview-section">
+        <div
+          class="cover-letter-actions"
+          id="coverLetterActions"
+          style="display: none;"
+        >
 
-        <div class="interview-section-title">
-          ❓ Questions You Should Ask
+          <button
+            class="cover-action primary"
+            onclick="copyCoverLetter()"
+          >
+            📋 Copy Cover Letter
+          </button>
+
+
+          <button
+            class="cover-action secondary"
+            onclick="generateCoverLetter()"
+          >
+            🔄 Regenerate
+          </button>
+
         </div>
-    `;
 
-    data.questionsToAsk.forEach(question => {
+      </div>
 
-      html += `
-        <div class="interview-ask">
-          ${question}
+
+      <!-- =========================
+           INTERVIEW PREP
+      ========================= -->
+
+      <div
+        class="interview-prep-card"
+        id="interviewPrepCard"
+      >
+
+        <div class="card-heading">
+
+          <div class="card-icon">
+            🎤
+          </div>
+
+
+          <div>
+
+            <div class="card-title">
+              Interview Prep
+            </div>
+
+
+            <div class="card-subtitle">
+              Prepare for the questions you're most likely to receive
+            </div>
+
+          </div>
+
         </div>
-      `;
-    });
-
-    html += `</div>`;
-  }
 
 
-  // =========================
-  // INTERVIEW TIPS
-  // =========================
+        <div class="interview-prep-intro">
 
-  if (data.interviewTips?.length) {
+          <p>
 
-    html += `
-      <div class="interview-section">
+            Get personalized interview questions and suggested answers
+            based on this job and your professional profile.
 
-        <div class="interview-section-title">
-          💎 Interview Tips
+          </p>
+
+
+          <button
+            class="interview-prep-button"
+            id="interviewPrepBtn"
+            onclick="generateInterviewPrep()"
+          >
+            🎤 Prepare for Interview
+          </button>
+
         </div>
-    `;
 
-    data.interviewTips.forEach(tip => {
 
-      html += `
-        <div class="interview-tip">
-          ${tip}
+        <div
+          class="interview-prep-loading"
+          id="interviewPrepLoading"
+        >
+
+          <div class="small-loader"></div>
+
+
+          <div>
+
+            <strong>
+              Clyde is preparing your interview...
+            </strong>
+
+
+            <div class="loading-subtext">
+              Analyzing the role and matching questions to your experience
+            </div>
+
+          </div>
+
         </div>
-      `;
-    });
-
-    html += `</div>`;
-  }
 
 
-  content.innerHTML = html;
-}
+        <div
+          class="interview-prep-content"
+          id="interviewPrepContent"
+        ></div>
+
+      </div>
+
+
+    </section>
+
+
+  </div>
+
+
+  <!-- =========================
+       JAVASCRIPT
+  ========================= -->
+
   <script>
+
+
+    /* =========================
+       ELEMENTS
+    ========================= */
 
     const analyzeBtn =
       document.getElementById("analyzeBtn");
 
+
     const jobDescription =
       document.getElementById("jobDescription");
+
 
     const loading =
       document.getElementById("loading");
 
+
     const results =
       document.getElementById("results");
+
 
     const errorBox =
       document.getElementById("error");
 
 
+    /* =========================
+       ANALYZE BUTTON
+    ========================= */
+
     analyzeBtn.addEventListener(
-  "click",
-  analyzeJob
-);
+      "click",
+      analyzeJob
+    );
 
-document.addEventListener("keydown", (event) => {
-  if (event.key === "Enter" && !event.shiftKey) {
-    const activeElement = document.activeElement;
 
-    // Don't trigger while typing in other fields
-    if (
-      activeElement.tagName === "INPUT" ||
-      activeElement.tagName === "TEXTAREA"
-    ) {
-      if (activeElement === jobDescription) {
-        event.preventDefault();
-        analyzeJob();
+    /* =========================
+       ENTER KEY
+    ========================= */
+
+    document.addEventListener(
+      "keydown",
+      (event) => {
+
+        if (event.key === "Enter" && !event.shiftKey) {
+
+          const activeElement =
+            document.activeElement;
+
+
+          if (
+            activeElement.tagName === "INPUT" ||
+            activeElement.tagName === "TEXTAREA"
+          ) {
+
+            if (
+              activeElement === jobDescription
+            ) {
+
+              event.preventDefault();
+
+              analyzeJob();
+
+            }
+
+            return;
+
+          }
+
+
+          event.preventDefault();
+
+          analyzeJob();
+
+        }
+
       }
+    );
 
-      return;
-    }
 
-    event.preventDefault();
-    analyzeJob();
-  }
-});
-
+    /* =========================
+       ANALYZE JOB
+    ========================= */
 
     async function analyzeJob() {
 
@@ -2126,11 +2179,14 @@ document.addEventListener("keydown", (event) => {
       errorBox.style.display =
         "none";
 
+
       results.style.display =
         "none";
 
+
       loading.style.display =
         "block";
+
 
       analyzeBtn.disabled =
         true;
@@ -2177,6 +2233,7 @@ document.addEventListener("keydown", (event) => {
 
         console.error(error);
 
+
         showError(
           error.message ||
           "Something went wrong."
@@ -2188,6 +2245,7 @@ document.addEventListener("keydown", (event) => {
         loading.style.display =
           "none";
 
+
         analyzeBtn.disabled =
           false;
 
@@ -2195,6 +2253,10 @@ document.addEventListener("keydown", (event) => {
 
     }
 
+
+    /* =========================
+       RENDER RESULTS
+    ========================= */
 
     function renderResults(data) {
 
@@ -2258,6 +2320,7 @@ document.addEventListener("keydown", (event) => {
         "--score",
         "0%"
       );
+
 
       ring.style.setProperty(
         "--score-color",
@@ -2345,6 +2408,10 @@ document.addEventListener("keydown", (event) => {
     }
 
 
+    /* =========================
+       STRENGTHS
+    ========================= */
+
     function renderStrengths(items) {
 
       const container =
@@ -2399,6 +2466,10 @@ document.addEventListener("keydown", (event) => {
     }
 
 
+    /* =========================
+       SKILLS
+    ========================= */
+
     function renderSkills(items) {
 
       const container =
@@ -2440,6 +2511,10 @@ document.addEventListener("keydown", (event) => {
 
     }
 
+
+    /* =========================
+       GAPS
+    ========================= */
 
     function renderGaps(items) {
 
@@ -2502,10 +2577,15 @@ document.addEventListener("keydown", (event) => {
     }
 
 
+    /* =========================
+       ERROR
+    ========================= */
+
     function showError(message) {
 
       errorBox.textContent =
         message;
+
 
       errorBox.style.display =
         "block";
@@ -2513,15 +2593,22 @@ document.addEventListener("keydown", (event) => {
     }
 
 
+    /* =========================
+       RESET
+    ========================= */
+
     function resetAnalysis() {
 
       results.style.display =
         "none";
 
+
       errorBox.style.display =
         "none";
 
+
       jobDescription.focus();
+
 
       window.scrollTo({
         top: 0,
@@ -2530,6 +2617,10 @@ document.addEventListener("keydown", (event) => {
 
     }
 
+
+    /* =========================
+       ESCAPE HTML
+    ========================= */
 
     function escapeHtml(value) {
 
@@ -2561,173 +2652,604 @@ document.addEventListener("keydown", (event) => {
         );
 
     }
-async function generateCoverLetter() {
-
-  const job =
-    jobDescription.value.trim();
-
-  if (!job) {
-
-    showError(
-      "Analyze a job first."
-    );
-
-    return;
-  }
-
-  const card =
-    document.getElementById(
-      "coverLetterCard"
-    );
-
-  const loading =
-    document.getElementById(
-      "coverLetterLoading"
-    );
-
-  const content =
-    document.getElementById(
-      "coverLetterContent"
-    );
-
-  const actions =
-    document.getElementById(
-      "coverLetterActions"
-    );
-
-  const button =
-    document.getElementById(
-      "coverLetterBtn"
-    );
 
 
-  card.style.display =
-    "block";
+    /* =========================
+       COVER LETTER
+    ========================= */
 
-  loading.style.display =
-    "block";
+    async function generateCoverLetter() {
 
-  content.textContent =
-    "";
-
-  actions.style.display =
-    "none";
-
-  button.disabled =
-    true;
+      const job =
+        jobDescription.value.trim();
 
 
-  try {
+      if (!job) {
 
-    const response =
-      await fetch(
-        "/api/cover-letter",
-        {
-          method: "POST",
+        showError(
+          "Analyze a job first."
+        );
 
-          headers: {
-            "Content-Type":
-              "application/json"
-          },
+        return;
 
-          body: JSON.stringify({
-            jobDescription: job
-          })
+      }
+
+
+      const card =
+        document.getElementById(
+          "coverLetterCard"
+        );
+
+
+      const loading =
+        document.getElementById(
+          "coverLetterLoading"
+        );
+
+
+      const content =
+        document.getElementById(
+          "coverLetterContent"
+        );
+
+
+      const actions =
+        document.getElementById(
+          "coverLetterActions"
+        );
+
+
+      const button =
+        document.getElementById(
+          "coverLetterBtn"
+        );
+
+
+      card.style.display =
+        "block";
+
+
+      loading.style.display =
+        "block";
+
+
+      content.textContent =
+        "";
+
+
+      actions.style.display =
+        "none";
+
+
+      button.disabled =
+        true;
+
+
+      try {
+
+        const response =
+          await fetch(
+            "/api/cover-letter",
+            {
+              method: "POST",
+
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
+
+              body: JSON.stringify({
+                jobDescription: job
+              })
+            }
+          );
+
+
+        const data =
+          await response.json();
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            data.error ||
+            "Cover letter generation failed."
+          );
+
         }
-      );
 
 
-    const data =
-      await response.json();
+        content.textContent =
+          data.coverLetter ||
+          "No cover letter was generated.";
 
 
-    if (!response.ok) {
+        actions.style.display =
+          "flex";
 
-      throw new Error(
-        data.error ||
-        "Cover letter generation failed."
-      );
+
+      } catch (error) {
+
+        console.error(error);
+
+
+        content.textContent =
+          error.message ||
+          "Something went wrong.";
+
+      } finally {
+
+        loading.style.display =
+          "none";
+
+
+        button.disabled =
+          false;
+
+      }
 
     }
 
 
-    content.textContent =
-      data.coverLetter ||
-      "No cover letter was generated.";
+    /* =========================
+       COPY COVER LETTER
+    ========================= */
+
+    async function copyCoverLetter() {
+
+      const content =
+        document.getElementById(
+          "coverLetterContent"
+        );
 
 
-    actions.style.display =
-      "block";
+      try {
+
+        await navigator.clipboard.writeText(
+          content.textContent
+        );
 
 
-  } catch (error) {
-
-    console.error(error);
-
-    content.textContent =
-      error.message ||
-      "Something went wrong.";
-
-  } finally {
-
-    loading.style.display =
-      "none";
-
-    button.disabled =
-      false;
-
-  }
-
-}
+        const button =
+          document.querySelector(
+            ".cover-letter-actions .primary"
+          );
 
 
-async function copyCoverLetter() {
-
-  const content =
-    document.getElementById(
-      "coverLetterContent"
-    );
+        const original =
+          button.textContent;
 
 
-  try {
-
-    await navigator.clipboard.writeText(
-      content.textContent
-    );
+        button.textContent =
+          "✓ Copied!";
 
 
-    const button =
-      document.querySelector(
-        ".cover-letter-actions button"
-      );
+        setTimeout(() => {
+
+          button.textContent =
+            original;
+
+        }, 1500);
 
 
-    const original =
-      button.textContent;
+      } catch (error) {
+
+        showError(
+          "Unable to copy the cover letter."
+        );
+
+      }
+
+    }
 
 
-    button.textContent =
-      "✓ Copied!";
+    /* =========================
+       INTERVIEW PREP
+    ========================= */
+
+    async function generateInterviewPrep() {
+
+      const jobDescriptionValue =
+        document
+          .getElementById("jobDescription")
+          .value
+          .trim();
 
 
-    setTimeout(() => {
+      const loading =
+        document.getElementById(
+          "interviewPrepLoading"
+        );
+
+
+      const content =
+        document.getElementById(
+          "interviewPrepContent"
+        );
+
+
+      const button =
+        document.getElementById(
+          "interviewPrepBtn"
+        );
+
+
+      if (!jobDescriptionValue) {
+
+        alert(
+          "Please enter a job description first."
+        );
+
+        return;
+
+      }
+
+
+      loading.style.display =
+        "flex";
+
+
+      content.innerHTML =
+        "";
+
+
+      button.disabled =
+        true;
+
 
       button.textContent =
-        original;
-
-    }, 1500);
+        "⏳ Preparing...";
 
 
-  } catch (error) {
+      try {
 
-    showError(
-      "Unable to copy the cover letter."
-    );
+        const response =
+          await fetch(
+            "/api/interview-prep",
+            {
+              method: "POST",
 
-  }
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
 
-}
+              body: JSON.stringify({
+                jobDescription:
+                  jobDescriptionValue
+              })
+            }
+          );
+
+
+        const data =
+          await response.json();
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            data.error ||
+            "Interview preparation failed."
+          );
+
+        }
+
+
+        renderInterviewPrep(data);
+
+
+      } catch (error) {
+
+        console.error(
+          "Interview Prep Error:",
+          error
+        );
+
+
+        content.innerHTML = `
+
+          <div class="interview-question">
+
+            ❌ ${escapeHtml(error.message)}
+
+          </div>
+
+        `;
+
+
+      } finally {
+
+        loading.style.display =
+          "none";
+
+
+        button.disabled =
+          false;
+
+
+        button.textContent =
+          "🎤 Prepare for Interview";
+
+      }
+
+    }
+
+
+    /* =========================
+       RENDER INTERVIEW PREP
+    ========================= */
+
+    function renderInterviewPrep(data) {
+
+      const content =
+        document.getElementById(
+          "interviewPrepContent"
+        );
+
+
+      let html =
+        "";
+
+
+      /* =========================
+         LIKELY QUESTIONS
+      ========================= */
+
+      if (data.questions?.length) {
+
+        html += `
+
+          <div class="interview-section">
+
+            <div class="interview-section-title">
+              🎯 Likely Interview Questions
+            </div>
+
+        `;
+
+
+        data.questions.forEach(
+          (item, index) => {
+
+            html += `
+
+              <div class="interview-question">
+
+                <div class="interview-question-title">
+
+                  ${index + 1}.
+                  ${escapeHtml(item.question)}
+
+                </div>
+
+
+                ${
+                  item.why
+                    ? `
+
+                      <div class="interview-question-why">
+
+                        ${escapeHtml(item.why)}
+
+                      </div>
+
+                    `
+                    : ""
+                }
+
+
+                ${
+                  item.suggestedAnswer
+                    ? `
+
+                      <div class="interview-answer">
+
+                        <strong>
+                          💡 Suggested Answer
+                        </strong>
+
+                        <br><br>
+
+                        ${escapeHtml(
+                          item.suggestedAnswer
+                        )}
+
+                      </div>
+
+                    `
+                    : ""
+                }
+
+              </div>
+
+            `;
+
+          }
+        );
+
+
+        html += `
+          </div>
+        `;
+
+      }
+
+
+      /* =========================
+         TECHNICAL QUESTIONS
+      ========================= */
+
+      if (data.technicalQuestions?.length) {
+
+        html += `
+
+          <div class="interview-section">
+
+            <div class="interview-section-title">
+              🧠 Technical Questions
+            </div>
+
+        `;
+
+
+        data.technicalQuestions.forEach(
+          (item, index) => {
+
+            html += `
+
+              <div class="interview-question">
+
+                <div class="interview-question-title">
+
+                  ${index + 1}.
+                  ${escapeHtml(item.question)}
+
+                </div>
+
+
+                ${
+                  item.suggestedAnswer
+                    ? `
+
+                      <div class="interview-answer">
+
+                        <strong>
+                          💡 Suggested Answer
+                        </strong>
+
+                        <br><br>
+
+                        ${escapeHtml(
+                          item.suggestedAnswer
+                        )}
+
+                      </div>
+
+                    `
+                    : ""
+                }
+
+              </div>
+
+            `;
+
+          }
+        );
+
+
+        html += `
+          </div>
+        `;
+
+      }
+
+
+      /* =========================
+         QUESTIONS TO ASK
+      ========================= */
+
+      if (data.questionsToAsk?.length) {
+
+        html += `
+
+          <div class="interview-section">
+
+            <div class="interview-section-title">
+              ❓ Questions You Should Ask
+            </div>
+
+        `;
+
+
+        data.questionsToAsk.forEach(
+          question => {
+
+            html += `
+
+              <div class="interview-ask">
+
+                ${escapeHtml(question)}
+
+              </div>
+
+            `;
+
+          }
+        );
+
+
+        html += `
+          </div>
+        `;
+
+      }
+
+
+      /* =========================
+         INTERVIEW TIPS
+      ========================= */
+
+      if (data.interviewTips?.length) {
+
+        html += `
+
+          <div class="interview-section">
+
+            <div class="interview-section-title">
+              💎 Interview Tips
+            </div>
+
+        `;
+
+
+        data.interviewTips.forEach(
+          tip => {
+
+            html += `
+
+              <div class="interview-tip">
+
+                ${escapeHtml(tip)}
+
+              </div>
+
+            `;
+
+          }
+        );
+
+
+        html += `
+          </div>
+        `;
+
+      }
+
+
+      if (!html) {
+
+        html = `
+
+          <div class="interview-question">
+
+            No interview preparation results were returned.
+
+          </div>
+
+        `;
+
+      }
+
+
+      content.innerHTML =
+        html;
+
+    }
+
   </script>
 
 </body>
+
 </html>
+```
