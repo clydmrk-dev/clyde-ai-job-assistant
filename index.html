@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Clyde AI Job Assistant</title>
+  <title>Clyde AI — Job Intelligence</title>
 
   <style>
     * {
@@ -13,27 +13,64 @@
       padding: 0;
     }
 
+    :root {
+      --bg: #f5f6f8;
+      --surface: #ffffff;
+      --surface-soft: #f8f9fb;
+      --border: #e7e9ee;
+      --text: #111318;
+      --muted: #707783;
+      --muted-light: #969ca7;
+      --green: #16a05d;
+      --green-bg: #eaf8f0;
+      --blue: #5267d9;
+      --blue-bg: #eef1ff;
+      --yellow: #b7791f;
+      --yellow-bg: #fff8e7;
+      --red: #c24141;
+      --red-bg: #fff0f0;
+      --shadow: 0 12px 40px rgba(17, 19, 24, 0.06);
+    }
+
     body {
-      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        Roboto, Helvetica, Arial, sans-serif;
-      background: #f6f7fb;
-      color: #17181c;
+      font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+      background: var(--bg);
+      color: var(--text);
       min-height: 100vh;
     }
 
-    .app {
-      max-width: 1180px;
-      margin: auto;
-      padding: 32px 24px 60px;
+    button,
+    textarea {
+      font-family: inherit;
     }
 
-    /* HEADER */
+    /* =========================
+       APP
+    ========================= */
+
+    .app {
+      max-width: 1240px;
+      margin: auto;
+      padding: 28px 24px 80px;
+    }
+
+    /* =========================
+       HEADER
+    ========================= */
 
     header {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      margin-bottom: 42px;
+      justify-content: space-between;
+      margin-bottom: 55px;
     }
 
     .brand {
@@ -45,156 +82,259 @@
     .logo {
       width: 42px;
       height: 42px;
-      border-radius: 12px;
+
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #111827;
+
+      border-radius: 12px;
+
+      background: var(--text);
       color: white;
-      font-size: 20px;
-      font-weight: 700;
-    }
 
-    .brand h1 {
       font-size: 19px;
-      letter-spacing: -0.4px;
+      font-weight: 800;
     }
 
-    .brand span {
-      display: block;
-      color: #7b8190;
-      font-size: 12px;
+    .brand-name {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .brand-subtitle {
+      font-size: 11px;
+      color: var(--muted);
       margin-top: 2px;
     }
 
-    .linkedin-status {
-      background: #eaf7ef;
-      color: #18864b;
-      border: 1px solid #ccebd8;
-      padding: 9px 14px;
+    .status {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+
+      padding: 8px 13px;
+
       border-radius: 999px;
-      font-size: 13px;
-      font-weight: 600;
+
+      background: var(--green-bg);
+      border: 1px solid #d3f0df;
+
+      color: var(--green);
+
+      font-size: 12px;
+      font-weight: 700;
     }
 
-    /* HERO */
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+    }
+
+    /* =========================
+       HERO
+    ========================= */
 
     .hero {
-      margin-bottom: 28px;
+      max-width: 760px;
+      margin-bottom: 30px;
     }
 
     .eyebrow {
-      font-size: 12px;
+      font-size: 11px;
+      font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: #7a8190;
-      font-weight: 700;
-      margin-bottom: 10px;
+      letter-spacing: 1.8px;
+      color: var(--muted);
+      margin-bottom: 13px;
     }
 
-    .hero h2 {
-      font-size: clamp(32px, 5vw, 54px);
-      letter-spacing: -2.5px;
-      line-height: 1;
-      max-width: 700px;
-      margin-bottom: 14px;
+    .hero h1 {
+      font-size: clamp(38px, 6vw, 66px);
+      line-height: 0.98;
+      letter-spacing: -3.5px;
+      margin-bottom: 18px;
     }
 
-    .hero p {
-      color: #6c7280;
-      max-width: 650px;
+    .hero h1 span {
+      color: #858b96;
+    }
+
+    .hero-description {
       font-size: 16px;
-      line-height: 1.6;
+      line-height: 1.7;
+      color: var(--muted);
+      max-width: 650px;
     }
 
-    /* INPUT */
+    /* =========================
+       INPUT
+    ========================= */
 
     .input-card {
-      background: white;
-      border: 1px solid #e7e9ef;
-      border-radius: 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+
       padding: 22px;
-      box-shadow: 0 8px 30px rgba(20, 25, 40, 0.05);
+
+      box-shadow: var(--shadow);
+
       margin-bottom: 28px;
     }
 
-    .input-card label {
-      display: block;
+    .input-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      margin-bottom: 12px;
+    }
+
+    .input-title {
       font-size: 13px;
-      font-weight: 700;
-      margin-bottom: 10px;
+      font-weight: 800;
+    }
+
+    .input-hint {
+      font-size: 11px;
+      color: var(--muted-light);
     }
 
     textarea {
       width: 100%;
-      min-height: 210px;
-      border: 1px solid #e2e5eb;
-      border-radius: 14px;
-      padding: 16px;
+      min-height: 200px;
+
       resize: vertical;
-      font-family: inherit;
-      font-size: 14px;
-      line-height: 1.6;
+
+      border: 1px solid var(--border);
+      border-radius: 15px;
+
+      padding: 17px;
+
+      background: var(--surface-soft);
+
+      color: var(--text);
+
       outline: none;
-      transition: 0.2s;
+
+      font-size: 14px;
+      line-height: 1.65;
+
+      transition:
+        border 0.2s,
+        box-shadow 0.2s,
+        background 0.2s;
+    }
+
+    textarea::placeholder {
+      color: #a2a7b1;
     }
 
     textarea:focus {
-      border-color: #111827;
-      box-shadow: 0 0 0 3px rgba(17, 24, 39, 0.06);
+      background: white;
+
+      border-color: #cfd3da;
+
+      box-shadow:
+        0 0 0 4px rgba(17, 19, 24, 0.04);
     }
 
-    .analyze-row {
+    .input-footer {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-top: 14px;
-      gap: 12px;
+
+      margin-top: 13px;
     }
 
-    .helper {
-      font-size: 12px;
-      color: #8a909d;
+    .input-helper {
+      color: var(--muted-light);
+      font-size: 11px;
     }
 
-    button {
+    .analyze-button {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
       border: none;
-      background: #111827;
+
+      padding: 12px 18px;
+
+      border-radius: 11px;
+
+      background: var(--text);
       color: white;
-      padding: 13px 20px;
-      border-radius: 12px;
-      font-weight: 700;
+
+      font-size: 13px;
+      font-weight: 800;
+
       cursor: pointer;
-      transition: 0.2s;
+
+      transition:
+        transform 0.2s,
+        background 0.2s;
     }
 
-    button:hover {
+    .analyze-button:hover {
       transform: translateY(-1px);
-      background: #202938;
+      background: #242832;
     }
 
-    button:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
+    .analyze-button:disabled {
+      opacity: 0.55;
+      cursor: wait;
       transform: none;
     }
 
-    /* LOADING */
+    /* =========================
+       ERROR
+    ========================= */
+
+    .error {
+      display: none;
+
+      background: var(--red-bg);
+      border: 1px solid #ffd7d7;
+
+      color: var(--red);
+
+      padding: 13px 15px;
+
+      border-radius: 12px;
+
+      margin-bottom: 20px;
+
+      font-size: 12px;
+    }
+
+    /* =========================
+       LOADING
+    ========================= */
 
     .loading {
       display: none;
+
       text-align: center;
-      padding: 60px 20px;
+
+      padding: 70px 20px;
     }
 
-    .spinner {
-      width: 36px;
-      height: 36px;
-      border: 3px solid #e4e6eb;
-      border-top-color: #111827;
+    .loader {
+      width: 42px;
+      height: 42px;
+
+      margin: auto auto 17px;
+
       border-radius: 50%;
+
+      border: 3px solid #e5e7eb;
+      border-top-color: var(--text);
+
       animation: spin 0.8s linear infinite;
-      margin: 0 auto 16px;
     }
 
     @keyframes spin {
@@ -203,271 +343,503 @@
       }
     }
 
-    .loading p {
-      color: #737986;
+    .loading-title {
+      font-weight: 800;
       font-size: 14px;
+      margin-bottom: 5px;
     }
 
-    /* RESULTS */
+    .loading-text {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* =========================
+       RESULTS
+    ========================= */
 
     #results {
       display: none;
+      animation: fadeIn 0.45s ease;
     }
 
-    .result-header {
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .result-top {
       display: flex;
+      align-items: center;
       justify-content: space-between;
-      align-items: flex-start;
-      gap: 20px;
+
+      gap: 25px;
+
       margin-bottom: 20px;
     }
 
-    .result-header h3 {
-      font-size: 26px;
-      letter-spacing: -1px;
+    .result-label {
+      font-size: 10px;
+
+      text-transform: uppercase;
+
+      letter-spacing: 1.5px;
+
+      font-weight: 800;
+
+      color: var(--muted);
+
+      margin-bottom: 7px;
+    }
+
+    .result-title {
+      font-size: 30px;
+
+      letter-spacing: -1.5px;
+
       margin-bottom: 6px;
     }
 
-    .result-header p {
-      color: #747a87;
-      font-size: 14px;
+    .result-subtitle {
+      font-size: 12px;
+      color: var(--muted);
     }
 
-    .score-card {
-      background: #111827;
-      color: white;
-      border-radius: 18px;
-      padding: 18px 22px;
-      min-width: 145px;
-      text-align: center;
+    /* =========================
+       SCORE
+    ========================= */
+
+    .score-container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
     }
 
-    .score {
-      font-size: 36px;
-      font-weight: 800;
-      letter-spacing: -2px;
+    .score-ring {
+      width: 96px;
+      height: 96px;
+
+      position: relative;
+
+      border-radius: 50%;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background:
+        conic-gradient(
+          var(--score-color) var(--score),
+          #e9ebef 0
+        );
     }
 
-    .score-label {
-      font-size: 11px;
-      opacity: 0.65;
+    .score-ring::after {
+      content: "";
+
+      position: absolute;
+
+      width: 72px;
+      height: 72px;
+
+      background: var(--surface);
+
+      border-radius: 50%;
+    }
+
+    .score-number {
+      position: relative;
+      z-index: 2;
+
+      font-size: 21px;
+      font-weight: 900;
+
+      letter-spacing: -1px;
+    }
+
+    .score-meta {
+      min-width: 125px;
+    }
+
+    .score-caption {
+      font-size: 10px;
+
       text-transform: uppercase;
+
       letter-spacing: 1px;
+
+      color: var(--muted);
+
+      margin-bottom: 5px;
     }
 
-    .match-level {
-      margin-top: 5px;
+    .score-level {
       font-size: 13px;
-      font-weight: 600;
+      font-weight: 800;
     }
 
-    /* GRID */
+    /* =========================
+       GRID
+    ========================= */
 
     .grid {
       display: grid;
-      grid-template-columns: 1.4fr 1fr;
-      gap: 18px;
+
+      grid-template-columns:
+        minmax(0, 1.35fr)
+        minmax(300px, 0.85fr);
+
+      gap: 17px;
     }
 
     .card {
-      background: white;
-      border: 1px solid #e7e9ef;
+      background: var(--surface);
+
+      border: 1px solid var(--border);
+
       border-radius: 18px;
-      padding: 22px;
-      box-shadow: 0 5px 20px rgba(20, 25, 40, 0.035);
+
+      padding: 21px;
+
+      box-shadow:
+        0 5px 20px rgba(17, 19, 24, 0.035);
     }
 
-    .card.full {
+    .full {
       grid-column: 1 / -1;
     }
 
-    .card-title {
-      font-size: 13px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: #7a8190;
+    .card-heading {
+      display: flex;
+
+      align-items: center;
+
+      gap: 9px;
+
       margin-bottom: 16px;
     }
 
-    .summary {
-      font-size: 16px;
-      line-height: 1.7;
-      color: #454b57;
+    .card-icon {
+      width: 29px;
+      height: 29px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 9px;
+
+      background: var(--surface-soft);
+
+      font-size: 14px;
     }
 
-    /* STRENGTHS */
+    .card-title {
+      font-size: 12px;
+
+      font-weight: 900;
+
+      text-transform: uppercase;
+
+      letter-spacing: 1px;
+    }
+
+    .summary {
+      color: #4d535e;
+
+      font-size: 14px;
+
+      line-height: 1.75;
+    }
+
+    /* =========================
+       STRENGTHS
+    ========================= */
 
     .strength {
       display: flex;
+
       gap: 12px;
-      padding: 13px 0;
-      border-bottom: 1px solid #f0f1f4;
+
+      padding: 12px 0;
+
+      border-bottom: 1px solid #f0f1f3;
+    }
+
+    .strength:first-child {
+      padding-top: 0;
     }
 
     .strength:last-child {
       border-bottom: none;
+      padding-bottom: 0;
     }
 
     .check {
-      width: 28px;
-      height: 28px;
-      border-radius: 9px;
-      background: #eaf7ef;
-      color: #18864b;
+      width: 27px;
+      height: 27px;
+
+      flex-shrink: 0;
+
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-shrink: 0;
-      font-weight: 800;
+
+      border-radius: 8px;
+
+      background: var(--green-bg);
+
+      color: var(--green);
+
+      font-size: 12px;
+      font-weight: 900;
     }
 
-    .strength strong {
-      display: block;
-      font-size: 14px;
-      margin-bottom: 4px;
-    }
-
-    .strength p {
-      color: #747a87;
+    .strength-title {
       font-size: 13px;
-      line-height: 1.5;
+      font-weight: 800;
+
+      margin-bottom: 3px;
     }
 
-    /* SKILLS */
+    .strength-description {
+      color: var(--muted);
+
+      font-size: 11px;
+
+      line-height: 1.55;
+    }
+
+    /* =========================
+       SKILLS
+    ========================= */
 
     .skills {
       display: flex;
+
       flex-wrap: wrap;
-      gap: 8px;
+
+      gap: 7px;
     }
 
     .skill {
-      padding: 8px 11px;
-      border-radius: 9px;
+      padding: 7px 10px;
+
+      border-radius: 8px;
+
       background: #f2f3f6;
-      font-size: 12px;
-      font-weight: 600;
-      color: #4c5260;
+
+      color: #505661;
+
+      font-size: 11px;
+
+      font-weight: 700;
     }
 
     .skill.high {
-      background: #edf2ff;
-      color: #4056a1;
+      background: var(--blue-bg);
+      color: var(--blue);
     }
 
-    /* GAPS */
+    /* =========================
+       GAPS
+    ========================= */
 
     .gap {
-      padding: 13px 0;
-      border-bottom: 1px solid #f0f1f4;
+      padding: 12px 0;
+
+      border-bottom: 1px solid #f0f1f3;
+    }
+
+    .gap:first-child {
+      padding-top: 0;
     }
 
     .gap:last-child {
       border-bottom: none;
+      padding-bottom: 0;
     }
 
-    .gap strong {
-      display: block;
-      font-size: 14px;
-      margin-bottom: 4px;
-    }
-
-    .gap p {
+    .gap-title {
       font-size: 13px;
-      color: #747a87;
-      line-height: 1.5;
+      font-weight: 800;
+
+      margin-bottom: 3px;
     }
 
-    /* RECOMMENDATION */
+    .gap-description {
+      color: var(--muted);
 
-    .recommendation {
+      font-size: 11px;
+
+      line-height: 1.55;
+    }
+
+    .no-gaps {
+      color: var(--green);
+
+      font-size: 12px;
+
+      font-weight: 700;
+    }
+
+    /* =========================
+       RECOMMENDATION
+    ========================= */
+
+    .recommendation-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .recommendation-card.apply {
+      border-color: #cdebd9;
+      background: linear-gradient(
+        135deg,
+        #ffffff,
+        #f4fbf7
+      );
+    }
+
+    .recommendation-content {
       display: flex;
-      align-items: center;
+
+      align-items: flex-start;
+
       justify-content: space-between;
+
       gap: 20px;
     }
 
-    .recommendation-badge {
-      font-size: 25px;
+    .recommendation-title {
+      font-size: 28px;
+
+      letter-spacing: -1.5px;
+
       font-weight: 900;
-      letter-spacing: -1px;
     }
 
-    .recommendation p {
-      color: #747a87;
-      font-size: 14px;
+    .recommendation-reason {
+      color: var(--muted);
+
+      font-size: 12px;
+
       line-height: 1.6;
+
       max-width: 700px;
+
       margin-top: 6px;
     }
 
-    .apply {
-      background: #eaf7ef;
-      color: #18864b;
-      padding: 10px 16px;
+    .recommendation-badge {
+      padding: 9px 13px;
+
       border-radius: 999px;
-      font-weight: 800;
-      font-size: 13px;
+
+      background: var(--green-bg);
+
+      color: var(--green);
+
+      font-size: 11px;
+
+      font-weight: 900;
+
       white-space: nowrap;
     }
 
-    /* ERROR */
+    /* =========================
+       NEW ANALYSIS
+    ========================= */
 
-    .error {
-      display: none;
-      background: #fff1f1;
-      color: #b42318;
-      border: 1px solid #ffd5d2;
-      padding: 14px 16px;
-      border-radius: 12px;
-      margin-bottom: 20px;
-      font-size: 13px;
+    .new-analysis {
+      display: flex;
+
+      justify-content: center;
+
+      margin-top: 22px;
     }
 
-    /* RESPONSIVE */
+    .new-analysis button {
+      border: 1px solid var(--border);
 
-    @media (max-width: 760px) {
+      background: white;
+
+      color: var(--text);
+
+      padding: 10px 16px;
+
+      border-radius: 10px;
+
+      font-size: 12px;
+
+      font-weight: 800;
+
+      cursor: pointer;
+    }
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 780px) {
+
       .app {
-        padding: 22px 16px 40px;
+        padding: 22px 16px 60px;
       }
 
       header {
+        margin-bottom: 40px;
+      }
+
+      .status {
+        display: none;
+      }
+
+      .hero h1 {
+        letter-spacing: -2px;
+      }
+
+      .input-footer {
+        flex-direction: column;
+
+        align-items: stretch;
+      }
+
+      .analyze-button {
+        justify-content: center;
+      }
+
+      .result-top {
+        flex-direction: column;
+
         align-items: flex-start;
       }
 
-      .linkedin-status {
-        display: none;
+      .score-container {
+        width: 100%;
+      }
+
+      .score-meta {
+        flex: 1;
       }
 
       .grid {
         grid-template-columns: 1fr;
       }
 
-      .card.full {
+      .full {
         grid-column: auto;
       }
 
-      .result-header {
+      .recommendation-content {
         flex-direction: column;
-      }
-
-      .score-card {
-        width: 100%;
-      }
-
-      .analyze-row {
-        flex-direction: column;
-        align-items: stretch;
-      }
-
-      button {
-        width: 100%;
-      }
-
-      .recommendation {
-        flex-direction: column;
-        align-items: flex-start;
       }
     }
   </style>
@@ -475,507 +847,839 @@
 
 <body>
 
-<div class="app">
+  <div class="app">
 
-  <header>
-    <div class="brand">
-      <div class="logo">C</div>
-      <div>
-        <h1>Clyde AI</h1>
-        <span>Job Assistant</span>
+    <!-- HEADER -->
+
+    <header>
+
+      <div class="brand">
+
+        <div class="logo">
+          C
+        </div>
+
+        <div>
+
+          <div class="brand-name">
+            Clyde AI
+          </div>
+
+          <div class="brand-subtitle">
+            Job Intelligence
+          </div>
+
+        </div>
+
       </div>
+
+      <div class="status">
+        <span class="status-dot"></span>
+        LinkedIn Connected
+      </div>
+
+    </header>
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+      <div class="eyebrow">
+        AI Career Intelligence
+      </div>
+
+      <h1>
+        Find your next
+        <span>opportunity.</span>
+      </h1>
+
+      <p class="hero-description">
+        Paste any job description and Clyde will break down
+        the opportunity, identify important skills, evaluate
+        the role, and help you decide whether it's worth applying.
+      </p>
+
+    </section>
+
+
+    <!-- INPUT -->
+
+    <section class="input-card">
+
+      <div class="input-header">
+
+        <div class="input-title">
+          Job Description
+        </div>
+
+        <div class="input-hint">
+          Paste the full description for the best analysis
+        </div>
+
+      </div>
+
+
+      <textarea
+        id="jobDescription"
+        placeholder="Paste a job description here..."
+      ></textarea>
+
+
+      <div class="input-footer">
+
+        <div class="input-helper">
+          Powered by Clyde AI
+        </div>
+
+        <button
+          class="analyze-button"
+          id="analyzeBtn"
+        >
+          ✨ Analyze Job
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- ERROR -->
+
+    <div
+      class="error"
+      id="error"
+    ></div>
+
+
+    <!-- LOADING -->
+
+    <div
+      class="loading"
+      id="loading"
+    >
+
+      <div class="loader"></div>
+
+      <div class="loading-title">
+        Clyde is thinking...
+      </div>
+
+      <div class="loading-text">
+        Analyzing the role and identifying key requirements.
+      </div>
+
     </div>
 
-    <div class="linkedin-status">
-      ● LinkedIn Connected
-    </div>
-  </header>
 
+    <!-- RESULTS -->
 
-  <section class="hero">
-    <div class="eyebrow">AI Career Intelligence</div>
+    <section id="results">
 
-    <h2>Find out if the job is right for you.</h2>
+      <div class="result-top">
 
-    <p>
-      Paste a job description and Clyde will analyze the role,
-      identify key skills, highlight strengths, and recommend
-      whether you should apply.
-    </p>
-  </section>
+        <div>
 
+          <div class="result-label">
+            Job Analysis
+          </div>
 
-  <section class="input-card">
+          <h2
+            class="result-title"
+            id="jobTitle"
+          >
+            Job Title
+          </h2>
 
-    <label for="jobDescription">
-      Job Description
-    </label>
+          <div class="result-subtitle">
+            Personalized AI assessment
+          </div>
 
-    <textarea
-      id="jobDescription"
-      placeholder="Paste the complete job description here..."
-    ></textarea>
-
-    <div class="analyze-row">
-
-      <div class="helper">
-        Clyde analyzes requirements, skills, and responsibilities.
-      </div>
-
-      <button id="analyzeBtn">
-        ✨ Analyze Job
-      </button>
-
-    </div>
-
-  </section>
-
-
-  <div class="error" id="error"></div>
-
-
-  <div class="loading" id="loading">
-
-    <div class="spinner"></div>
-
-    <p>
-      Clyde is analyzing the opportunity...
-    </p>
-
-  </div>
-
-
-  <section id="results">
-
-    <div class="result-header">
-
-      <div>
-        <h3 id="jobTitle">
-          Job Analysis
-        </h3>
-
-        <p>
-          AI-powered career assessment
-        </p>
-      </div>
-
-      <div class="score-card">
-
-        <div class="score">
-          <span id="matchScore">0</span>%
         </div>
 
-        <div class="score-label">
-          Match Score
-        </div>
 
-        <div class="match-level" id="matchLevel">
-          —
+        <div class="score-container">
+
+          <div
+            class="score-ring"
+            id="scoreRing"
+            style="
+              --score: 0%;
+              --score-color: #16a05d;
+            "
+          >
+
+            <div class="score-number">
+              <span id="matchScore">0</span>%
+            </div>
+
+          </div>
+
+
+          <div class="score-meta">
+
+            <div class="score-caption">
+              Match Score
+            </div>
+
+            <div
+              class="score-level"
+              id="matchLevel"
+            >
+              —
+            </div>
+
+          </div>
+
         </div>
 
       </div>
 
-    </div>
+
+      <div class="grid">
 
 
-    <div class="grid">
+        <!-- SUMMARY -->
 
-      <!-- SUMMARY -->
+        <div class="card full">
 
-      <div class="card full">
+          <div class="card-heading">
 
-        <div class="card-title">
-          ✨ AI Assessment
+            <div class="card-icon">
+              ✨
+            </div>
+
+            <div class="card-title">
+              AI Assessment
+            </div>
+
+          </div>
+
+          <div
+            class="summary"
+            id="summary"
+          ></div>
+
         </div>
 
-        <div class="summary" id="summary"></div>
 
-      </div>
+        <!-- STRENGTHS -->
 
+        <div class="card">
 
-      <!-- STRENGTHS -->
+          <div class="card-heading">
 
-      <div class="card">
+            <div class="card-icon">
+              🎯
+            </div>
 
-        <div class="card-title">
-          🎯 Strengths
+            <div class="card-title">
+              Your Strengths
+            </div>
+
+          </div>
+
+          <div id="strengths"></div>
+
         </div>
 
-        <div id="strengths"></div>
 
-      </div>
+        <!-- SKILLS -->
 
+        <div class="card">
 
-      <!-- SKILLS -->
+          <div class="card-heading">
 
-      <div class="card">
+            <div class="card-icon">
+              🧠
+            </div>
 
-        <div class="card-title">
-          🧠 Required Skills
+            <div class="card-title">
+              Key Skills
+            </div>
+
+          </div>
+
+          <div
+            class="skills"
+            id="skills"
+          ></div>
+
         </div>
 
-        <div class="skills" id="skills"></div>
 
-      </div>
+        <!-- GAPS -->
 
+        <div class="card">
 
-      <!-- GAPS -->
+          <div class="card-heading">
 
-      <div class="card">
+            <div class="card-icon">
+              ⚠️
+            </div>
 
-        <div class="card-title">
-          ⚠️ Potential Gaps
+            <div class="card-title">
+              Potential Gaps
+            </div>
+
+          </div>
+
+          <div id="gaps"></div>
+
         </div>
 
-        <div id="gaps"></div>
 
-      </div>
+        <!-- RECOMMENDATION -->
+
+        <div
+          class="card recommendation-card"
+          id="recommendationCard"
+        >
+
+          <div class="card-heading">
+
+            <div class="card-icon">
+              🚀
+            </div>
+
+            <div class="card-title">
+              Recommendation
+            </div>
+
+          </div>
 
 
-      <!-- RECOMMENDATION -->
+          <div class="recommendation-content">
 
-      <div class="card">
+            <div>
 
-        <div class="card-title">
-          🚀 Recommendation
-        </div>
+              <div
+                class="recommendation-title"
+                id="recommendation"
+              >
+                APPLY
+              </div>
 
-        <div class="recommendation">
+              <div
+                class="recommendation-reason"
+                id="recommendationReason"
+              ></div>
 
-          <div>
+            </div>
+
+
             <div
               class="recommendation-badge"
-              id="recommendation"
+              id="recommendationBadge"
             >
               APPLY
             </div>
 
-            <p id="recommendationReason"></p>
-          </div>
-
-          <div
-            class="apply"
-            id="recommendationBadge"
-          >
-            APPLY
           </div>
 
         </div>
 
       </div>
 
-    </div>
 
-  </section>
+      <!-- NEW ANALYSIS -->
 
-</div>
+      <div class="new-analysis">
 
+        <button
+          onclick="resetAnalysis()"
+        >
+          ↻ Analyze Another Job
+        </button>
 
-<script>
+      </div>
 
-  const analyzeBtn =
-    document.getElementById("analyzeBtn");
+    </section>
 
-  const jobDescription =
-    document.getElementById("jobDescription");
-
-  const loading =
-    document.getElementById("loading");
-
-  const results =
-    document.getElementById("results");
-
-  const errorBox =
-    document.getElementById("error");
+  </div>
 
 
-  analyzeBtn.addEventListener("click", analyzeJob);
+  <script>
+
+    const analyzeBtn =
+      document.getElementById("analyzeBtn");
+
+    const jobDescription =
+      document.getElementById("jobDescription");
+
+    const loading =
+      document.getElementById("loading");
+
+    const results =
+      document.getElementById("results");
+
+    const errorBox =
+      document.getElementById("error");
 
 
-  async function analyzeJob() {
-
-    const job = jobDescription.value.trim();
-
-    if (!job) {
-
-      showError(
-        "Please paste a job description first."
-      );
-
-      return;
-
-    }
+    analyzeBtn.addEventListener(
+      "click",
+      analyzeJob
+    );
 
 
-    errorBox.style.display = "none";
+    async function analyzeJob() {
 
-    results.style.display = "none";
-
-    loading.style.display = "block";
-
-    analyzeBtn.disabled = true;
+      const job =
+        jobDescription.value.trim();
 
 
-    try {
+      if (!job) {
 
-      const response = await fetch(
-        "/api/ai",
-        {
-          method: "POST",
-
-          headers: {
-            "Content-Type": "application/json"
-          },
-
-          body: JSON.stringify({
-            jobDescription: job
-          })
-        }
-      );
-
-
-      const data =
-        await response.json();
-
-
-      if (!response.ok) {
-
-        throw new Error(
-          data.error ||
-          "Something went wrong."
+        showError(
+          "Paste a job description first."
         );
+
+        return;
 
       }
 
 
-      renderResults(data);
+      errorBox.style.display =
+        "none";
+
+      results.style.display =
+        "none";
+
+      loading.style.display =
+        "block";
+
+      analyzeBtn.disabled =
+        true;
 
 
-    } catch (error) {
+      try {
 
-      console.error(error);
+        const response =
+          await fetch(
+            "/api/ai",
+            {
+              method: "POST",
 
-      showError(
-        error.message ||
-        "Something went wrong."
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
+
+              body: JSON.stringify({
+                jobDescription: job
+              })
+            }
+          );
+
+
+        const data =
+          await response.json();
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            data.error ||
+            "Something went wrong."
+          );
+
+        }
+
+
+        renderResults(data);
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        showError(
+          error.message ||
+          "Something went wrong."
+        );
+
+
+      } finally {
+
+        loading.style.display =
+          "none";
+
+        analyzeBtn.disabled =
+          false;
+
+      }
+
+    }
+
+
+    function renderResults(data) {
+
+      document.getElementById(
+        "jobTitle"
+      ).textContent =
+        data.jobTitle ||
+        "Job Analysis";
+
+
+      const score =
+        Math.max(
+          0,
+          Math.min(
+            100,
+            Number(data.matchScore) || 0
+          )
+        );
+
+
+      document.getElementById(
+        "matchScore"
+      ).textContent =
+        score;
+
+
+      document.getElementById(
+        "matchLevel"
+      ).textContent =
+        data.matchLevel ||
+        "Match";
+
+
+      const ring =
+        document.getElementById(
+          "scoreRing"
+        );
+
+
+      let color =
+        "#16a05d";
+
+
+      if (score < 70) {
+
+        color =
+          "#b7791f";
+
+      }
+
+
+      if (score < 50) {
+
+        color =
+          "#c24141";
+
+      }
+
+
+      ring.style.setProperty(
+        "--score",
+        "0%"
       );
 
-    } finally {
+      ring.style.setProperty(
+        "--score-color",
+        color
+      );
 
-      loading.style.display = "none";
 
-      analyzeBtn.disabled = false;
+      setTimeout(() => {
+
+        ring.style.setProperty(
+          "--score",
+          score + "%"
+        );
+
+      }, 100);
+
+
+      document.getElementById(
+        "summary"
+      ).textContent =
+        data.summary ||
+        "No summary available.";
+
+
+      renderStrengths(
+        data.strengths || []
+      );
+
+
+      renderSkills(
+        data.skills || []
+      );
+
+
+      renderGaps(
+        data.gaps || []
+      );
+
+
+      const recommendation =
+        data.recommendation ||
+        "CONSIDER";
+
+
+      document.getElementById(
+        "recommendation"
+      ).textContent =
+        recommendation;
+
+
+      document.getElementById(
+        "recommendationBadge"
+      ).textContent =
+        recommendation;
+
+
+      document.getElementById(
+        "recommendationReason"
+      ).textContent =
+        data.recommendationReason ||
+        "";
+
+
+      const card =
+        document.getElementById(
+          "recommendationCard"
+        );
+
+
+      card.classList.toggle(
+        "apply",
+        recommendation === "APPLY"
+      );
+
+
+      results.style.display =
+        "block";
+
+
+      results.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
 
     }
 
-  }
 
+    function renderStrengths(items) {
 
-  function renderResults(data) {
+      const container =
+        document.getElementById(
+          "strengths"
+        );
 
-    document.getElementById("jobTitle")
-      .textContent =
-      data.jobTitle ||
-      "Job Analysis";
-
-
-    document.getElementById("matchScore")
-      .textContent =
-      data.matchScore ?? 0;
-
-
-    document.getElementById("matchLevel")
-      .textContent =
-      data.matchLevel ||
-      "Match";
-
-
-    document.getElementById("summary")
-      .textContent =
-      data.summary ||
-      "No summary available.";
-
-
-    renderStrengths(
-      data.strengths || []
-    );
-
-
-    renderSkills(
-      data.skills || []
-    );
-
-
-    renderGaps(
-      data.gaps || []
-    );
-
-
-    document.getElementById(
-      "recommendation"
-    ).textContent =
-      data.recommendation ||
-      "CONSIDER";
-
-
-    document.getElementById(
-      "recommendationBadge"
-    ).textContent =
-      data.recommendation ||
-      "CONSIDER";
-
-
-    document.getElementById(
-      "recommendationReason"
-    ).textContent =
-      data.recommendationReason ||
-      "";
-
-
-    results.style.display =
-      "block";
-
-
-    results.scrollIntoView({
-      behavior: "smooth",
-      block: "start"
-    });
-
-  }
-
-
-  function renderStrengths(items) {
-
-    const container =
-      document.getElementById("strengths");
-
-    container.innerHTML = "";
-
-
-    items.forEach(item => {
-
-      const element =
-        document.createElement("div");
-
-      element.className =
-        "strength";
-
-      element.innerHTML = `
-        <div class="check">✓</div>
-
-        <div>
-          <strong>
-            ${escapeHtml(item.title)}
-          </strong>
-
-          <p>
-            ${escapeHtml(item.description)}
-          </p>
-        </div>
-      `;
-
-      container.appendChild(element);
-
-    });
-
-  }
-
-
-  function renderSkills(items) {
-
-    const container =
-      document.getElementById("skills");
-
-    container.innerHTML = "";
-
-
-    items.forEach(item => {
-
-      const element =
-        document.createElement("span");
-
-      element.className =
-        "skill " +
-        (item.importance === "High"
-          ? "high"
-          : "");
-
-      element.textContent =
-        item.name;
-
-      container.appendChild(element);
-
-    });
-
-  }
-
-
-  function renderGaps(items) {
-
-    const container =
-      document.getElementById("gaps");
-
-    container.innerHTML = "";
-
-
-    if (!items.length) {
 
       container.innerHTML =
-        "<p style='color:#747a87;font-size:13px;'>No major gaps identified.</p>";
+        "";
 
-      return;
+
+      items.forEach(item => {
+
+        const element =
+          document.createElement(
+            "div"
+          );
+
+
+        element.className =
+          "strength";
+
+
+        element.innerHTML = `
+
+          <div class="check">
+            ✓
+          </div>
+
+          <div>
+
+            <div class="strength-title">
+              ${escapeHtml(item.title)}
+            </div>
+
+            <div class="strength-description">
+              ${escapeHtml(item.description)}
+            </div>
+
+          </div>
+
+        `;
+
+
+        container.appendChild(
+          element
+        );
+
+      });
 
     }
 
 
-    items.forEach(item => {
+    function renderSkills(items) {
 
-      const element =
-        document.createElement("div");
-
-      element.className =
-        "gap";
-
-      element.innerHTML = `
-        <strong>
-          ${escapeHtml(item.title)}
-        </strong>
-
-        <p>
-          ${escapeHtml(item.description)}
-        </p>
-      `;
-
-      container.appendChild(element);
-
-    });
-
-  }
+      const container =
+        document.getElementById(
+          "skills"
+        );
 
 
-  function showError(message) {
-
-    errorBox.textContent =
-      message;
-
-    errorBox.style.display =
-      "block";
-
-  }
+      container.innerHTML =
+        "";
 
 
-  function escapeHtml(value) {
+      items.forEach(item => {
 
-    return String(value)
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
+        const element =
+          document.createElement(
+            "span"
+          );
 
-  }
 
-</script>
+        element.className =
+          "skill " +
+          (
+            item.importance === "High"
+              ? "high"
+              : ""
+          );
+
+
+        element.textContent =
+          item.name;
+
+
+        container.appendChild(
+          element
+        );
+
+      });
+
+    }
+
+
+    function renderGaps(items) {
+
+      const container =
+        document.getElementById(
+          "gaps"
+        );
+
+
+      container.innerHTML =
+        "";
+
+
+      if (!items.length) {
+
+        container.innerHTML = `
+
+          <div class="no-gaps">
+            ✓ No major gaps identified.
+          </div>
+
+        `;
+
+        return;
+
+      }
+
+
+      items.forEach(item => {
+
+        const element =
+          document.createElement(
+            "div"
+          );
+
+
+        element.className =
+          "gap";
+
+
+        element.innerHTML = `
+
+          <div class="gap-title">
+            ${escapeHtml(item.title)}
+          </div>
+
+          <div class="gap-description">
+            ${escapeHtml(item.description)}
+          </div>
+
+        `;
+
+
+        container.appendChild(
+          element
+        );
+
+      });
+
+    }
+
+
+    function showError(message) {
+
+      errorBox.textContent =
+        message;
+
+      errorBox.style.display =
+        "block";
+
+    }
+
+
+    function resetAnalysis() {
+
+      results.style.display =
+        "none";
+
+      errorBox.style.display =
+        "none";
+
+      jobDescription.focus();
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
+    }
+
+
+    function escapeHtml(value) {
+
+      return String(value)
+
+        .replace(
+          /&/g,
+          "&amp;"
+        )
+
+        .replace(
+          /</g,
+          "&lt;"
+        )
+
+        .replace(
+          />/g,
+          "&gt;"
+        )
+
+        .replace(
+          /"/g,
+          "&quot;"
+        )
+
+        .replace(
+          /'/g,
+          "&#039;"
+        );
+
+    }
+
+  </script>
 
 </body>
 </html>
