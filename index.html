@@ -1398,7 +1398,244 @@
     text-align: center;
   }
 }
+/* =========================
+   LOGIN SCREEN
+========================= */
 
+.login-screen {
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 30px 20px;
+
+  background:
+    radial-gradient(
+      circle at top left,
+      #ffffff 0%,
+      #f5f6f8 45%,
+      #eef0f4 100%
+    );
+}
+
+.login-card {
+  width: 100%;
+  max-width: 430px;
+
+  background: #ffffff;
+
+  border: 1px solid var(--border);
+
+  border-radius: 24px;
+
+  padding: 38px;
+
+  box-shadow:
+    0 25px 70px rgba(17, 19, 24, 0.09);
+
+  text-align: center;
+}
+
+.login-logo {
+  width: 58px;
+  height: 58px;
+
+  margin: 0 auto 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 16px;
+
+  background: #111318;
+  color: white;
+
+  font-size: 25px;
+  font-weight: 900;
+
+  box-shadow:
+    0 10px 25px rgba(17, 19, 24, 0.15);
+}
+
+.login-card h1 {
+  font-size: 27px;
+
+  letter-spacing: -1.2px;
+
+  margin-bottom: 8px;
+}
+
+.login-subtitle {
+  color: var(--muted);
+
+  font-size: 13px;
+
+  line-height: 1.6;
+
+  margin-bottom: 28px;
+}
+
+.login-field {
+  text-align: left;
+
+  margin-bottom: 16px;
+}
+
+.login-field label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  font-size: 12px;
+
+  font-weight: 800;
+}
+
+.login-field input {
+  width: 100%;
+
+  padding: 13px 14px;
+
+  border: 1px solid var(--border);
+
+  border-radius: 11px;
+
+  background: var(--surface-soft);
+
+  outline: none;
+
+  font-size: 13px;
+
+  color: var(--text);
+
+  transition: 0.2s;
+}
+
+.login-field input:focus {
+  background: white;
+
+  border-color: #bfc4cd;
+
+  box-shadow:
+    0 0 0 4px rgba(17, 19, 24, 0.04);
+}
+
+.login-options {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin: 5px 0 20px;
+
+  font-size: 11px;
+
+  color: var(--muted);
+}
+
+.login-options label {
+  display: flex;
+
+  align-items: center;
+
+  gap: 6px;
+}
+
+.login-options a {
+  color: var(--text);
+
+  text-decoration: none;
+
+  font-weight: 700;
+}
+
+.login-button,
+.demo-button {
+  width: 100%;
+
+  padding: 13px;
+
+  border-radius: 11px;
+
+  font-size: 13px;
+
+  font-weight: 800;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.login-button {
+  border: none;
+
+  background: #111318;
+
+  color: white;
+}
+
+.login-button:hover {
+  background: #242832;
+
+  transform: translateY(-1px);
+}
+
+.login-divider {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  margin: 22px 0;
+
+  color: #a0a5ae;
+
+  font-size: 10px;
+
+  font-weight: 800;
+}
+
+.login-divider::before,
+.login-divider::after {
+  content: "";
+
+  flex: 1;
+
+  height: 1px;
+
+  background: var(--border);
+}
+
+.demo-button {
+  border: 1px solid var(--border);
+
+  background: white;
+
+  color: var(--text);
+}
+
+.demo-button:hover {
+  background: var(--surface-soft);
+
+  transform: translateY(-1px);
+}
+
+.login-footer {
+  margin-top: 22px;
+
+  font-size: 11px;
+
+  color: var(--muted);
+}
+
+.login-footer strong {
+  color: var(--text);
+}
     /* =========================
        MOBILE
     ========================= */
@@ -1503,7 +1740,85 @@
 
 
 <body>
+<!-- =========================
+     LOGIN SCREEN
+========================= -->
 
+<div class="login-screen" id="loginScreen">
+
+  <div class="login-card">
+
+    <div class="login-logo">
+      C
+    </div>
+
+    <h1>Welcome to Clyde AI</h1>
+
+    <p class="login-subtitle">
+      Your AI-powered career intelligence assistant.
+    </p>
+
+    <form id="loginForm">
+
+      <div class="login-field">
+        <label>Email</label>
+        <input
+          type="email"
+          id="loginEmail"
+          placeholder="you@example.com"
+          required
+        />
+      </div>
+
+      <div class="login-field">
+        <label>Password</label>
+        <input
+          type="password"
+          id="loginPassword"
+          placeholder="Enter your password"
+          required
+        />
+      </div>
+
+      <div class="login-options">
+        <label>
+          <input type="checkbox" id="rememberMe" />
+          Remember me
+        </label>
+
+        <a href="#" onclick="return false;">
+          Forgot password?
+        </a>
+      </div>
+
+      <button
+        type="submit"
+        class="login-button"
+      >
+        Sign In
+      </button>
+
+    </form>
+
+    <div class="login-divider">
+      <span>OR</span>
+    </div>
+
+    <button
+      class="demo-button"
+      id="demoLogin"
+    >
+      Continue with Demo
+    </button>
+
+    <p class="login-footer">
+      Don't have an account?
+      <strong>Get started with Clyde AI</strong>
+    </p>
+
+  </div>
+
+</div>
   <div class="app">
 
 
@@ -3292,7 +3607,70 @@
         html;
 
     }
+/* =========================
+   LOGIN
+========================= */
 
+const loginScreen =
+  document.getElementById("loginScreen");
+
+const loginForm =
+  document.getElementById("loginForm");
+
+const demoLogin =
+  document.getElementById("demoLogin");
+
+function enterApp() {
+  loginScreen.style.display = "none";
+
+  document.querySelector(".app").style.display = "block";
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
+
+loginForm.addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  const email =
+    document.getElementById("loginEmail").value.trim();
+
+  const password =
+    document.getElementById("loginPassword").value.trim();
+
+  if (!email || !password) {
+    return;
+  }
+
+  localStorage.setItem(
+    "clydeLoggedIn",
+    "true"
+  );
+
+  enterApp();
+});
+
+demoLogin.addEventListener("click", function() {
+
+  localStorage.setItem(
+    "clydeLoggedIn",
+    "true"
+  );
+
+  enterApp();
+
+});
+
+
+/* Keep user logged in */
+
+if (
+  localStorage.getItem("clydeLoggedIn") === "true"
+) {
+  enterApp();
+}
   </script>
 
 </body>
