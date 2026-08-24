@@ -1112,121 +1112,317 @@
 </div>
 
 </div>
-    /* ============================= */
-/* INTERVIEW PREP */
+/* ============================= */
+/* PREMIUM INTERVIEW PREP */
 /* ============================= */
 
 .interview-prep-card {
-  margin-top: 24px;
-  padding: 28px;
-  border-radius: 20px;
+  margin-top: 28px;
+  padding: 30px;
+  border-radius: 24px;
   background: #ffffff;
-  border: 1px solid #e8e8e8;
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e9e9ee;
+  box-shadow: 0 18px 45px rgba(20, 20, 40, 0.07);
 }
 
 .interview-prep-intro {
-  padding: 18px;
-  border-radius: 14px;
-  background: #fafafa;
-  border: 1px solid #eeeeee;
+  margin-top: 22px;
+  padding: 22px;
+  border-radius: 18px;
+  background: linear-gradient(
+    135deg,
+    #faf9ff,
+    #f6f7fb
+  );
+  border: 1px solid #eceaf5;
 }
 
 .interview-prep-intro p {
-  margin: 0 0 16px;
+  margin: 0 0 18px;
+  max-width: 650px;
+  color: #666;
   font-size: 14px;
-  line-height: 1.6;
-  color: #555;
+  line-height: 1.7;
 }
 
 .interview-prep-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
   border: none;
-  border-radius: 10px;
-  padding: 12px 18px;
-  background: #111;
-  color: #fff;
+  border-radius: 12px;
+
+  padding: 13px 20px;
+
+  background: #111111;
+  color: #ffffff;
+
   font-size: 14px;
   font-weight: 700;
+
   cursor: pointer;
-  transition: transform 0.15s ease, opacity 0.15s ease;
+
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    opacity 0.2s ease;
 }
 
 .interview-prep-button:hover {
-  transform: translateY(-1px);
-  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.16);
 }
+
+.interview-prep-button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+  transform: none;
+}
+
+
+/* LOADING */
 
 .interview-prep-loading {
   display: none;
   align-items: center;
   gap: 14px;
-  margin-top: 16px;
-  padding: 18px;
-  border-radius: 14px;
+
+  margin-top: 20px;
+  padding: 18px 20px;
+
+  border-radius: 16px;
+
   background: #f8f8fb;
+  border: 1px solid #ececf2;
+
   color: #444;
 }
 
+
+/* RESULTS */
+
 .interview-prep-content {
-  margin-top: 18px;
+  margin-top: 26px;
 }
 
+
+/* SECTION */
+
 .interview-section {
-  margin-top: 20px;
+  margin-top: 28px;
+}
+
+.interview-section:first-child {
+  margin-top: 0;
 }
 
 .interview-section-title {
-  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  margin-bottom: 14px;
+
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 750;
+  color: #171717;
 }
+
+
+/* QUESTION CARD */
 
 .interview-question {
+  position: relative;
+
   margin-bottom: 12px;
-  padding: 18px;
-  border-radius: 14px;
-  background: #fafafa;
-  border: 1px solid #eeeeee;
+  padding: 20px 22px;
+
+  border-radius: 16px;
+
+  background: #ffffff;
+  border: 1px solid #ededf1;
+
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
 }
+
+.interview-question:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(20, 20, 40, 0.06);
+}
+
+
+/* QUESTION */
 
 .interview-question-title {
+  font-size: 14px;
   font-weight: 700;
-  line-height: 1.5;
+  line-height: 1.6;
+  color: #18181b;
 }
+
+
+/* WHY */
 
 .interview-question-why {
-  margin-top: 7px;
+  margin-top: 8px;
+
   font-size: 12px;
-  color: #888;
+  line-height: 1.5;
+
+  color: #8a8a92;
 }
+
+
+/* ANSWER */
 
 .interview-answer {
-  margin-top: 12px;
-  padding: 14px;
-  border-radius: 10px;
-  background: #f3f0ff;
+  margin-top: 16px;
+  padding: 16px 18px;
+
+  border-radius: 13px;
+
+  background: #f7f5ff;
+  border: 1px solid #ebe7ff;
+
   font-size: 13px;
   line-height: 1.7;
+
+  color: #444;
 }
 
-.interview-tip {
-  margin-bottom: 8px;
-  padding: 12px 14px;
-  border-radius: 10px;
-  background: #fafafa;
-  border: 1px solid #eeeeee;
-  font-size: 13px;
-  line-height: 1.6;
+.interview-answer strong {
+  color: #5b4bb7;
 }
+
+
+/* QUESTIONS TO ASK */
 
 .interview-ask {
-  margin-bottom: 8px;
-  padding: 12px 14px;
-  border-radius: 10px;
+  position: relative;
+
+  margin-bottom: 10px;
+  padding: 15px 18px 15px 42px;
+
+  border-radius: 13px;
+
   background: #fafafa;
-  border: 1px solid #eeeeee;
+  border: 1px solid #ededed;
+
   font-size: 13px;
   line-height: 1.6;
+
+  color: #444;
+}
+
+.interview-ask::before {
+  content: "?";
+
+  position: absolute;
+  left: 15px;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  width: 20px;
+  height: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #111;
+  color: #fff;
+
+  font-size: 11px;
+  font-weight: 800;
+}
+
+
+/* TIPS */
+
+.interview-tip {
+  position: relative;
+
+  margin-bottom: 10px;
+  padding: 15px 18px 15px 42px;
+
+  border-radius: 13px;
+
+  background: #fafafa;
+  border: 1px solid #ededed;
+
+  font-size: 13px;
+  line-height: 1.6;
+
+  color: #444;
+}
+
+.interview-tip::before {
+  content: "✓";
+
+  position: absolute;
+  left: 15px;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  width: 20px;
+  height: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #111;
+  color: #fff;
+
+  font-size: 11px;
+  font-weight: 800;
+}
+
+
+/* LOADER */
+
+.interview-prep-loading .small-loader {
+  flex-shrink: 0;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+  .interview-prep-card {
+    padding: 20px;
+    border-radius: 18px;
+  }
+
+  .interview-prep-intro {
+    padding: 18px;
+  }
+
+  .interview-prep-button {
+    width: 100%;
+  }
+
+  .interview-question {
+    padding: 17px;
+  }
+
+  .interview-answer {
+    padding: 14px;
+  }
+
 }
   </style>
 </head>
