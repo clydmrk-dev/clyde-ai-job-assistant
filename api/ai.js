@@ -1,4 +1,8 @@
+# `api/ai.js`
+
+````javascript
 import profile from "../profile.js";
+
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({
@@ -147,14 +151,45 @@ ${jobDescription}
 
     const data = await response.json();
 
+    /*
+     * =========================
+     * GROQ RATE LIMIT
+     * =========================
+     */
+
+    if (response.status === 429) {
+      console.error("Groq rate limit:", data);
+
+      const retryAfter =
+        response.headers.get("retry-after");
+
+      return res.status(429).json({
+        error:
+          "Clyde is temporarily rate-limited by Groq. Please wait a moment and try again.",
+        retryAfter: retryAfter || null,
+      });
+    }
+
+    /*
+     * =========================
+     * OTHER GROQ ERRORS
+     * =========================
+     */
+
     if (!response.ok) {
       console.error("Groq API error:", data);
 
       return res.status(response.status).json({
-        error: "Groq request failed",
+        error: "Groq request failed.",
         details: data,
       });
     }
+
+    /*
+     * =========================
+     * READ AI RESPONSE
+     * =========================
+     */
 
     let result =
       data.choices?.[0]?.message?.content || "";
@@ -164,6 +199,12 @@ ${jobDescription}
       .replace(/^```\s*/i, "")
       .replace(/\s*```$/i, "")
       .trim();
+
+    /*
+     * =========================
+     * PARSE JSON
+     * =========================
+     */
 
     let parsed;
 
@@ -180,6 +221,12 @@ ${jobDescription}
       });
     }
 
+    /*
+     * =========================
+     * SUCCESS
+     * =========================
+     */
+
     return res.status(200).json(parsed);
 
   } catch (error) {
@@ -195,3 +242,4 @@ ${jobDescription}
     });
   }
 }
+````
