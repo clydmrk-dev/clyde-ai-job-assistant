@@ -1,5 +1,10 @@
 import profile from "../profile.js";
 
+const GROQ_URL =
+  "https://api.groq.com/openai/v1/chat/completions";
+
+const MODEL = "openai/gpt-oss-120b";
+
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({
@@ -8,31 +13,56 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { jobDescription } = req.body;
+    const { jobDescription } = req.body || {};
 
-    if (!jobDescription) {
+    if (!jobDescription || !jobDescription.trim()) {
       return res.status(400).json({
         error: "Job description is required.",
       });
     }
 
-    const profileContext = JSON.stringify(profile, null, 2);
+    if (!process.env.GROQ_API_KEY) {
+      console.error("GROQ_API_KEY is missing.");
 
-    const response = await fetch(
-      "https://api.groq.com/openai/v1/chat/completions",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
-        },
-        body: JSON.stringify({
-          model: "openai/gpt-oss-120b",
+      return res.status(500).json({
+        error: "Groq API key is not configured.",
+      });
+    }
 
-          messages: [
-            {
-              role: "system",
-              content: `
+    const profileContext = JSON.stringify(
+      profile,
+      null,
+      2
+    );
+
+    const controller = new AbortController();
+
+    const timeout = setTimeout(() => {
+      controller.abort();
+    }, 30000);
+
+    let response;
+
+    try {
+      response = await fetch(
+        GROQ_URL,
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type": "application/json",
+            Authorization:
+              `Bearer ${process.env.GROQ_API_KEY}`,
+          },
+
+          body: JSON.stringify({
+            model: MODEL,
+
+            messages: [
+              {
+                role: "system",
+
+                content: `
 You are Clyde, an AI career assistant helping a candidate
 prepare for a job interview.
 
@@ -97,37 +127,89 @@ Rules:
 - Do not use Markdown.
 - Do not use code fences.
 `,
-            },
+              },
 
-            {
-              role: "user",
-              content: `
+              {
+                role: "user",
+
+                content: `
 Prepare me for an interview for this job:
 
 ${jobDescription}
 `,
-            },
-          ],
+              },
+            ],
 
-          temperature: 0.4,
-          max_tokens: 3000,
-        }),
-      }
-    );
+            temperature: 0.4,
+            max_tokens: 3000,
+          }),
 
-    const data = await response.json();
+          signal: controller.signal,
+        }
+      );
+    } finally {
+      clearTimeout(timeout);
+    }
 
-    if (!response.ok) {
-      console.error("Groq API error:", data);
+    const data =
+      await response.json().catch(() => ({}));
 
-      return res.status(response.status).json({
-        error: "Groq request failed",
-        details: data,
+    /*
+     * ============================
+     * GROQ RATE LIMIT
+     * ============================
+     */
+
+    if (response.status === 429) {
+      console.error(
+        "Groq rate limit:",
+        data
+      );
+
+      const retryAfter =
+        response.headers.get("retry-after");
+
+      return res.status(429).json({
+        error:
+          "Clyde is temporarily rate-limited by Groq. Please wait a moment and try again.",
+
+        retryAfter: retryAfter
+          ? Number(retryAfter)
+          : null,
       });
     }
 
+    /*
+     * ============================
+     * OTHER GROQ ERRORS
+     * ============================
+     */
+
+    if (!response.ok) {
+      console.error(
+        "Groq API error:",
+        {
+          status: response.status,
+          data,
+        }
+      );
+
+      return res.status(502).json({
+        error:
+          data?.error?.message ||
+          "Groq request failed. Please try again.",
+      });
+    }
+
+    /*
+     * ============================
+     * EXTRACT RESPONSE
+     * ============================
+     */
+
     let result =
-      data.choices?.[0]?.message?.content || "";
+      data.choices?.[0]?.message?.content ||
+      "";
 
     result = result
       .replace(/^```json\s*/i, "")
@@ -135,26 +217,46 @@ ${jobDescription}
       .replace(/\s*```$/i, "")
       .trim();
 
+    /*
+     * ============================
+     * PARSE JSON
+     * ============================
+     */
+
     let parsed;
 
     try {
       parsed = JSON.parse(result);
     } catch (parseError) {
-      console.error("JSON parsing failed:", result);
+      console.error(
+        "JSON parsing failed:",
+        result
+      );
 
       return res.status(500).json({
-        error: "AI returned invalid JSON.",
+        error:
+          "AI returned invalid JSON.",
       });
     }
 
     return res.status(200).json(parsed);
 
   } catch (error) {
-    console.error("Server error:", error);
+    console.error(
+      "Server error:",
+      error
+    );
+
+    if (error.name === "AbortError") {
+      return res.status(504).json({
+        error:
+          "The interview preparation request took too long. Please try again.",
+      });
+    }
 
     return res.status(500).json({
-      error: "Server error",
-      message: error.message,
+      error:
+        "Unable to prepare the interview right now.",
     });
   }
 }
