@@ -1403,7 +1403,9 @@
 ========================= */
 
 .login-screen {
-  min-height: 100vh;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
 
   display: flex;
   align-items: center;
@@ -1418,6 +1420,8 @@
       #f5f6f8 45%,
       #eef0f4 100%
     );
+
+  overflow-y: auto;
 }
 
 .login-card {
@@ -1854,7 +1858,7 @@
   </div>
 
 </div>
-  <div class="app">
+  <div class="app" id="app">
 
 
     <!-- =========================
@@ -2473,15 +2477,103 @@
 ========================= -->
 
 <script>
+/* =========================
+   LOGIN SYSTEM
+========================= */
+
+const loginScreen =
+  document.getElementById("loginScreen");
+
+const app =
+  document.getElementById("app");
+
+const loginForm =
+  document.getElementById("loginForm");
+
+const demoLogin =
+  document.getElementById("demoLogin");
+
+
+function showApp() {
+
+  loginScreen.style.display = "none";
+
+  app.style.display = "block";
+
+}
+
+
+function showLogin() {
+
+  app.style.display = "none";
+
+  loginScreen.style.display = "flex";
+
+}
+
+
+function login() {
+
+  localStorage.setItem(
+    "clydeLoggedIn",
+    "true"
+  );
+
+  showApp();
+
+}
+
+
+/* Regular login */
+
+loginForm.addEventListener(
+  "submit",
+  function(event) {
+
+    event.preventDefault();
+
+    login();
+
+  }
+);
+
+
+/* Demo login */
+
+demoLogin.addEventListener(
+  "click",
+  function() {
+
+    login();
+
+  }
+);
+
+
+/* Logout */
+
 function logout() {
 
-  localStorage.removeItem("clydeLoggedIn");
+  localStorage.removeItem(
+    "clydeLoggedIn"
+  );
 
-  document.querySelector(".app").style.display = "none";
+  showLogin();
 
-  document.getElementById("loginScreen").style.display = "flex";
+}
 
-  document.getElementById("loginForm").reset();
+
+/* Check login state */
+
+if (
+  localStorage.getItem("clydeLoggedIn") === "true"
+) {
+
+  showApp();
+
+} else {
+
+  showLogin();
 
 }
   </div>
