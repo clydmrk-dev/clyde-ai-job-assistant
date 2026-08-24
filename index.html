@@ -1,51 +1,82 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Clyde AI Job Assistant - Privacy Policy</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clyde AI Job Assistant</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #1f2937;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 80px auto;
+            padding: 40px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #6b7280;
+            line-height: 1.6;
+        }
+
+        .linkedin-btn {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 14px 24px;
+            background: #0a66c2;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .linkedin-btn:hover {
+            background: #004182;
+        }
+
+        .privacy {
+            display: block;
+            margin-top: 30px;
+            color: #6b7280;
+            font-size: 14px;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Privacy Policy</h1>
 
-    <p><strong>Last updated:</strong> August 17, 2026</p>
+    <div class="container">
+        <h1>🤖 Clyde AI Job Assistant</h1>
 
-    <h2>Overview</h2>
-    <p>
-        Clyde AI Job Assistant is a personal project designed to assist
-        with job discovery, application preparation, and related career
-        activities.
-    </p>
+        <p>
+            Your AI-powered assistant for job discovery,
+            application preparation, and career workflows.
+        </p>
 
-    <h2>Information We May Access</h2>
-    <p>
-        If you authorize the application through LinkedIn, the application
-        may access information permitted by LinkedIn's authorization system
-        and the permissions granted to the application.
-    </p>
+        <a
+            class="linkedin-btn"
+            href="https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=86youeic9znnda&redirect_uri=https%3A%2F%2Fclyde-ai-job-assistant.vercel.app%2Fapi%2Fauth%2Flinkedin%2Fcallback&scope=openid%20profile%20email"
+        >
+            Connect LinkedIn
+        </a>
 
-    <h2>How Information Is Used</h2>
-    <p>
-        Information is used solely to provide and improve the functionality
-        of the application, including assisting with job-search and
-        application-related workflows.
-    </p>
+        <a class="privacy" href="/privacy.html">
+            Privacy Policy
+        </a>
+    </div>
 
-    <h2>Data Sharing</h2>
-    <p>
-        We do not sell personal information. Information will not be shared
-        with third parties except where necessary to provide functionality
-        that the user has explicitly authorized.
-    </p>
-
-    <h2>Data Security</h2>
-    <p>
-        Reasonable measures are used to protect information from unauthorized
-        access, alteration, or disclosure.
-    </p>
-
-    <h2>Contact</h2>
-    <p>
-        For privacy-related questions, please contact the developer through
-        the contact information associated with this application.
-    </p>
 </body>
 </html>
