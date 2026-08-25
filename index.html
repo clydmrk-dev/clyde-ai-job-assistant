@@ -3802,7 +3802,7 @@ if (
 ) {
   enterApp();
 }
-  /* =========================
+/* =========================
    CREATE ACCOUNT
 ========================= */
 
@@ -3811,14 +3811,46 @@ const createAccountBtn =
 
 if (createAccountBtn) {
 
-  createAccountBtn.addEventListener(
-    "click",
-    function () {
+  createAccountBtn.addEventListener("click", async function () {
 
-      alert("Create account clicked!");
+    const email =
+      prompt("Enter your email address:");
+
+    if (!email) return;
+
+    const password =
+      prompt("Create a password:");
+
+    if (!password) return;
+
+    try {
+
+      const { data, error } =
+        await supabase.auth.signUp({
+          email: email,
+          password: password
+        });
+
+      if (error) {
+        alert(error.message);
+        return;
+      }
+
+      alert(
+        "Account created successfully! Please check your email to verify your account."
+      );
+
+    } catch (error) {
+
+      console.error(error);
+
+      alert(
+        "Something went wrong while creating your account."
+      );
 
     }
-  );
+
+  });
 
 }
   /* =========================
