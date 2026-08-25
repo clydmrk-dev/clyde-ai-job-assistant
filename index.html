@@ -2511,47 +2511,7 @@
    LOGIN SYSTEM
 ========================= */
 
-const loginScreen =
-  document.getElementById("loginScreen");
 
-const app =
-  document.getElementById("app");
-
-const loginForm =
-  document.getElementById("loginForm");
-
-const demoLogin =
-  document.getElementById("demoLogin");
-
-
-function showApp() {
-
-  loginScreen.style.display = "none";
-
-  app.style.display = "block";
-
-}
-
-
-function showLogin() {
-
-  app.style.display = "none";
-
-  loginScreen.style.display = "flex";
-
-}
-
-
-function login() {
-
-  localStorage.setItem(
-    "clydeLoggedIn",
-    "true"
-  );
-
-  showApp();
-
-}
 
 
 /* Regular login */
@@ -3868,6 +3828,335 @@ if (createAccountBtn) {
   );
 
 }
+  /* =========================
+   SUPABASE AUTHENTICATION
+========================= */
+
+const SUPABASE_URL =
+  "https://bicdawajnksfzvjmgjsk.supabase.co";
+
+const SUPABASE_ANON_KEY =
+  PASTE_YOUR_ANON_KEY_HERE
+
+const supabaseClient =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+  );
+
+
+const loginScreen =
+  document.getElementById("loginScreen");
+
+const app =
+  document.getElementById("app");
+
+const loginForm =
+  document.getElementById("loginForm");
+
+const demoLogin =
+  document.getElementById("demoLogin");
+
+const createAccountBtn =
+  document.getElementById("createAccountBtn");
+
+const authTitle =
+  document.getElementById("authTitle");
+
+const authSubtitle =
+  document.getElementById("authSubtitle");
+
+const authButton =
+  document.getElementById("authButton");
+
+const accountQuestion =
+  document.getElementById("accountQuestion");
+
+const loginOptions =
+  document.getElementById("loginOptions");
+
+
+let createAccountMode = false;
+
+
+/* =========================
+   SHOW LOGIN
+========================= */
+
+function showLogin() {
+
+  loginScreen.style.display = "flex";
+
+  app.style.display = "none";
+
+}
+
+
+/* =========================
+   SHOW APP
+========================= */
+
+function showApp() {
+
+  loginScreen.style.display = "none";
+
+  app.style.display = "block";
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+}
+
+
+/* =========================
+   CREATE ACCOUNT MODE
+========================= */
+
+createAccountBtn.addEventListener(
+  "click",
+  function () {
+
+    createAccountMode =
+      !createAccountMode;
+
+    if (createAccountMode) {
+
+      authTitle.textContent =
+        "Create your Clyde AI account";
+
+      authSubtitle.textContent =
+        "Create an account to access your AI-powered career intelligence assistant.";
+
+      authButton.textContent =
+        "Create Account";
+
+      accountQuestion.textContent =
+        "Already have an account?";
+
+      createAccountBtn.textContent =
+        "Sign in instead";
+
+      loginOptions.style.display =
+        "none";
+
+      demoLogin.style.display =
+        "none";
+
+    } else {
+
+      authTitle.textContent =
+        "Welcome to Clyde AI";
+
+      authSubtitle.textContent =
+        "Your AI-powered career intelligence assistant.";
+
+      authButton.textContent =
+        "Sign In";
+
+      accountQuestion.textContent =
+        "Don't have an account?";
+
+      createAccountBtn.textContent =
+        "Get started with Clyde AI";
+
+      loginOptions.style.display =
+        "flex";
+
+      demoLogin.style.display =
+        "block";
+
+    }
+
+  }
+);
+
+
+/* =========================
+   LOGIN / CREATE ACCOUNT
+========================= */
+
+loginForm.addEventListener(
+  "submit",
+  async function (event) {
+
+    event.preventDefault();
+
+    const email =
+      document
+        .getElementById("loginEmail")
+        .value
+        .trim();
+
+    const password =
+      document
+        .getElementById("loginPassword")
+        .value
+        .trim();
+
+
+    if (!email || !password) {
+
+      alert(
+        "Please enter your email and password."
+      );
+
+      return;
+
+    }
+
+
+    authButton.disabled = true;
+
+
+    try {
+
+      if (createAccountMode) {
+
+        const {
+          data,
+          error
+        } =
+          await supabaseClient.auth.signUp({
+            email: email,
+            password: password
+          });
+
+
+        if (error) {
+
+          throw error;
+
+        }
+
+
+        alert(
+          "Account created successfully! Check your email if verification is required."
+        );
+
+
+        createAccountMode = false;
+
+        authTitle.textContent =
+          "Welcome to Clyde AI";
+
+        authSubtitle.textContent =
+          "Your AI-powered career intelligence assistant.";
+
+        authButton.textContent =
+          "Sign In";
+
+        accountQuestion.textContent =
+          "Don't have an account?";
+
+        createAccountBtn.textContent =
+          "Get started with Clyde AI";
+
+        loginOptions.style.display =
+          "flex";
+
+        demoLogin.style.display =
+          "block";
+
+      } else {
+
+        const {
+          data,
+          error
+        } =
+          await supabaseClient.auth.signInWithPassword({
+            email: email,
+            password: password
+          });
+
+
+        if (error) {
+
+          throw error;
+
+        }
+
+
+        showApp();
+
+      }
+
+    } catch (error) {
+
+      console.error(
+        "Authentication error:",
+        error
+      );
+
+      alert(
+        error.message ||
+        "Authentication failed."
+      );
+
+    } finally {
+
+      authButton.disabled = false;
+
+    }
+
+  }
+);
+
+
+/* =========================
+   DEMO LOGIN
+========================= */
+
+demoLogin.addEventListener(
+  "click",
+  function () {
+
+    showApp();
+
+  }
+);
+
+
+/* =========================
+   LOG OUT
+========================= */
+
+async function logout() {
+
+  await supabaseClient.auth.signOut();
+
+  showLogin();
+
+}
+
+
+/* =========================
+   CHECK SESSION
+========================= */
+
+async function checkSession() {
+
+  const {
+    data
+  } =
+    await supabaseClient.auth.getSession();
+
+
+  if (data.session) {
+
+    showApp();
+
+  } else {
+
+    showLogin();
+
+  }
+
+}
+
+
+checkSession();
   </script>
 
 </body>
