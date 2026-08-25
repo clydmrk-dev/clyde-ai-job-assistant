@@ -2507,65 +2507,7 @@
 ========================= -->
 
 <script>
-/* =========================
-   LOGIN SYSTEM
-========================= */
 
-
-
-
-/* Regular login */
-
-loginForm.addEventListener(
-  "submit",
-  function(event) {
-
-    event.preventDefault();
-
-    login();
-
-  }
-);
-
-
-/* Demo login */
-
-demoLogin.addEventListener(
-  "click",
-  function() {
-
-    login();
-
-  }
-);
-
-
-/* Logout */
-
-function logout() {
-
-  localStorage.removeItem(
-    "clydeLoggedIn"
-  );
-
-  showLogin();
-
-}
-
-
-/* Check login state */
-
-if (
-  localStorage.getItem("clydeLoggedIn") === "true"
-) {
-
-  showApp();
-
-} else {
-
-  showLogin();
-
-}
 
 
 
@@ -3738,121 +3680,12 @@ if (
         html;
 
     }
-/* =========================
-   LOGIN
-========================= */
-
-const loginScreen =
-  document.getElementById("loginScreen");
-
-const loginForm =
-  document.getElementById("loginForm");
-
-const demoLogin =
-  document.getElementById("demoLogin");
-
-function enterApp() {
-  loginScreen.style.display = "none";
-
-  document.querySelector(".app").style.display = "block";
-
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
-}
-
-loginForm.addEventListener("submit", function(event) {
-  event.preventDefault();
-
-  const email =
-    document.getElementById("loginEmail").value.trim();
-
-  const password =
-    document.getElementById("loginPassword").value.trim();
-
-  if (!email || !password) {
-    return;
-  }
-
-  localStorage.setItem(
-    "clydeLoggedIn",
-    "true"
-  );
-
-  enterApp();
-});
-
-demoLogin.addEventListener("click", function() {
-
-  localStorage.setItem(
-    "clydeLoggedIn",
-    "true"
-  );
-
-  enterApp();
-
-});
 
 
-/* Keep user logged in */
 
-if (
-  localStorage.getItem("clydeLoggedIn") === "true"
-) {
-  enterApp();
-}
-/* =========================
-   CREATE ACCOUNT
-========================= */
 
-const createAccountBtn =
-  document.getElementById("createAccountBtn");
 
-if (createAccountBtn) {
 
-  createAccountBtn.addEventListener("click", async function () {
-
-    const email =
-      prompt("Enter your email address:");
-
-    if (!email) return;
-
-    const password =
-      prompt("Create a password:");
-
-    if (!password) return;
-
-    try {
-
-      const { data, error } =
-        await supabase.auth.signUp({
-          email: email,
-          password: password
-        });
-
-      if (error) {
-        alert(error.message);
-        return;
-      }
-
-      alert(
-        "Account created successfully! Please check your email to verify your account."
-      );
-
-    } catch (error) {
-
-      console.error(error);
-
-      alert(
-        "Something went wrong while creating your account."
-      );
-
-    }
-
-  });
-
-}
   /* =========================
    SUPABASE AUTHENTICATION
 ========================= */
@@ -3861,7 +3694,7 @@ const SUPABASE_URL =
   "https://bicdawajnksfzvjmgjsk.supabase.co";
 
 const SUPABASE_ANON_KEY =
-  PASTE_YOUR_ANON_KEY_HERE
+  "PASTE_YOUR_ANON_KEY_HERE";
 
 const supabaseClient =
   window.supabase.createClient(
