@@ -1767,7 +1767,69 @@ textarea:focus {
     /* =========================
        MOBILE
     ========================= */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #111111;
+    --surface: #181818;
+    --surface-soft: #202020;
 
+    --border: #2b2b2b;
+    --border-strong: #3a3a3a;
+
+    --text: #f5f5f5;
+    --muted: #a1a1a1;
+    --muted-light: #737373;
+
+    --black: #f5f5f5;
+    --black-hover: #ffffff;
+
+    --green: #35c47a;
+    --green-bg: #14251c;
+
+    --yellow: #d6a63d;
+    --yellow-bg: #292315;
+
+    --red: #ef6b6b;
+    --red-bg: #291717;
+
+    --shadow-sm: 0 2px 12px rgba(0, 0, 0, 0.25);
+    --shadow: 0 10px 35px rgba(0, 0, 0, 0.35);
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  .hero h1 span {
+    color: #777777;
+  }
+
+  textarea {
+    background: var(--surface-soft);
+    color: var(--text);
+  }
+
+  textarea:focus {
+    background: var(--surface);
+    border-color: #555555;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.05);
+  }
+
+  .input-card {
+    background: var(--surface);
+    border-color: var(--border);
+  }
+
+  .analyze-button {
+    background: #f5f5f5;
+    color: #111111;
+  }
+
+  .analyze-button:hover {
+    background: #ffffff;
+  }
+}
     @media (max-width: 780px) {
 
       .app {
