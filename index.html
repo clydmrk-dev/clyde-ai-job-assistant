@@ -2075,37 +2075,6 @@ document.addEventListener("click", function (event) {
     toggle.setAttribute("aria-label", "Show password");
   }
 });
-.password-wrapper {
-  position: relative;
-  width: 100%;
-}
-
-.password-wrapper input {
-  padding-right: 46px;
-}
-
-.password-toggle {
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-
-  width: 30px;
-  height: 30px;
-
-  border: none;
-  background: transparent;
-
-  color: var(--muted);
-  cursor: pointer;
-
-  font-size: 16px;
-}
-
-.password-toggle:hover {
-  background: var(--surface-soft);
-  color: var(--text);
-}
   </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
@@ -2158,16 +2127,6 @@ document.addEventListener("click", function (event) {
     placeholder="Enter your password"
     required
   />
-
-  <button
-    type="button"
-    class="password-toggle"
-    id="passwordToggle"
-    aria-label="Show password"
-  >
-    👁
-  </button>
-</div>
 
   <button
     type="button"
