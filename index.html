@@ -1783,6 +1783,10 @@
      LOGIN SCREEN
 ========================= -->
 
+<!-- =========================
+     LOGIN SCREEN
+========================= -->
+
 <div class="login-screen" id="loginScreen">
 
   <div class="login-card">
@@ -1791,9 +1795,9 @@
       C
     </div>
 
-    <h1>Welcome to Clyde AI</h1>
+    <h1 id="authTitle">Welcome to Clyde AI</h1>
 
-    <p class="login-subtitle">
+    <p class="login-subtitle" id="authSubtitle">
       Your AI-powered career intelligence assistant.
     </p>
 
@@ -1801,38 +1805,51 @@
 
       <div class="login-field">
         <label>Email</label>
+
         <input
           type="email"
           id="loginEmail"
           placeholder="you@example.com"
           required
         />
+
       </div>
 
       <div class="login-field">
         <label>Password</label>
+
         <input
           type="password"
           id="loginPassword"
           placeholder="Enter your password"
           required
         />
+
       </div>
 
-      <div class="login-options">
+      <div
+        class="login-options"
+        id="loginOptions"
+      >
+
         <label>
-          <input type="checkbox" id="rememberMe" />
+          <input
+            type="checkbox"
+            id="rememberMe"
+          />
           Remember me
         </label>
 
         <a href="#" onclick="return false;">
           Forgot password?
         </a>
+
       </div>
 
       <button
         type="submit"
         class="login-button"
+        id="authButton"
       >
         Sign In
       </button>
@@ -1844,23 +1861,31 @@
     </div>
 
     <button
+      type="button"
       class="demo-button"
       id="demoLogin"
     >
       Continue with Demo
     </button>
 
-<p class="login-footer">
-  Don't have an account?
-  <strong
-    id="createAccountBtn"
-    style="cursor: pointer;"
-  >
-    Get started with Clyde AI
-  </strong>
-</p>
+    <p class="login-footer">
+
+      <span id="accountQuestion">
+        Don't have an account?
+      </span>
+
+      <strong
+        id="createAccountBtn"
+        style="cursor: pointer;"
+      >
+        Get started with Clyde AI
+      </strong>
+
+    </p>
 
   </div>
+
+</div>
 
 </div>
   <div class="app" id="app">
