@@ -2051,27 +2051,30 @@ textarea:focus {
     background 0.2s ease,
     color 0.2s ease;
 }
-const passwordToggle = document.getElementById("passwordToggle");
-const loginPassword = document.getElementById("loginPassword");
 
-if (passwordToggle && loginPassword) {
-  passwordToggle.addEventListener("click", function () {
-    if (loginPassword.type === "password") {
-      loginPassword.type = "text";
-      passwordToggle.textContent = "🙈";
-      passwordToggle.setAttribute("aria-label", "Hide password");
-    } else {
-      loginPassword.type = "password";
-      passwordToggle.textContent = "👁";
-      passwordToggle.setAttribute("aria-label", "Show password");
-    }
-  });
-}
 .password-toggle:hover {
   background: var(--surface-soft);
   color: var(--text);
 }
+document.addEventListener("click", function (event) {
+  const toggle = event.target.closest("#passwordToggle");
 
+  if (!toggle) return;
+
+  const passwordInput = document.getElementById("loginPassword");
+
+  if (!passwordInput) return;
+
+  if (passwordInput.type === "password") {
+    passwordInput.type = "text";
+    toggle.textContent = "🙈";
+    toggle.setAttribute("aria-label", "Hide password");
+  } else {
+    passwordInput.type = "password";
+    toggle.textContent = "👁";
+    toggle.setAttribute("aria-label", "Show password");
+  }
+});
   </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
