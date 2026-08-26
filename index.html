@@ -176,6 +176,18 @@ body {
     }
 
 
+    .status.demo {
+      background: var(--yellow-bg);
+      border-color: rgba(183, 121, 31, 0.35);
+      color: var(--yellow);
+    }
+
+
+    .status.demo .status-dot {
+      background: var(--yellow);
+    }
+
+
     /* =========================
        HERO
     ========================= */
@@ -2299,7 +2311,7 @@ textarea:focus {
 
         <span class="status-dot"></span>
 
-        AI Ready
+        <span class="status-text">AI Ready</span>
 
       </div>
 
@@ -2433,7 +2445,7 @@ textarea:focus {
 
     <span class="status-dot"></span>
 
-    AI Ready
+    <span class="status-text">AI Ready</span>
 
   </div>
 
@@ -3132,6 +3144,118 @@ textarea:focus {
        ANALYZE JOB
     ========================= */
 
+    /* =========================
+       DEMO MOCK DATA
+    ========================= */
+
+    function wait(ms) {
+
+      return new Promise(function (resolve) {
+
+        setTimeout(resolve, ms);
+
+      });
+
+    }
+
+
+    function getMockAnalysis() {
+
+      return {
+
+        jobTitle: "Senior Product Designer (Sample)",
+
+        matchScore: 82,
+
+        matchLevel: "Strong Match",
+
+        summary: "This is sample demo data, not a real analysis of the text you pasted. A signed-in analysis reads your actual profile against the real job description to write a summary like this one, covering how well the role lines up, what stands out, and where the stretch areas are.",
+
+        strengths: [
+          {
+            title: "Relevant Experience",
+            description: "A real analysis points to specific parts of your background that match what this employer is asking for."
+          },
+          {
+            title: "Core Skill Overlap",
+            description: "The tools and skills most emphasized in the listing get checked against your actual profile."
+          },
+          {
+            title: "Team Fit Signals",
+            description: "Clyde also looks for softer signals \u2014 collaboration style, seniority level, and team structure."
+          }
+        ],
+
+        skills: [
+          { name: "Sample Skill A", importance: "High" },
+          { name: "Sample Skill B", importance: "High" },
+          { name: "Sample Skill C", importance: "Medium" },
+          { name: "Sample Skill D", importance: "Medium" },
+          { name: "Sample Skill E", importance: "Low" }
+        ],
+
+        gaps: [
+          {
+            title: "Sample Gap",
+            description: "A real analysis flags anything the listing asks for that isn't clearly covered in your background yet."
+          }
+        ],
+
+        recommendation: "APPLY",
+
+        recommendationReason: "This is a placeholder recommendation. Sign in and analyze a real job description to get a recommendation based on your actual profile."
+
+      };
+
+    }
+
+
+    function getMockCoverLetter() {
+
+      return "This is sample demo content, not a real cover letter written for the job you pasted.\n\nDear Hiring Manager,\n\nI'm excited to apply for this position. A cover letter generated while signed in opens by connecting your specific background to the role you analyzed, walks through two or three concrete examples that match what the listing asks for, and closes with a clear, confident call to action.\n\nSign in (or create an account) and analyze a real job description to generate a letter tailored to it.\n\nSincerely,\n[Your Name]";
+
+    }
+
+
+    function getMockInterviewPrep() {
+
+      return {
+
+        questions: [
+          {
+            question: "Tell me about a time you solved a difficult problem in this field.",
+            why: "This is a sample question. A signed-in analysis pulls questions based on the specific role and your background.",
+            suggestedAnswer: "A real suggested answer would reference your actual experience and the specifics of the job description."
+          },
+          {
+            question: "Why are you interested in this role?",
+            why: "Sample question \u2014 employers ask this to gauge genuine interest and fit.",
+            suggestedAnswer: "A tailored answer would connect your motivations to specifics from the job listing."
+          }
+        ],
+
+        technicalQuestions: [
+          {
+            question: "Walk through your approach to a core task in this role.",
+            suggestedAnswer: "A real answer would be shaped around the actual responsibilities listed in the job description."
+          }
+        ],
+
+        questionsToAsk: [
+          "What does success look like in the first 90 days?",
+          "How is this team structured, and who would I work with most closely?"
+        ],
+
+        interviewTips: [
+          "This is sample demo content. Sign in and analyze a real job to get tips tailored to that role.",
+          "Bring 2-3 concrete examples you can speak to in depth rather than a broad overview."
+        ]
+
+      };
+
+    }
+
+
     async function analyzeJob() {
 
       const job =
@@ -3167,34 +3291,46 @@ textarea:focus {
 
       try {
 
-        const response =
-          await fetch(
-            "/api/ai",
-            {
-              method: "POST",
+        let data;
 
-              headers: {
-                "Content-Type":
-                  "application/json"
-              },
+        if (isDemoMode) {
 
-              body: JSON.stringify({
-                jobDescription: job
-              })
-            }
-          );
+          await wait(900);
+
+          data = getMockAnalysis();
+
+        } else {
+
+          const response =
+            await fetch(
+              "/api/ai",
+              {
+                method: "POST",
+
+                headers: {
+                  "Content-Type":
+                    "application/json"
+                },
+
+                body: JSON.stringify({
+                  jobDescription: job
+                })
+              }
+            );
 
 
-        const data =
-          await response.json();
+          data =
+            await response.json();
 
 
-        if (!response.ok) {
+          if (!response.ok) {
 
-          throw new Error(
-            data.error ||
-            "Something went wrong."
-          );
+            throw new Error(
+              data.error ||
+              "Something went wrong."
+            );
+
+          }
 
         }
 
@@ -3700,41 +3836,56 @@ textarea:focus {
 
       try {
 
-        const response =
-          await fetch(
-            "/api/cover-letter",
-            {
-              method: "POST",
+        let coverLetterText;
 
-              headers: {
-                "Content-Type":
-                  "application/json"
-              },
+        if (isDemoMode) {
 
-              body: JSON.stringify({
-                jobDescription: job
-              })
-            }
-          );
+          await wait(900);
+
+          coverLetterText = getMockCoverLetter();
+
+        } else {
+
+          const response =
+            await fetch(
+              "/api/cover-letter",
+              {
+                method: "POST",
+
+                headers: {
+                  "Content-Type":
+                    "application/json"
+                },
+
+                body: JSON.stringify({
+                  jobDescription: job
+                })
+              }
+            );
 
 
-        const data =
-          await response.json();
+          const data =
+            await response.json();
 
 
-        if (!response.ok) {
+          if (!response.ok) {
 
-          throw new Error(
-            data.error ||
-            "Cover letter generation failed."
-          );
+            throw new Error(
+              data.error ||
+              "Cover letter generation failed."
+            );
+
+          }
+
+          coverLetterText =
+            data.coverLetter ||
+            "No cover letter was generated.";
 
         }
 
 
         content.textContent =
-          data.coverLetter ||
-          "No cover letter was generated.";
+          coverLetterText;
 
 
         actions.style.display =
@@ -3876,35 +4027,47 @@ textarea:focus {
 
       try {
 
-        const response =
-          await fetch(
-            "/api/interview-prep",
-            {
-              method: "POST",
+        let data;
 
-              headers: {
-                "Content-Type":
-                  "application/json"
-              },
+        if (isDemoMode) {
 
-              body: JSON.stringify({
-                jobDescription:
-                  jobDescriptionValue
-              })
-            }
-          );
+          await wait(900);
+
+          data = getMockInterviewPrep();
+
+        } else {
+
+          const response =
+            await fetch(
+              "/api/interview-prep",
+              {
+                method: "POST",
+
+                headers: {
+                  "Content-Type":
+                    "application/json"
+                },
+
+                body: JSON.stringify({
+                  jobDescription:
+                    jobDescriptionValue
+                })
+              }
+            );
 
 
-        const data =
-          await response.json();
+          data =
+            await response.json();
 
 
-        if (!response.ok) {
+          if (!response.ok) {
 
-          throw new Error(
-            data.error ||
-            "Interview preparation failed."
-          );
+            throw new Error(
+              data.error ||
+              "Interview preparation failed."
+            );
+
+          }
 
         }
 
@@ -4278,6 +4441,44 @@ const loginOptions =
 
 let createAccountMode = false;
 
+let isDemoMode = false;
+
+
+/* =========================
+   APPLY DEMO MODE UI
+========================= */
+
+function applyDemoModeUI() {
+
+  document.querySelectorAll(".status").forEach(
+    function (statusEl) {
+
+      const textEl =
+        statusEl.querySelector(".status-text");
+
+      if (isDemoMode) {
+
+        statusEl.classList.add("demo");
+
+        if (textEl) {
+          textEl.textContent = "Demo Mode";
+        }
+
+      } else {
+
+        statusEl.classList.remove("demo");
+
+        if (textEl) {
+          textEl.textContent = "AI Ready";
+        }
+
+      }
+
+    }
+  );
+
+}
+
 
 /* =========================
    SHOW LOGIN
@@ -4535,6 +4736,10 @@ loginForm.addEventListener(
         }
 
 
+        isDemoMode = false;
+
+        applyDemoModeUI();
+
         showHome();
 
       }
@@ -4569,6 +4774,10 @@ demoLogin.addEventListener(
   "click",
   function () {
 
+    isDemoMode = true;
+
+    applyDemoModeUI();
+
     showHome();
 
   }
@@ -4582,6 +4791,10 @@ demoLogin.addEventListener(
 async function logout() {
 
   await supabaseClient.auth.signOut();
+
+  isDemoMode = false;
+
+  applyDemoModeUI();
 
   showLogin();
 
@@ -4601,6 +4814,10 @@ async function checkSession() {
 
 
   if (data.session) {
+
+    isDemoMode = false;
+
+    applyDemoModeUI();
 
     showHome();
 
