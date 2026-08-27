@@ -2445,6 +2445,659 @@ textarea:focus {
       }
 
     }
+
+
+    /* =========================
+       APP SHELL
+    ========================= */
+
+    .shell {
+      display: none;
+      min-height: 100vh;
+    }
+
+    .shell.open {
+      display: flex;
+    }
+
+    .sidebar {
+      width: 240px;
+      flex-shrink: 0;
+
+      display: flex;
+      flex-direction: column;
+
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+
+      padding: 20px 14px;
+
+      transition: width 0.2s ease;
+
+      position: sticky;
+      top: 0;
+
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .sidebar.collapsed {
+      width: 76px;
+    }
+
+    .sidebar-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      margin-bottom: 26px;
+
+      padding: 0 6px;
+    }
+
+    .sidebar-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      cursor: pointer;
+    }
+
+    .sidebar-logo-text {
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      white-space: nowrap;
+    }
+
+    .sidebar.collapsed .sidebar-logo-text {
+      display: none;
+    }
+
+    .sidebar-collapse-btn {
+      border: none;
+      background: transparent;
+      color: var(--muted);
+
+      font-size: 16px;
+
+      cursor: pointer;
+
+      padding: 4px 8px;
+
+      border-radius: 8px;
+
+      flex-shrink: 0;
+
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .sidebar-collapse-btn:hover {
+      background: var(--surface-soft);
+    }
+
+    .sidebar.collapsed .sidebar-collapse-btn {
+      transform: rotate(180deg);
+    }
+
+    .sidebar-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+
+      flex: 1;
+    }
+
+    .sidebar-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 10px;
+      margin-top: 10px;
+    }
+
+    .sidebar-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      border: none;
+      background: transparent;
+
+      color: var(--text);
+
+      padding: 10px 12px;
+
+      border-radius: 10px;
+
+      font-size: 13px;
+      font-weight: 700;
+
+      cursor: pointer;
+
+      text-align: left;
+
+      width: 100%;
+
+      position: relative;
+    }
+
+    .sidebar-item:hover {
+      background: var(--surface-soft);
+    }
+
+    .sidebar-item.active {
+      background: #111318;
+      color: white;
+    }
+
+    .sidebar-icon {
+      font-size: 16px;
+      width: 20px;
+      flex-shrink: 0;
+      text-align: center;
+    }
+
+    .sidebar-label {
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .sidebar-badge {
+      margin-left: auto;
+
+      background: var(--red);
+      color: white;
+
+      font-size: 10px;
+      font-weight: 800;
+
+      border-radius: 999px;
+
+      padding: 1px 6px;
+
+      flex-shrink: 0;
+    }
+
+    .sidebar.collapsed .sidebar-label {
+      display: none;
+    }
+
+    .sidebar.collapsed .sidebar-item {
+      justify-content: center;
+    }
+
+    .sidebar.collapsed .sidebar-badge {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+
+      margin-left: 0;
+    }
+
+    .sidebar.collapsed .sidebar-item::after {
+      content: attr(data-label);
+
+      position: absolute;
+      left: calc(100% + 10px);
+      top: 50%;
+      transform: translateY(-50%);
+
+      background: #111318;
+      color: white;
+
+      padding: 6px 10px;
+
+      border-radius: 8px;
+
+      font-size: 11px;
+      font-weight: 700;
+
+      white-space: nowrap;
+
+      opacity: 0;
+      pointer-events: none;
+
+      transition: opacity 0.15s ease;
+
+      z-index: 600;
+    }
+
+    .sidebar.collapsed .sidebar-item:hover::after {
+      opacity: 1;
+    }
+
+    .shell-main {
+      flex: 1;
+      min-width: 0;
+
+      display: flex;
+      flex-direction: column;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+
+      padding: 16px 28px;
+
+      border-bottom: 1px solid var(--border);
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+
+      margin-left: auto;
+    }
+
+    .sidebar-mobile-toggle {
+      display: none;
+
+      border: none;
+      background: transparent;
+
+      font-size: 20px;
+
+      cursor: pointer;
+
+      color: var(--text);
+    }
+
+    .shell-content {
+      flex: 1;
+
+      padding: 28px 32px 60px;
+
+      max-width: 1240px;
+
+      width: 100%;
+    }
+
+    .page {
+      animation: fadeIn 0.3s ease;
+    }
+
+    .page-header {
+      max-width: 760px;
+      margin-bottom: 30px;
+    }
+
+    .page-title {
+      font-size: clamp(30px, 4vw, 42px);
+
+      letter-spacing: -1.5px;
+
+      margin: 6px 0 14px;
+    }
+
+    .profile-menu {
+      position: relative;
+    }
+
+    .profile-menu-trigger {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      border: 1px solid var(--border);
+      background: white;
+
+      color: var(--text);
+
+      padding: 8px 12px;
+
+      border-radius: 10px;
+
+      font-size: 12px;
+      font-weight: 800;
+
+      cursor: pointer;
+    }
+
+    .profile-menu-trigger:hover {
+      background: var(--surface-soft);
+    }
+
+    .profile-menu-caret {
+      font-size: 10px;
+      color: var(--muted);
+    }
+
+    .profile-dropdown {
+      display: none;
+
+      position: absolute;
+      right: 0;
+      top: calc(100% + 8px);
+
+      min-width: 190px;
+
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+
+      box-shadow: 0 20px 50px rgba(17, 19, 24, 0.14);
+
+      padding: 6px;
+
+      z-index: 700;
+    }
+
+    .profile-dropdown.open {
+      display: block;
+    }
+
+    .profile-dropdown button {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      width: 100%;
+
+      border: none;
+      background: transparent;
+
+      color: var(--text);
+
+      padding: 9px 10px;
+
+      border-radius: 9px;
+
+      font-size: 12px;
+      font-weight: 700;
+
+      text-align: left;
+
+      cursor: pointer;
+    }
+
+    .profile-dropdown button:hover {
+      background: var(--surface-soft);
+    }
+
+    .message-list,
+    .applications-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .list-item-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+
+      padding: 18px 20px;
+    }
+
+    .list-item-card.unread {
+      border-color: rgba(99, 102, 241, 0.3);
+    }
+
+    .list-item-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 12px;
+
+      margin-bottom: 6px;
+    }
+
+    .list-item-title {
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .list-item-meta {
+      font-size: 11px;
+      color: var(--muted-light);
+
+      white-space: nowrap;
+    }
+
+    .list-item-body {
+      font-size: 13px;
+      color: var(--muted);
+
+      line-height: 1.6;
+    }
+
+    .list-item-actions {
+      display: flex;
+      gap: 8px;
+
+      margin-top: 12px;
+    }
+
+    .list-item-actions button {
+      border: 1px solid var(--border);
+      background: white;
+      color: var(--text);
+
+      padding: 6px 11px;
+
+      border-radius: 8px;
+
+      font-size: 11px;
+      font-weight: 700;
+
+      cursor: pointer;
+    }
+
+    .list-item-actions button:hover {
+      background: var(--surface-soft);
+    }
+
+    .empty-state {
+      text-align: center;
+
+      padding: 50px 20px;
+
+      color: var(--muted);
+
+      font-size: 13px;
+    }
+
+    .status-badge {
+      display: inline-block;
+
+      padding: 3px 9px;
+
+      border-radius: 999px;
+
+      font-size: 10px;
+      font-weight: 800;
+
+      text-transform: uppercase;
+    }
+
+    .status-badge.saved {
+      background: #f2f3f6;
+      color: #505661;
+    }
+
+    .status-badge.applied {
+      background: var(--green-bg);
+      color: var(--green);
+    }
+
+    .status-badge.interviewing {
+      background: var(--yellow-bg);
+      color: var(--yellow);
+    }
+
+    .status-badge.offer {
+      background: var(--green-bg);
+      color: var(--green);
+    }
+
+    .status-badge.rejected {
+      background: var(--red-bg);
+      color: var(--red);
+    }
+
+
+    /* =========================
+       SETTINGS PANEL
+    ========================= */
+
+    .settings-overlay {
+      display: none;
+
+      position: fixed;
+      inset: 0;
+
+      background: rgba(17, 19, 24, 0.4);
+
+      z-index: 900;
+    }
+
+    .settings-overlay.open {
+      display: block;
+    }
+
+    .settings-panel {
+      position: fixed;
+      top: 0;
+      right: -420px;
+      bottom: 0;
+
+      width: 400px;
+      max-width: calc(100vw - 32px);
+
+      background: var(--surface);
+
+      box-shadow: -25px 0 70px rgba(17, 19, 24, 0.18);
+
+      z-index: 901;
+
+      transition: right 0.25s ease;
+
+      display: flex;
+      flex-direction: column;
+    }
+
+    .settings-panel.open {
+      right: 0;
+    }
+
+    .settings-panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      padding: 20px 22px;
+
+      border-bottom: 1px solid var(--border);
+
+      flex-shrink: 0;
+    }
+
+    .settings-panel-title {
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .settings-panel-body {
+      flex: 1;
+      overflow-y: auto;
+
+      padding: 10px;
+    }
+
+    .settings-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      width: 100%;
+
+      border: none;
+      background: transparent;
+
+      color: var(--text);
+
+      padding: 13px 12px;
+
+      border-radius: 10px;
+
+      font-size: 13px;
+      font-weight: 700;
+
+      text-align: left;
+
+      cursor: pointer;
+    }
+
+    .settings-item:hover {
+      background: var(--surface-soft);
+    }
+
+    .settings-sub-content {
+      display: none;
+
+      padding: 4px 12px 16px;
+
+      font-size: 12px;
+      color: var(--muted);
+
+      line-height: 1.7;
+    }
+
+    .settings-sub-content.open {
+      display: block;
+    }
+
+
+    @media (max-width: 900px) {
+
+      .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 800;
+
+        width: 240px;
+
+        transform: translateX(-100%);
+
+        transition: transform 0.2s ease;
+      }
+
+      .sidebar.mobile-open {
+        transform: translateX(0);
+      }
+
+      .sidebar.collapsed {
+        width: 240px;
+      }
+
+      .sidebar.collapsed .sidebar-label {
+        display: block;
+      }
+
+      .sidebar.collapsed .sidebar-logo-text {
+        display: block;
+      }
+
+      .shell-content {
+        padding: 22px 16px 50px;
+      }
+
+      .topbar {
+        padding: 14px 16px;
+      }
+
+      .sidebar-mobile-toggle {
+        display: block;
+      }
+
+      .sidebar-collapse-btn {
+        display: none;
+      }
+
+    }
 .password-wrapper {
   position: relative;
   width: 100%;
@@ -2664,52 +3317,127 @@ textarea:focus {
 
 </div>
 
-<div class="app" id="homeScreen">
+<div class="shell" id="appShell">
 
-  <header>
+  <aside class="sidebar" id="sidebar">
 
-    <div class="brand">
+    <div class="sidebar-top">
 
-      <div class="logo">
-        <img src="/logo.svg" alt="Clyde AI">
-      </div>
-
-      <div>
-
-        <div class="brand-name">
-          Clyde AI
+      <div class="sidebar-logo" onclick="showHome()" title="Clyde AI — Home">
+        <div class="logo">
+          <img src="/logo.svg" alt="Clyde AI">
         </div>
-
-        <div class="brand-subtitle">
-          AI Career Intelligence
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <div class="header-actions">
-
-      <div class="status">
-
-        <span class="status-dot"></span>
-
-        <span class="status-text">AI Ready</span>
-
+        <span class="sidebar-logo-text">Clyde AI</span>
       </div>
 
       <button
-        class="logout-button"
-        onclick="logout()"
+        class="sidebar-collapse-btn"
+        id="sidebarCollapseBtn"
+        onclick="toggleSidebar()"
+        aria-label="Collapse sidebar"
       >
-        Log Out
+        ‹
       </button>
 
     </div>
 
-  </header>
+    <nav class="sidebar-nav">
 
+      <button class="sidebar-item" data-page="home" data-label="Home" onclick="showHome()">
+        <span class="sidebar-icon">🏠</span>
+        <span class="sidebar-label">Home</span>
+      </button>
+
+      <button class="sidebar-item" data-page="jobAnalysis" data-label="Job Analysis" onclick="showApp()">
+        <span class="sidebar-icon">✨</span>
+        <span class="sidebar-label">Job Analysis</span>
+      </button>
+
+      <button class="sidebar-item" data-label="Career Assistant" onclick="openCareerChat('coach')">
+        <span class="sidebar-icon">💬</span>
+        <span class="sidebar-label">Career Assistant</span>
+      </button>
+
+      <button class="sidebar-item" data-page="interviewPrep" data-label="Interview Prep" onclick="navigateTo('interviewPrep')">
+        <span class="sidebar-icon">🎤</span>
+        <span class="sidebar-label">Interview Prep</span>
+      </button>
+
+      <button class="sidebar-item" data-page="messages" data-label="Messages" onclick="navigateTo('messages')">
+        <span class="sidebar-icon">✉️</span>
+        <span class="sidebar-label">Messages</span>
+        <span class="sidebar-badge" id="messagesBadge" style="display: none;"></span>
+      </button>
+
+      <button class="sidebar-item" data-page="notifications" data-label="Notifications" onclick="navigateTo('notifications')">
+        <span class="sidebar-icon">🔔</span>
+        <span class="sidebar-label">Notifications</span>
+        <span class="sidebar-badge" id="notificationsBadge" style="display: none;"></span>
+      </button>
+
+      <button class="sidebar-item" data-page="applications" data-label="Applications" onclick="navigateTo('applications')">
+        <span class="sidebar-icon">📊</span>
+        <span class="sidebar-label">Applications</span>
+      </button>
+
+    </nav>
+
+    <div class="sidebar-bottom">
+
+      <button class="sidebar-item" data-label="Settings &amp; Support" onclick="toggleSettingsPanel()">
+        <span class="sidebar-icon">⚙️</span>
+        <span class="sidebar-label">Settings &amp; Support</span>
+      </button>
+
+    </div>
+
+  </aside>
+
+  <div class="shell-main">
+
+    <header class="topbar">
+
+      <button
+        class="sidebar-mobile-toggle"
+        onclick="toggleMobileSidebar()"
+        aria-label="Open menu"
+      >
+        ☰
+      </button>
+
+      <div class="topbar-right">
+
+        <div class="status" id="topbarStatus">
+          <span class="status-dot"></span>
+          <span class="status-text">AI Ready</span>
+        </div>
+
+        <div class="profile-menu" id="profileMenu">
+
+          <button class="profile-menu-trigger" onclick="toggleProfileMenu()">
+            <span>👤</span>
+            <span id="profileMenuName">Account</span>
+            <span class="profile-menu-caret">▾</span>
+          </button>
+
+          <div class="profile-dropdown" id="profileDropdown">
+
+            <button onclick="closeProfileMenu(); toggleSettingsPanel();">👤 Profile</button>
+            <button onclick="closeProfileMenu(); toggleSettingsPanel();">⚙️ Settings</button>
+            <button onclick="handleAddAccount()">➕ Add account</button>
+            <button onclick="logout()">🚪 Log out</button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </header>
+
+    <main class="shell-content" id="shellContent">
+
+<div class="app" id="homeScreen">
 
   <section class="hero">
 
@@ -2771,78 +3499,9 @@ textarea:focus {
 
   </div>
 
-
-  <footer class="footer">
-
-    <div>
-      © 2026 Clyde AI
-    </div>
-
-    <div>
-      AI-powered career intelligence
-    </div>
-
-  </footer>
-
 </div>
 
 <div class="app" id="app">
-
-
-    <!-- =========================
-         HEADER
-    ========================= -->
-
-    <header>
-
-      <div class="brand">
-
-      <div class="logo">
-  <img src="/logo.svg" alt="Clyde AI">
-</div>
-
-        <div>
-
-          <div class="brand-name">
-            Clyde AI
-          </div>
-
-          <div class="brand-subtitle">
-            AI Career Intelligence
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <div class="header-actions">
-
-  <button
-    class="logout-button"
-    onclick="showHome()"
-  >
-    🏠 Home
-  </button>
-
-  <div class="status">
-
-    <span class="status-dot"></span>
-
-    <span class="status-text">AI Ready</span>
-
-  </div>
-
-  <button
-    class="logout-button"
-    onclick="logout()"
-  >
-    Log Out
-  </button>
-
-</div>
-
-    </header>
 
 
     <!-- =========================
@@ -3206,6 +3865,14 @@ textarea:focus {
 
         <button
           class="action-button secondary"
+          onclick="saveCurrentJob()"
+        >
+          💾 Save Job
+        </button>
+
+
+        <button
+          class="action-button secondary"
           onclick="resetAnalysis()"
         >
           ↻ Analyze Another Job
@@ -3301,102 +3968,142 @@ textarea:focus {
 
       </div>
 
+    </section>
 
-      <!-- =========================
-           INTERVIEW PREP
-      ========================= -->
+</div>
 
-      <div
-        class="interview-prep-card"
-        id="interviewPrepCard"
+
+<!-- =========================
+     INTERVIEW PREP PAGE
+========================= -->
+
+<section class="page" id="interviewPrepScreen" style="display: none;">
+
+  <div class="page-header">
+    <div class="eyebrow">Interview Prep</div>
+    <h1 class="page-title">Get ready for the room</h1>
+    <p class="hero-description">
+      Prepare for the questions you're most likely to receive, based on
+      the job description you last analyzed.
+    </p>
+  </div>
+
+  <div
+    class="interview-prep-card"
+    id="interviewPrepCard"
+  >
+
+    <div class="interview-prep-intro">
+
+      <p>
+        Get personalized interview questions and suggested answers
+        based on this job and your professional profile.
+      </p>
+
+      <button
+        class="interview-prep-button"
+        id="interviewPrepBtn"
+        onclick="generateInterviewPrep()"
       >
+        🎤 Prepare for Interview
+      </button>
 
-        <div class="card-heading">
+      <button
+        class="interview-prep-button secondary"
+        id="practiceInterviewBtn"
+        onclick="openCareerChat('interview')"
+      >
+        🎙️ Practice Live Interview
+      </button>
 
-          <div class="card-icon">
-            🎤
-          </div>
-
-
-          <div>
-
-            <div class="card-title">
-              Interview Prep
-            </div>
+    </div>
 
 
-            <div class="card-subtitle">
-              Prepare for the questions you're most likely to receive
-            </div>
+    <div
+      class="interview-prep-loading"
+      id="interviewPrepLoading"
+    >
 
-          </div>
+      <div class="small-loader"></div>
 
+      <div>
+        <strong>
+          Clyde is preparing your interview...
+        </strong>
+
+        <div class="loading-subtext">
+          Analyzing the role and matching questions to your experience
         </div>
-
-
-        <div class="interview-prep-intro">
-
-          <p>
-
-            Get personalized interview questions and suggested answers
-            based on this job and your professional profile.
-
-          </p>
-
-
-          <button
-            class="interview-prep-button"
-            id="interviewPrepBtn"
-            onclick="generateInterviewPrep()"
-          >
-            🎤 Prepare for Interview
-          </button>
-
-          <button
-            class="interview-prep-button secondary"
-            id="practiceInterviewBtn"
-            onclick="openCareerChat('interview')"
-          >
-            🎙️ Practice Live Interview
-          </button>
-
-        </div>
-
-
-        <div
-          class="interview-prep-loading"
-          id="interviewPrepLoading"
-        >
-
-          <div class="small-loader"></div>
-
-
-          <div>
-
-            <strong>
-              Clyde is preparing your interview...
-            </strong>
-
-
-            <div class="loading-subtext">
-              Analyzing the role and matching questions to your experience
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <div
-          class="interview-prep-content"
-          id="interviewPrepContent"
-        ></div>
-
       </div>
 
+    </div>
 
-    </section>
-  </section>
+
+    <div
+      class="interview-prep-content"
+      id="interviewPrepContent"
+    ></div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     MESSAGES PAGE
+========================= -->
+
+<section class="page" id="messagesScreen" style="display: none;">
+
+  <div class="page-header">
+    <div class="eyebrow">Messages</div>
+    <h1 class="page-title">Messages</h1>
+    <p class="hero-description">
+      Notes and updates from the Clyde AI team.
+    </p>
+  </div>
+
+  <div id="messagesList" class="message-list"></div>
+
+</section>
+
+
+<!-- =========================
+     NOTIFICATIONS PAGE
+========================= -->
+
+<section class="page" id="notificationsScreen" style="display: none;">
+
+  <div class="page-header">
+    <div class="eyebrow">Notifications</div>
+    <h1 class="page-title">Notifications</h1>
+    <p class="hero-description">
+      Updates on your job analyses and account activity.
+    </p>
+  </div>
+
+  <div id="notificationsList" class="message-list"></div>
+
+</section>
+
+
+<!-- =========================
+     APPLICATIONS PAGE
+========================= -->
+
+<section class="page" id="applicationsScreen" style="display: none;">
+
+  <div class="page-header">
+    <div class="eyebrow">Applications</div>
+    <h1 class="page-title">Saved Jobs</h1>
+    <p class="hero-description">
+      Jobs you've saved from an analysis, with status tracking.
+    </p>
+  </div>
+
+  <div id="applicationsList" class="applications-list"></div>
+
+</section>
 
 
   <footer class="footer">
@@ -3411,19 +4118,12 @@ textarea:focus {
 
   </footer>
 
+  </main>
+
+  </div>
 
 </div>
 
-
-<button
-  class="chat-launcher"
-  id="careerChatLauncher"
-  onclick="toggleCareerChat()"
-  aria-label="Career assistant chat"
-  style="display: none;"
->
-  💬
-</button>
 
 <div class="chat-panel" id="careerChatPanel">
 
@@ -3460,6 +4160,118 @@ textarea:focus {
     >
       Send
     </button>
+  </div>
+
+</div>
+
+
+<!-- =========================
+     SETTINGS & SUPPORT PANEL
+========================= -->
+
+<div class="settings-overlay" id="settingsOverlay" onclick="closeSettingsPanel()"></div>
+
+<div class="settings-panel" id="settingsPanel">
+
+  <div class="settings-panel-header">
+    <div class="settings-panel-title">Settings &amp; Support</div>
+    <button
+      class="chat-close-btn"
+      style="color: var(--text);"
+      onclick="closeSettingsPanel()"
+      aria-label="Close"
+    >
+      ✕
+    </button>
+  </div>
+
+  <div class="settings-panel-body">
+
+    <button class="settings-item" onclick="toggleSettingsSection('settingsGeneral')">
+      ⚙️ Settings
+    </button>
+    <div class="settings-sub-content" id="settingsGeneral">
+      Account settings will live here — email, password, and connected
+      preferences. Nothing to configure yet.
+    </div>
+
+    <button class="settings-item" onclick="toggleSettingsSection('settingsProfile')">
+      👤 Profile
+    </button>
+    <div class="settings-sub-content" id="settingsProfile">
+      <div id="settingsProfileEmail" style="font-weight: 700; color: var(--text); margin-bottom: 6px;"></div>
+      Your profile (name, resume, work history) will show up here once
+      profile editing is built — for now, Clyde AI uses just your email
+      and password.
+    </div>
+
+    <button class="settings-item" onclick="toggleSettingsSection('settingsNotifications')">
+      🔔 Notifications
+    </button>
+    <div class="settings-sub-content" id="settingsNotifications">
+      Notification preferences are coming soon. For now you'll get a
+      notification whenever a job analysis finishes — check the
+      Notifications tab in the sidebar.
+    </div>
+
+    <button class="settings-item" onclick="toggleSettingsSection('settingsAppearance')">
+      🎨 Appearance
+    </button>
+    <div class="settings-sub-content" id="settingsAppearance">
+      Clyde AI currently follows your device's light/dark mode setting
+      automatically. A manual theme switch is on the roadmap.
+    </div>
+
+    <button class="settings-item" onclick="toggleSettingsSection('settingsHelp')">
+      ❓ Help Center
+    </button>
+    <div class="settings-sub-content" id="settingsHelp">
+      Paste a job description on the Job Analysis page to get a match
+      score, key skills, and gaps. From there you can generate a
+      tailored cover letter or open Interview Prep. Use the Career
+      Assistant chat any time for questions about a specific role or
+      general job search advice.
+    </div>
+
+    <button class="settings-item" onclick="toggleSettingsSection('settingsContact')">
+      💬 Contact Support
+    </button>
+    <div class="settings-sub-content" id="settingsContact">
+      Support email: support@example.com (placeholder — replace with
+      the address you want to use). You can also use the Career
+      Assistant chat for product questions.
+    </div>
+
+    <button class="settings-item" onclick="toggleSettingsSection('settingsPrivacy')">
+      🔒 Privacy
+    </button>
+    <div class="settings-sub-content" id="settingsPrivacy">
+      Clyde AI stores your account email for login. Job descriptions
+      you paste are sent to the AI provider for analysis and aren't
+      retained beyond that session. Saved jobs, notifications, and
+      messages are stored under your account and only visible to you.
+      (Draft copy — review and replace with your actual privacy policy.)
+    </div>
+
+    <button class="settings-item" onclick="toggleSettingsSection('settingsTerms')">
+      📄 Terms
+    </button>
+    <div class="settings-sub-content" id="settingsTerms">
+      By using Clyde AI you agree to use the analysis, cover letters,
+      and interview prep as guidance — not guaranteed outcomes — and
+      to keep your account credentials secure. (Draft copy — review
+      and replace with your actual terms of service.)
+    </div>
+
+    <button class="settings-item" onclick="toggleSettingsSection('settingsAbout')">
+      ℹ️ About Clyde AI
+    </button>
+    <div class="settings-sub-content" id="settingsAbout">
+      Clyde AI is your AI-powered career intelligence assistant —
+      analyze job descriptions, generate tailored cover letters, and
+      prep for interviews, all in one place.
+    </div>
+
   </div>
 
 </div>
@@ -3812,6 +4624,12 @@ textarea:focus {
     function renderResults(data) {
 
       lastAnalysisResult = data;
+
+      createNotification(
+        "Job analysis complete",
+        "\"" + (data.jobTitle || "This role") + "\" scored " + (data.matchScore != null ? data.matchScore + "%" : "an analysis") + ". Check it out on the Job Analysis page.",
+        "info"
+      );
 
       document.getElementById(
         "jobTitle"
@@ -4858,6 +5676,9 @@ const app =
 const homeScreen =
   document.getElementById("homeScreen");
 
+const appShell =
+  document.getElementById("appShell");
+
 const loginForm =
   document.getElementById("loginForm");
 
@@ -5498,6 +6319,195 @@ function applyDemoModeUI() {
 
 
 /* =========================
+   PAGE NAVIGATION
+========================= */
+
+const pageIds = {
+  home: "homeScreen",
+  jobAnalysis: "app",
+  interviewPrep: "interviewPrepScreen",
+  messages: "messagesScreen",
+  notifications: "notificationsScreen",
+  applications: "applicationsScreen"
+};
+
+
+function navigateTo(pageName) {
+
+  Object.keys(pageIds).forEach(function (key) {
+
+    const el =
+      document.getElementById(pageIds[key]);
+
+    if (el) {
+      el.style.display = (key === pageName) ? "block" : "none";
+    }
+
+  });
+
+  document.querySelectorAll(".sidebar-item[data-page]").forEach(
+    function (item) {
+
+      item.classList.toggle(
+        "active",
+        item.getAttribute("data-page") === pageName
+      );
+
+    }
+  );
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+  closeMobileSidebar();
+
+  if (pageName === "messages") {
+    loadMessages();
+  } else if (pageName === "notifications") {
+    loadNotifications();
+  } else if (pageName === "applications") {
+    loadApplications();
+  }
+
+}
+
+
+/* =========================
+   SIDEBAR COLLAPSE
+========================= */
+
+function toggleSidebar() {
+
+  const sidebar =
+    document.getElementById("sidebar");
+
+  const collapsed =
+    sidebar.classList.toggle("collapsed");
+
+  try {
+    localStorage.setItem("clydeSidebarCollapsed", collapsed ? "1" : "0");
+  } catch (error) {
+    // localStorage unavailable — not critical, sidebar still works
+  }
+
+}
+
+
+function toggleMobileSidebar() {
+
+  document.getElementById("sidebar").classList.toggle("mobile-open");
+
+}
+
+
+function closeMobileSidebar() {
+
+  document.getElementById("sidebar").classList.remove("mobile-open");
+
+}
+
+
+/* =========================
+   PROFILE MENU
+========================= */
+
+function toggleProfileMenu() {
+
+  document.getElementById("profileDropdown").classList.toggle("open");
+
+}
+
+
+function closeProfileMenu() {
+
+  document.getElementById("profileDropdown").classList.remove("open");
+
+}
+
+
+function handleAddAccount() {
+
+  closeProfileMenu();
+
+  alert("Multi-account switching is coming soon. For now, log out and sign in with the other account.");
+
+}
+
+
+document.addEventListener("click", function (event) {
+
+  const menu =
+    document.getElementById("profileMenu");
+
+  if (menu && !menu.contains(event.target)) {
+    closeProfileMenu();
+  }
+
+});
+
+
+/* =========================
+   SETTINGS & SUPPORT PANEL
+========================= */
+
+function toggleSettingsPanel() {
+
+  const panel =
+    document.getElementById("settingsPanel");
+
+  const overlay =
+    document.getElementById("settingsOverlay");
+
+  const isOpen =
+    panel.classList.contains("open");
+
+  if (isOpen) {
+
+    closeSettingsPanel();
+
+  } else {
+
+    panel.classList.add("open");
+    overlay.classList.add("open");
+    closeProfileMenu();
+
+  }
+
+}
+
+
+function closeSettingsPanel() {
+
+  document.getElementById("settingsPanel").classList.remove("open");
+  document.getElementById("settingsOverlay").classList.remove("open");
+
+}
+
+
+function toggleSettingsSection(id) {
+
+  const target =
+    document.getElementById(id);
+
+  const alreadyOpen =
+    target.classList.contains("open");
+
+  document.querySelectorAll(".settings-sub-content").forEach(
+    function (el) {
+      el.classList.remove("open");
+    }
+  );
+
+  if (!alreadyOpen) {
+    target.classList.add("open");
+  }
+
+}
+
+
+/* =========================
    SHOW LOGIN
 ========================= */
 
@@ -5505,13 +6515,15 @@ function showLogin() {
 
   loginScreen.style.display = "flex";
 
-  homeScreen.style.display = "none";
-
-  app.style.display = "none";
-
-  document.getElementById("careerChatLauncher").style.display = "none";
+  appShell.classList.remove("open");
 
   closeCareerChat();
+
+  closeSettingsPanel();
+
+  closeProfileMenu();
+
+  closeMobileSidebar();
 
 }
 
@@ -5524,18 +6536,15 @@ function showHome() {
 
   loginScreen.style.display = "none";
 
-  app.style.display = "none";
+  appShell.classList.add("open");
 
-  homeScreen.style.display = "block";
-
-  document.getElementById("careerChatLauncher").style.display = "flex";
-
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
+  navigateTo("home");
 
   updateHomeGreeting();
+
+  refreshNotificationsBadge();
+
+  refreshMessagesBadge();
 
 }
 
@@ -5549,7 +6558,11 @@ async function updateHomeGreeting() {
   const greetingEl =
     document.getElementById("homeGreetingName");
 
-  if (!greetingEl) return;
+  const profileNameEl =
+    document.getElementById("profileMenuName");
+
+  const settingsProfileEmailEl =
+    document.getElementById("settingsProfileEmail");
 
   try {
 
@@ -5559,12 +6572,28 @@ async function updateHomeGreeting() {
     const email =
       data?.user?.email;
 
-    greetingEl.textContent =
-      email ? ", " + email.split("@")[0] : "";
+    if (greetingEl) {
+      greetingEl.textContent =
+        email ? ", " + email.split("@")[0] : "";
+    }
+
+    if (profileNameEl) {
+      profileNameEl.textContent =
+        email ? email.split("@")[0] : (isDemoMode ? "Demo" : "Account");
+    }
+
+    if (settingsProfileEmailEl) {
+      settingsProfileEmailEl.textContent =
+        email || (isDemoMode ? "Demo mode — no account signed in" : "");
+    }
 
   } catch (error) {
 
-    greetingEl.textContent = "";
+    if (greetingEl) greetingEl.textContent = "";
+
+    if (profileNameEl) {
+      profileNameEl.textContent = isDemoMode ? "Demo" : "Account";
+    }
 
   }
 
@@ -5579,16 +6608,9 @@ function showApp() {
 
   loginScreen.style.display = "none";
 
-  homeScreen.style.display = "none";
+  appShell.classList.add("open");
 
-  app.style.display = "block";
-
-  document.getElementById("careerChatLauncher").style.display = "flex";
-
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
+  navigateTo("jobAnalysis");
 
 }
 
@@ -5712,6 +6734,9 @@ loginForm.addEventListener(
           throw error;
 
         }
+
+
+        createWelcomeContent(data?.user?.id);
 
 
         alert(
@@ -5855,9 +6880,623 @@ async function checkSession() {
 }
 
 
+/* =========================
+   TIMESTAMP HELPER
+========================= */
+
+function formatTimestamp(iso) {
+
+  if (!iso) return "";
+
+  try {
+
+    const date = new Date(iso);
+
+    return date.toLocaleDateString(undefined, { month: "short", day: "numeric" }) +
+      " " +
+      date.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" });
+
+  } catch (error) {
+
+    return "";
+
+  }
+
+}
+
+
+/* =========================
+   APPLICATIONS (SAVED JOBS)
+========================= */
+
+async function saveCurrentJob() {
+
+  if (isDemoMode) {
+    alert("Saving jobs isn't available in Demo Mode. Sign in to save this analysis.");
+    return;
+  }
+
+  if (!lastAnalysisResult) {
+    alert("Analyze a job first.");
+    return;
+  }
+
+  try {
+
+    const { data: userData } = await supabaseClient.auth.getUser();
+    const userId = userData?.user?.id;
+
+    if (!userId) {
+      alert("Please sign in to save this job.");
+      return;
+    }
+
+    const { error } = await supabaseClient.from("saved_jobs").insert({
+      user_id: userId,
+      job_title: lastAnalysisResult.jobTitle || "Untitled role",
+      job_description: jobDescription.value.trim(),
+      match_score: Number(lastAnalysisResult.matchScore) || null,
+      match_level: lastAnalysisResult.matchLevel || null,
+      recommendation: lastAnalysisResult.recommendation || null,
+      status: "Saved",
+      analysis: lastAnalysisResult
+    });
+
+    if (error) throw error;
+
+    await createNotification(
+      "Job saved",
+      "\"" + (lastAnalysisResult.jobTitle || "This role") + "\" was added to your Applications.",
+      "success"
+    );
+
+    alert("Saved! You'll find it under Applications.");
+
+  } catch (error) {
+
+    console.error("Save job error:", error);
+
+    alert("Couldn't save this job: " + (error.message || "please try again."));
+
+  }
+
+}
+
+
+function applicationsStatusClass(status) {
+
+  const map = {
+    Saved: "saved",
+    Applied: "applied",
+    Interviewing: "interviewing",
+    Offer: "offer",
+    Rejected: "rejected"
+  };
+
+  return map[status] || "saved";
+
+}
+
+
+async function loadApplications() {
+
+  const container =
+    document.getElementById("applicationsList");
+
+  if (!container) return;
+
+  if (isDemoMode) {
+
+    container.innerHTML =
+      '<div class="empty-state">Applications aren\'t tracked in Demo Mode. Sign in and save a job from its analysis to start building your list here.</div>';
+
+    return;
+
+  }
+
+  container.innerHTML =
+    '<div class="empty-state">Loading...</div>';
+
+  try {
+
+    const { data: userData } = await supabaseClient.auth.getUser();
+    const userId = userData?.user?.id;
+
+    if (!userId) {
+      container.innerHTML =
+        '<div class="empty-state">Sign in to see your saved jobs.</div>';
+      return;
+    }
+
+    const { data, error } =
+      await supabaseClient
+        .from("saved_jobs")
+        .select("*")
+        .eq("user_id", userId)
+        .order("created_at", { ascending: false });
+
+    if (error) throw error;
+
+    renderApplicationsList(data || []);
+
+  } catch (error) {
+
+    console.error("Load applications error:", error);
+
+    container.innerHTML =
+      '<div class="empty-state">Couldn\'t load your applications right now.</div>';
+
+  }
+
+}
+
+
+function renderApplicationsList(items) {
+
+  const container =
+    document.getElementById("applicationsList");
+
+  if (!items.length) {
+    container.innerHTML =
+      '<div class="empty-state">No saved jobs yet. Analyze a job, then click Save to track it here.</div>';
+    return;
+  }
+
+  const statusOptions =
+    ["Saved", "Applied", "Interviewing", "Offer", "Rejected"];
+
+  container.innerHTML = items.map(function (job) {
+
+    const statusClass =
+      applicationsStatusClass(job.status);
+
+    const optionsHtml =
+      statusOptions.map(function (s) {
+        return '<option value="' + s + '"' + (s === job.status ? " selected" : "") + ">" + s + "</option>";
+      }).join("");
+
+    return (
+      '<div class="list-item-card">' +
+        '<div class="list-item-top">' +
+          '<div class="list-item-title">' + escapeHtml(job.job_title || "Untitled role") + '</div>' +
+          '<span class="status-badge ' + statusClass + '">' + escapeHtml(job.status) + '</span>' +
+        '</div>' +
+        '<div class="list-item-body">' +
+          (job.match_score != null ? job.match_score + '% match — ' : '') +
+          escapeHtml(job.match_level || '') +
+        '</div>' +
+        '<div class="list-item-actions">' +
+          '<select onchange="updateApplicationStatus(\'' + job.id + '\', this.value)">' + optionsHtml + '</select>' +
+          '<button onclick="deleteApplication(\'' + job.id + '\')">Remove</button>' +
+        '</div>' +
+      '</div>'
+    );
+
+  }).join("");
+
+}
+
+
+async function updateApplicationStatus(id, status) {
+
+  try {
+
+    const { error } =
+      await supabaseClient
+        .from("saved_jobs")
+        .update({ status: status, updated_at: new Date().toISOString() })
+        .eq("id", id);
+
+    if (error) throw error;
+
+  } catch (error) {
+
+    console.error("Update status error:", error);
+
+    alert("Couldn't update that job's status.");
+
+    loadApplications();
+
+  }
+
+}
+
+
+async function deleteApplication(id) {
+
+  if (!confirm("Remove this saved job?")) return;
+
+  try {
+
+    const { error } =
+      await supabaseClient
+        .from("saved_jobs")
+        .delete()
+        .eq("id", id);
+
+    if (error) throw error;
+
+    loadApplications();
+
+  } catch (error) {
+
+    console.error("Delete application error:", error);
+
+    alert("Couldn't remove that job.");
+
+  }
+
+}
+
+
+/* =========================
+   NOTIFICATIONS
+========================= */
+
+async function createWelcomeContent(userId) {
+
+  if (!userId) return;
+
+  try {
+
+    await supabaseClient.from("notifications").insert({
+      user_id: userId,
+      title: "Welcome to Clyde AI",
+      body: "Your account is ready. Paste a job description on the Job Analysis page to get started.",
+      type: "success"
+    });
+
+    await supabaseClient.from("messages").insert({
+      user_id: userId,
+      sender: "Clyde AI Team",
+      subject: "Welcome to Clyde AI 👋",
+      body: "Thanks for signing up! Paste a job description on the Job Analysis page to get a match score, generate a tailored cover letter, and prep for your interview — all in one place. If you have questions, the Career Assistant chat is available any time."
+    });
+
+  } catch (error) {
+
+    console.error("Welcome content error:", error);
+
+  }
+
+}
+
+
+async function createNotification(title, body, type) {
+
+  if (isDemoMode) return;
+
+  try {
+
+    const { data: userData } = await supabaseClient.auth.getUser();
+    const userId = userData?.user?.id;
+
+    if (!userId) return;
+
+    await supabaseClient.from("notifications").insert({
+      user_id: userId,
+      title: title,
+      body: body || null,
+      type: type || "info"
+    });
+
+    refreshNotificationsBadge();
+
+  } catch (error) {
+
+    console.error("Create notification error:", error);
+
+  }
+
+}
+
+
+async function loadNotifications() {
+
+  const container =
+    document.getElementById("notificationsList");
+
+  if (!container) return;
+
+  if (isDemoMode) {
+
+    container.innerHTML =
+      '<div class="empty-state">Notifications aren\'t tracked in Demo Mode. Sign in to get notified when a job analysis finishes.</div>';
+
+    return;
+
+  }
+
+  container.innerHTML =
+    '<div class="empty-state">Loading...</div>';
+
+  try {
+
+    const { data: userData } = await supabaseClient.auth.getUser();
+    const userId = userData?.user?.id;
+
+    if (!userId) {
+      container.innerHTML =
+        '<div class="empty-state">Sign in to see your notifications.</div>';
+      return;
+    }
+
+    const { data, error } =
+      await supabaseClient
+        .from("notifications")
+        .select("*")
+        .eq("user_id", userId)
+        .order("created_at", { ascending: false })
+        .limit(50);
+
+    if (error) throw error;
+
+    renderNotificationsList(data || []);
+
+    const unreadIds =
+      (data || [])
+        .filter(function (n) { return !n.is_read; })
+        .map(function (n) { return n.id; });
+
+    if (unreadIds.length) {
+
+      await supabaseClient
+        .from("notifications")
+        .update({ is_read: true })
+        .in("id", unreadIds);
+
+    }
+
+    refreshNotificationsBadge();
+
+  } catch (error) {
+
+    console.error("Load notifications error:", error);
+
+    container.innerHTML =
+      '<div class="empty-state">Couldn\'t load your notifications right now.</div>';
+
+  }
+
+}
+
+
+function renderNotificationsList(items) {
+
+  const container =
+    document.getElementById("notificationsList");
+
+  if (!items.length) {
+    container.innerHTML =
+      '<div class="empty-state">No notifications yet. You\'ll see updates here after you analyze or save a job.</div>';
+    return;
+  }
+
+  container.innerHTML = items.map(function (n) {
+
+    return (
+      '<div class="list-item-card' + (n.is_read ? '' : ' unread') + '">' +
+        '<div class="list-item-top">' +
+          '<div class="list-item-title">' + escapeHtml(n.title) + '</div>' +
+          '<div class="list-item-meta">' + formatTimestamp(n.created_at) + '</div>' +
+        '</div>' +
+        (n.body ? '<div class="list-item-body">' + escapeHtml(n.body) + '</div>' : '') +
+      '</div>'
+    );
+
+  }).join("");
+
+}
+
+
+async function refreshNotificationsBadge() {
+
+  const badge =
+    document.getElementById("notificationsBadge");
+
+  if (!badge || isDemoMode) return;
+
+  try {
+
+    const { data: userData } = await supabaseClient.auth.getUser();
+    const userId = userData?.user?.id;
+
+    if (!userId) return;
+
+    const { count, error } =
+      await supabaseClient
+        .from("notifications")
+        .select("id", { count: "exact", head: true })
+        .eq("user_id", userId)
+        .eq("is_read", false);
+
+    if (error) throw error;
+
+    if (count && count > 0) {
+      badge.textContent = count > 9 ? "9+" : String(count);
+      badge.style.display = "inline-block";
+    } else {
+      badge.style.display = "none";
+    }
+
+  } catch (error) {
+
+    console.error("Refresh notifications badge error:", error);
+
+  }
+
+}
+
+
+/* =========================
+   MESSAGES
+========================= */
+
+async function loadMessages() {
+
+  const container =
+    document.getElementById("messagesList");
+
+  if (!container) return;
+
+  if (isDemoMode) {
+
+    container.innerHTML =
+      '<div class="empty-state">Messages aren\'t available in Demo Mode. Sign in to receive updates from the Clyde AI team.</div>';
+
+    return;
+
+  }
+
+  container.innerHTML =
+    '<div class="empty-state">Loading...</div>';
+
+  try {
+
+    const { data: userData } = await supabaseClient.auth.getUser();
+    const userId = userData?.user?.id;
+
+    if (!userId) {
+      container.innerHTML =
+        '<div class="empty-state">Sign in to see your messages.</div>';
+      return;
+    }
+
+    const { data, error } =
+      await supabaseClient
+        .from("messages")
+        .select("*")
+        .eq("user_id", userId)
+        .order("created_at", { ascending: false });
+
+    if (error) throw error;
+
+    renderMessagesList(data || []);
+
+    const unreadIds =
+      (data || [])
+        .filter(function (m) { return !m.is_read; })
+        .map(function (m) { return m.id; });
+
+    if (unreadIds.length) {
+
+      await supabaseClient
+        .from("messages")
+        .update({ is_read: true })
+        .in("id", unreadIds);
+
+      refreshMessagesBadge();
+
+    }
+
+  } catch (error) {
+
+    console.error("Load messages error:", error);
+
+    container.innerHTML =
+      '<div class="empty-state">Couldn\'t load your messages right now.</div>';
+
+  }
+
+}
+
+
+function renderMessagesList(items) {
+
+  const container =
+    document.getElementById("messagesList");
+
+  if (!items.length) {
+    container.innerHTML =
+      '<div class="empty-state">No messages yet.</div>';
+    return;
+  }
+
+  container.innerHTML = items.map(function (m) {
+
+    return (
+      '<div class="list-item-card' + (m.is_read ? '' : ' unread') + '">' +
+        '<div class="list-item-top">' +
+          '<div class="list-item-title">' + escapeHtml(m.subject) + '</div>' +
+          '<div class="list-item-meta">' + formatTimestamp(m.created_at) + '</div>' +
+        '</div>' +
+        '<div class="list-item-body">' + escapeHtml(m.body) + '</div>' +
+      '</div>'
+    );
+
+  }).join("");
+
+}
+
+
+async function refreshMessagesBadge() {
+
+  const badge =
+    document.getElementById("messagesBadge");
+
+  if (!badge || isDemoMode) return;
+
+  try {
+
+    const { data: userData } = await supabaseClient.auth.getUser();
+    const userId = userData?.user?.id;
+
+    if (!userId) return;
+
+    const { count, error } =
+      await supabaseClient
+        .from("messages")
+        .select("id", { count: "exact", head: true })
+        .eq("user_id", userId)
+        .eq("is_read", false);
+
+    if (error) throw error;
+
+    if (count && count > 0) {
+      badge.textContent = count > 9 ? "9+" : String(count);
+      badge.style.display = "inline-block";
+    } else {
+      badge.style.display = "none";
+    }
+
+  } catch (error) {
+
+    console.error("Refresh messages badge error:", error);
+
+  }
+
+}
+
+
+/* =========================
+   RESTORE SIDEBAR COLLAPSE STATE
+========================= */
+
+(function restoreSidebarState() {
+
+  try {
+
+    if (localStorage.getItem("clydeSidebarCollapsed") === "1") {
+
+      const sidebar =
+        document.getElementById("sidebar");
+
+      if (sidebar) sidebar.classList.add("collapsed");
+
+    }
+
+  } catch (error) {
+
+    // localStorage unavailable — sidebar just stays expanded
+
+  }
+
+})();
+
+
 checkSession();
   </script>
 
 </body>
 
-</html>
+</html>  
