@@ -2111,6 +2111,340 @@ textarea:focus {
       }
 
     }
+
+
+    /* =========================
+       CHAT WIDGET
+    ========================= */
+
+    .chat-launcher {
+      position: fixed;
+
+      right: 24px;
+      bottom: 24px;
+
+      z-index: 500;
+
+      width: 56px;
+      height: 56px;
+
+      border: none;
+      border-radius: 50%;
+
+      background: #111318;
+      color: white;
+
+      font-size: 22px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      cursor: pointer;
+
+      box-shadow: 0 10px 30px rgba(17, 19, 24, 0.28);
+
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+    }
+
+    .chat-launcher:hover {
+      transform: translateY(-2px);
+
+      box-shadow: 0 14px 36px rgba(17, 19, 24, 0.34);
+    }
+
+    .faq-launcher {
+      z-index: 10000;
+    }
+
+    .chat-panel {
+      position: fixed;
+
+      right: 24px;
+      bottom: 92px;
+
+      z-index: 500;
+
+      width: 360px;
+      max-width: calc(100vw - 48px);
+
+      height: 480px;
+      max-height: calc(100vh - 140px);
+
+      display: none;
+      flex-direction: column;
+
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+
+      box-shadow: 0 25px 70px rgba(17, 19, 24, 0.18);
+
+      overflow: hidden;
+    }
+
+    .faq-panel {
+      z-index: 10000;
+    }
+
+    .chat-panel.open {
+      display: flex;
+    }
+
+    .chat-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      padding: 16px 18px;
+
+      background: #111318;
+      color: white;
+
+      flex-shrink: 0;
+    }
+
+    .chat-header-title {
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .chat-header-subtitle {
+      font-size: 11px;
+      color: #a0a5ae;
+      margin-top: 2px;
+    }
+
+    .chat-close-btn {
+      border: none;
+      background: transparent;
+      color: white;
+
+      font-size: 16px;
+
+      cursor: pointer;
+
+      padding: 4px 9px;
+
+      border-radius: 8px;
+
+      opacity: 0.8;
+    }
+
+    .chat-close-btn:hover {
+      opacity: 1;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+
+      padding: 16px;
+
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .chat-message {
+      max-width: 82%;
+
+      padding: 10px 13px;
+
+      border-radius: 14px;
+
+      font-size: 13px;
+      line-height: 1.55;
+
+      white-space: pre-wrap;
+    }
+
+    .chat-message.assistant {
+      align-self: flex-start;
+
+      background: var(--surface-soft);
+      color: var(--text);
+      border: 1px solid var(--border);
+
+      border-bottom-left-radius: 4px;
+    }
+
+    .chat-message.user {
+      align-self: flex-end;
+
+      background: #111318;
+      color: white;
+
+      border-bottom-right-radius: 4px;
+    }
+
+    .chat-typing {
+      align-self: flex-start;
+
+      display: flex;
+      gap: 4px;
+
+      padding: 12px 14px;
+
+      background: var(--surface-soft);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+
+      border-bottom-left-radius: 4px;
+    }
+
+    .chat-typing span {
+      width: 6px;
+      height: 6px;
+
+      border-radius: 50%;
+
+      background: var(--muted-light);
+
+      animation: chatTyping 1.2s infinite ease-in-out;
+    }
+
+    .chat-typing span:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .chat-typing span:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes chatTyping {
+      0%, 60%, 100% {
+        transform: translateY(0);
+        opacity: 0.4;
+      }
+      30% {
+        transform: translateY(-4px);
+        opacity: 1;
+      }
+    }
+
+    .chat-input-row {
+      display: flex;
+      gap: 8px;
+
+      padding: 12px;
+
+      border-top: 1px solid var(--border);
+
+      flex-shrink: 0;
+    }
+
+    .chat-input {
+      flex: 1;
+
+      border: 1px solid var(--border);
+      border-radius: 10px;
+
+      padding: 10px 12px;
+
+      background: var(--surface-soft);
+      color: var(--text);
+
+      font-size: 13px;
+      font-family: inherit;
+
+      outline: none;
+      resize: none;
+    }
+
+    .chat-input:focus {
+      border-color: rgba(99, 102, 241, 0.45);
+    }
+
+    .chat-send-btn {
+      border: none;
+
+      background: #111318;
+      color: white;
+
+      border-radius: 10px;
+
+      padding: 0 16px;
+
+      font-weight: 800;
+      font-size: 13px;
+
+      cursor: pointer;
+    }
+
+    .chat-send-btn:hover {
+      background: #242832;
+    }
+
+    .chat-send-btn:disabled {
+      opacity: 0.5;
+      cursor: wait;
+    }
+
+    .chat-suggestions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+
+      padding: 0 16px 12px;
+
+      flex-shrink: 0;
+    }
+
+    .chat-suggestion-chip {
+      border: 1px solid var(--border);
+
+      background: var(--surface-soft);
+      color: var(--text);
+
+      border-radius: 999px;
+
+      padding: 6px 11px;
+
+      font-size: 11px;
+      font-weight: 700;
+
+      cursor: pointer;
+    }
+
+    .chat-suggestion-chip:hover {
+      background: var(--border);
+    }
+
+    .interview-prep-button.secondary {
+      background: transparent;
+      color: var(--text);
+
+      border: 1px solid var(--border);
+
+      box-shadow: none;
+    }
+
+    .interview-prep-button.secondary:hover {
+      background: var(--surface-soft);
+      box-shadow: none;
+    }
+
+    @media (max-width: 780px) {
+
+      .chat-panel {
+        right: 12px;
+        left: 12px;
+
+        width: auto;
+
+        bottom: 84px;
+      }
+
+      .chat-launcher {
+        right: 16px;
+        bottom: 16px;
+      }
+
+    }
 .password-wrapper {
   position: relative;
   width: 100%;
@@ -2275,6 +2609,56 @@ textarea:focus {
       </strong>
 
     </p>
+
+  </div>
+
+  <button
+    class="chat-launcher faq-launcher"
+    id="faqLauncher"
+    onclick="toggleFaqChat()"
+    aria-label="Frequently asked questions"
+  >
+    💬
+  </button>
+
+  <div class="chat-panel faq-panel" id="faqPanel">
+
+    <div class="chat-header">
+
+      <div>
+        <div class="chat-header-title">Clyde AI Help</div>
+        <div class="chat-header-subtitle">Quick answers, no sign-in needed</div>
+      </div>
+
+      <button
+        class="chat-close-btn"
+        onclick="closeFaqChat()"
+        aria-label="Close"
+      >
+        ✕
+      </button>
+
+    </div>
+
+    <div class="chat-messages" id="faqMessages"></div>
+
+    <div class="chat-suggestions" id="faqSuggestions"></div>
+
+    <div class="chat-input-row">
+      <textarea
+        class="chat-input"
+        id="faqInput"
+        rows="1"
+        placeholder="Ask a question..."
+      ></textarea>
+      <button
+        class="chat-send-btn"
+        id="faqSendBtn"
+        onclick="sendFaqMessage()"
+      >
+        Send
+      </button>
+    </div>
 
   </div>
 
@@ -2968,6 +3352,14 @@ textarea:focus {
             🎤 Prepare for Interview
           </button>
 
+          <button
+            class="interview-prep-button secondary"
+            id="practiceInterviewBtn"
+            onclick="openCareerChat('interview')"
+          >
+            🎙️ Practice Live Interview
+          </button>
+
         </div>
 
 
@@ -3019,6 +3411,56 @@ textarea:focus {
 
   </footer>
 
+
+</div>
+
+
+<button
+  class="chat-launcher"
+  id="careerChatLauncher"
+  onclick="toggleCareerChat()"
+  aria-label="Career assistant chat"
+  style="display: none;"
+>
+  💬
+</button>
+
+<div class="chat-panel" id="careerChatPanel">
+
+  <div class="chat-header">
+
+    <div>
+      <div class="chat-header-title" id="careerChatTitle">Career Assistant</div>
+      <div class="chat-header-subtitle" id="careerChatSubtitle">Ask me anything about your job search</div>
+    </div>
+
+    <button
+      class="chat-close-btn"
+      onclick="closeCareerChat()"
+      aria-label="Close"
+    >
+      ✕
+    </button>
+
+  </div>
+
+  <div class="chat-messages" id="careerChatMessages"></div>
+
+  <div class="chat-input-row">
+    <textarea
+      class="chat-input"
+      id="careerChatInput"
+      rows="1"
+      placeholder="Type a message..."
+    ></textarea>
+    <button
+      class="chat-send-btn"
+      id="careerChatSendBtn"
+      onclick="sendCareerChatMessage()"
+    >
+      Send
+    </button>
+  </div>
 
 </div>
 
@@ -3368,6 +3810,8 @@ textarea:focus {
     ========================= */
 
     function renderResults(data) {
+
+      lastAnalysisResult = data;
 
       document.getElementById(
         "jobTitle"
@@ -4443,6 +4887,579 @@ let createAccountMode = false;
 
 let isDemoMode = false;
 
+let lastAnalysisResult = null;
+
+let chatState = {
+  mode: "coach",
+  messages: [],
+  sending: false
+};
+
+
+/* =========================
+   CAREER CHAT — OPEN / CLOSE
+========================= */
+
+function openCareerChat(mode) {
+
+  const panel =
+    document.getElementById("careerChatPanel");
+
+  const titleEl =
+    document.getElementById("careerChatTitle");
+
+  const subtitleEl =
+    document.getElementById("careerChatSubtitle");
+
+  const isNewMode =
+    chatState.mode !== mode ||
+    chatState.messages.length === 0;
+
+  chatState.mode = mode;
+
+  if (mode === "interview") {
+
+    titleEl.textContent =
+      "Interview Practice";
+
+    subtitleEl.textContent =
+      "Live mock interview";
+
+    if (isNewMode) {
+
+      const job =
+        jobDescription.value.trim();
+
+      chatState.messages = [
+        {
+          role: "assistant",
+          content: job
+            ? "Let's practice! I'll act as your interviewer for this role. Type \"start\" whenever you're ready, or ask me anything first."
+            : "To start a mock interview, first paste a job description on the Analyze Job screen and click Analyze Job, so I know which role to interview you for."
+        }
+      ];
+
+    }
+
+  } else {
+
+    titleEl.textContent =
+      "Career Assistant";
+
+    subtitleEl.textContent =
+      lastAnalysisResult
+        ? "Chatting about " + (lastAnalysisResult.jobTitle || "your analyzed job")
+        : "Ask me anything about your job search";
+
+    if (isNewMode) {
+
+      chatState.messages = [
+        {
+          role: "assistant",
+          content: lastAnalysisResult
+            ? "Hi! I can see you've analyzed \"" + (lastAnalysisResult.jobTitle || "this role") + "\". Ask me anything about your match, gaps, or how to strengthen your application."
+            : "Hi! I'm your Clyde AI career assistant. Ask me anything about your job search, or paste and analyze a job first so I can speak to that specific role."
+        }
+      ];
+
+    }
+
+  }
+
+  renderCareerChatMessages();
+
+  panel.classList.add("open");
+
+  document.getElementById("careerChatInput").focus();
+
+}
+
+
+function closeCareerChat() {
+
+  document.getElementById(
+    "careerChatPanel"
+  ).classList.remove("open");
+
+}
+
+
+function toggleCareerChat() {
+
+  const panel =
+    document.getElementById("careerChatPanel");
+
+  if (panel.classList.contains("open")) {
+
+    closeCareerChat();
+
+  } else {
+
+    openCareerChat(chatState.mode || "coach");
+
+  }
+
+}
+
+
+/* =========================
+   CAREER CHAT — RENDER
+========================= */
+
+function renderCareerChatMessages() {
+
+  const container =
+    document.getElementById("careerChatMessages");
+
+  container.innerHTML = "";
+
+  chatState.messages.forEach(function (msg) {
+
+    const el =
+      document.createElement("div");
+
+    el.className =
+      "chat-message " +
+      (msg.role === "user" ? "user" : "assistant");
+
+    el.textContent =
+      msg.content;
+
+    container.appendChild(el);
+
+  });
+
+  container.scrollTop =
+    container.scrollHeight;
+
+}
+
+
+function showCareerChatTyping(show) {
+
+  const container =
+    document.getElementById("careerChatMessages");
+
+  let typingEl =
+    document.getElementById("careerChatTypingIndicator");
+
+  if (show) {
+
+    if (!typingEl) {
+
+      typingEl =
+        document.createElement("div");
+
+      typingEl.className = "chat-typing";
+      typingEl.id = "careerChatTypingIndicator";
+      typingEl.innerHTML =
+        "<span></span><span></span><span></span>";
+
+      container.appendChild(typingEl);
+
+    }
+
+    container.scrollTop =
+      container.scrollHeight;
+
+  } else if (typingEl) {
+
+    typingEl.remove();
+
+  }
+
+}
+
+
+/* =========================
+   CAREER CHAT — MOCK REPLY
+========================= */
+
+function getMockCareerChatReply(mode) {
+
+  if (mode === "interview") {
+
+    return "This is sample content since you're in Demo Mode. In a real session I'd act as your interviewer here \u2014 asking one question at a time based on the job description, then reacting to your answer before moving to the next one. Sign in and analyze a real job to start a live practice interview.";
+
+  }
+
+  return "This is sample content since you're in Demo Mode. Sign in and analyze a real job description to chat about your specific match, ask career questions, and get advice grounded in your actual profile.";
+
+}
+
+
+/* =========================
+   CAREER CHAT — SEND
+========================= */
+
+async function sendCareerChatMessage() {
+
+  const input =
+    document.getElementById("careerChatInput");
+
+  const text =
+    input.value.trim();
+
+  if (!text || chatState.sending) return;
+
+  chatState.messages.push({
+    role: "user",
+    content: text
+  });
+
+  input.value = "";
+
+  renderCareerChatMessages();
+
+  chatState.sending = true;
+
+  document.getElementById("careerChatSendBtn").disabled = true;
+
+  showCareerChatTyping(true);
+
+  try {
+
+    let replyText;
+
+    if (isDemoMode) {
+
+      await wait(800);
+
+      replyText = getMockCareerChatReply(chatState.mode);
+
+    } else {
+
+      const response =
+        await fetch(
+          "/api/chat",
+          {
+            method: "POST",
+
+            headers: {
+              "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+              mode: chatState.mode,
+              messages: chatState.messages,
+              jobDescription: jobDescription.value.trim() || null,
+              analysis: lastAnalysisResult || null
+            })
+          }
+        );
+
+      const data =
+        await response.json();
+
+      if (!response.ok) {
+
+        throw new Error(
+          data.error ||
+          "Something went wrong."
+        );
+
+      }
+
+      replyText =
+        data.reply ||
+        "Sorry, I didn't get a response.";
+
+    }
+
+    chatState.messages.push({
+      role: "assistant",
+      content: replyText
+    });
+
+  } catch (error) {
+
+    console.error(error);
+
+    chatState.messages.push({
+      role: "assistant",
+      content: "Sorry, something went wrong: " + (error.message || "please try again.")
+    });
+
+  } finally {
+
+    chatState.sending = false;
+
+    document.getElementById("careerChatSendBtn").disabled = false;
+
+    showCareerChatTyping(false);
+
+    renderCareerChatMessages();
+
+  }
+
+}
+
+
+document.getElementById("careerChatInput").addEventListener(
+  "keydown",
+  function (event) {
+
+    if (event.key === "Enter" && !event.shiftKey) {
+
+      event.preventDefault();
+
+      sendCareerChatMessage();
+
+    }
+
+  }
+);
+
+
+/* =========================
+   FAQ CHAT — KNOWLEDGE BASE
+========================= */
+
+const faqData = [
+  {
+    keywords: ["what is clyde", "about clyde", "what does clyde", "what is this app", "what is this"],
+    answer: "Clyde AI is a career intelligence assistant. Paste a job description and it analyzes how well you match, generates a tailored cover letter, and preps you for the interview."
+  },
+  {
+    keywords: ["free", "cost", "price", "pricing", "pay"],
+    answer: "Creating an account is free \u2014 just sign up with an email and password to get started."
+  },
+  {
+    keywords: ["demo", "try it", "try without"],
+    answer: "Click \"Continue with Demo\" below the sign-in form to try Clyde AI with sample data \u2014 no account needed."
+  },
+  {
+    keywords: ["sign up", "create account", "register", "get started"],
+    answer: "Click \"Get started with Clyde AI\" below the sign-in form, then enter an email and password to create your account."
+  },
+  {
+    keywords: ["forgot password", "reset password", "lost password", "can't log in", "cant log in"],
+    answer: "Password reset isn't available from this screen yet. In the meantime, try creating a new account, or reach out to support for help with an existing one."
+  },
+  {
+    keywords: ["data", "privacy", "store my", "save my information"],
+    answer: "Your account is only used to save your login. Job descriptions you paste are sent to the AI for analysis and aren't stored beyond that session."
+  },
+  {
+    keywords: ["how does it work", "how it works", "how do i use"],
+    answer: "Sign in, paste a job description, and click Analyze Job. You'll get a match score, key skills, and gaps \u2014 then you can generate a cover letter or prep for the interview, all based on that same job description."
+  },
+  {
+    keywords: ["cover letter"],
+    answer: "After analyzing a job, click \"Generate Cover Letter\" and Clyde AI will write one tailored to that specific role."
+  },
+  {
+    keywords: ["interview", "prep"],
+    answer: "After analyzing a job, open the Interview Prep section to get likely questions, suggested answers, and even a live mock interview chat."
+  }
+];
+
+
+function matchFaq(text) {
+
+  const lower =
+    text.toLowerCase();
+
+  let best = null;
+
+  let bestScore = 0;
+
+  faqData.forEach(function (entry) {
+
+    let score = 0;
+
+    entry.keywords.forEach(function (keyword) {
+
+      if (lower.indexOf(keyword) !== -1) {
+
+        score += keyword.split(" ").length;
+
+      }
+
+    });
+
+    if (score > bestScore) {
+
+      bestScore = score;
+
+      best = entry;
+
+    }
+
+  });
+
+  if (best) return best.answer;
+
+  return "I don't have an answer for that yet. Try asking about pricing, the demo, creating an account, or how Clyde AI works \u2014 or sign in and explore the app directly.";
+
+}
+
+
+let faqMessages = [
+  {
+    role: "assistant",
+    content: "Hi! I can answer quick questions about Clyde AI before you sign in. What would you like to know?"
+  }
+];
+
+
+/* =========================
+   FAQ CHAT — RENDER
+========================= */
+
+function renderFaqMessages() {
+
+  const container =
+    document.getElementById("faqMessages");
+
+  container.innerHTML = "";
+
+  faqMessages.forEach(function (msg) {
+
+    const el =
+      document.createElement("div");
+
+    el.className =
+      "chat-message " +
+      (msg.role === "user" ? "user" : "assistant");
+
+    el.textContent =
+      msg.content;
+
+    container.appendChild(el);
+
+  });
+
+  container.scrollTop =
+    container.scrollHeight;
+
+}
+
+
+function renderFaqSuggestions() {
+
+  const container =
+    document.getElementById("faqSuggestions");
+
+  const suggestions = [
+    "What is Clyde AI?",
+    "Is it free?",
+    "How do I try the demo?"
+  ];
+
+  container.innerHTML = "";
+
+  suggestions.forEach(function (text) {
+
+    const chip =
+      document.createElement("button");
+
+    chip.className = "chat-suggestion-chip";
+    chip.type = "button";
+    chip.textContent = text;
+
+    chip.onclick = function () {
+
+      document.getElementById("faqInput").value = text;
+
+      sendFaqMessage();
+
+    };
+
+    container.appendChild(chip);
+
+  });
+
+}
+
+
+/* =========================
+   FAQ CHAT — SEND / OPEN / CLOSE
+========================= */
+
+function sendFaqMessage() {
+
+  const input =
+    document.getElementById("faqInput");
+
+  const text =
+    input.value.trim();
+
+  if (!text) return;
+
+  faqMessages.push({
+    role: "user",
+    content: text
+  });
+
+  input.value = "";
+
+  const answer =
+    matchFaq(text);
+
+  faqMessages.push({
+    role: "assistant",
+    content: answer
+  });
+
+  renderFaqMessages();
+
+}
+
+
+function openFaqChat() {
+
+  document.getElementById("faqPanel").classList.add("open");
+
+  renderFaqMessages();
+
+  renderFaqSuggestions();
+
+  document.getElementById("faqInput").focus();
+
+}
+
+
+function closeFaqChat() {
+
+  document.getElementById("faqPanel").classList.remove("open");
+
+}
+
+
+function toggleFaqChat() {
+
+  const panel =
+    document.getElementById("faqPanel");
+
+  if (panel.classList.contains("open")) {
+
+    closeFaqChat();
+
+  } else {
+
+    openFaqChat();
+
+  }
+
+}
+
+
+document.getElementById("faqInput").addEventListener(
+  "keydown",
+  function (event) {
+
+    if (event.key === "Enter" && !event.shiftKey) {
+
+      event.preventDefault();
+
+      sendFaqMessage();
+
+    }
+
+  }
+);
+
 
 /* =========================
    APPLY DEMO MODE UI
@@ -4492,6 +5509,10 @@ function showLogin() {
 
   app.style.display = "none";
 
+  document.getElementById("careerChatLauncher").style.display = "none";
+
+  closeCareerChat();
+
 }
 
 
@@ -4506,6 +5527,8 @@ function showHome() {
   app.style.display = "none";
 
   homeScreen.style.display = "block";
+
+  document.getElementById("careerChatLauncher").style.display = "flex";
 
   window.scrollTo({
     top: 0,
@@ -4559,6 +5582,8 @@ function showApp() {
   homeScreen.style.display = "none";
 
   app.style.display = "block";
+
+  document.getElementById("careerChatLauncher").style.display = "flex";
 
   window.scrollTo({
     top: 0,
