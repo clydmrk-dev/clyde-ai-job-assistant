@@ -176,15 +176,27 @@ body {
     }
 
 
-    .status.demo {
+    .status.trial {
       background: var(--yellow-bg);
       border-color: rgba(183, 121, 31, 0.35);
       color: var(--yellow);
     }
 
 
-    .status.demo .status-dot {
+    .status.trial .status-dot {
       background: var(--yellow);
+    }
+
+
+    .status.trial-ended {
+      background: var(--red-bg);
+      border-color: rgba(194, 65, 65, 0.35);
+      color: var(--red);
+    }
+
+
+    .status.trial-ended .status-dot {
+      background: var(--red);
     }
 
 
@@ -888,18 +900,27 @@ textarea:focus {
     .recommendation-card {
       position: relative;
       overflow: hidden;
+
+      background: #111318;
+      border-color: #242832;
+      color: #ffffff;
     }
 
 
     .recommendation-card.apply {
-      border-color: #cdebd9;
+      border-color: #1c3a2c;
 
       background:
         linear-gradient(
           135deg,
-          #ffffff,
-          #f4fbf7
+          #111318,
+          #10201a
         );
+    }
+
+
+    .recommendation-card .card-icon {
+      background: rgba(255, 255, 255, 0.08);
     }
 
 
@@ -924,7 +945,7 @@ textarea:focus {
 
 
     .recommendation-reason {
-      color: var(--muted);
+      color: #a8adb8;
 
       font-size: 12px;
 
@@ -988,7 +1009,7 @@ textarea:focus {
     .action-button.primary {
       border: none;
 
-      background: var(--text);
+      background: #111318;
 
       color: white;
     }
@@ -1002,16 +1023,16 @@ textarea:focus {
 
 
     .action-button.secondary {
-      border: 1px solid var(--border);
+      border: 1px solid #2f333e;
 
-      background: white;
+      background: #111318;
 
-      color: var(--text);
+      color: white;
     }
 
 
     .action-button.secondary:hover {
-      background: var(--surface-soft);
+      background: #242832;
     }
 
 
@@ -1111,31 +1132,50 @@ textarea:focus {
 
       margin-top: 18px;
 
-      background: var(--surface);
+      background: #111318;
 
-      border: 1px solid var(--border);
+      border: 1px solid #242832;
 
       border-radius: 18px;
 
       padding: 21px;
 
       box-shadow:
-        0 5px 20px rgba(17, 19, 24, 0.035);
+        0 5px 20px rgba(0, 0, 0, 0.3);
 
       animation: fadeIn 0.4s ease;
+
+      color: #f5f5f5;
+    }
+
+
+    .cover-letter-card .card-icon {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+
+    .cover-letter-card .card-subtitle {
+      color: #a8adb8;
     }
 
 
     .cover-letter-loading {
       display: none;
 
-      color: var(--muted);
+      color: #b8bcc4;
 
       font-size: 12px;
 
       padding: 25px 0;
 
       text-align: center;
+    }
+
+
+    .cover-letter-loading .small-loader {
+      border-color: rgba(255, 255, 255, 0.15);
+
+      border-top-color: #ffffff;
     }
 
 
@@ -1158,7 +1198,7 @@ textarea:focus {
     .cover-letter-content {
       white-space: pre-wrap;
 
-      color: #4d535e;
+      color: #f5f5f5;
 
       font-size: 14px;
 
@@ -1175,7 +1215,7 @@ textarea:focus {
 
       padding-top: 15px;
 
-      border-top: 1px solid #f0f1f3;
+      border-top: 1px solid #242832;
 
       display: flex;
 
@@ -1186,11 +1226,11 @@ textarea:focus {
 
 
     .cover-letter-actions button {
-      border: 1px solid var(--border);
+      border: 1px solid #2f333e;
 
-      background: white;
+      background: #1a1d24;
 
-      color: var(--text);
+      color: #f5f5f5;
 
       padding: 9px 13px;
 
@@ -1205,9 +1245,9 @@ textarea:focus {
 
 
     .cover-action.primary {
-      background: var(--text) !important;
+      background: #111318 !important;
       color: white !important;
-      border-color: var(--text) !important;
+      border-color: #111318 !important;
     }
 
 
@@ -1228,12 +1268,12 @@ textarea:focus {
 
       border-radius: 24px;
 
-      background: #ffffff;
+      background: #111318;
 
-      border: 1px solid #e9e9ee;
+      border: 1px solid #242832;
 
       box-shadow:
-        0 18px 45px rgba(20, 20, 40, 0.07);
+        0 18px 45px rgba(0, 0, 0, 0.35);
     }
 
 
@@ -1247,11 +1287,11 @@ textarea:focus {
       background:
         linear-gradient(
           135deg,
-          #faf9ff,
-          #f6f7fb
+          #1a1d24,
+          #16181e
         );
 
-      border: 1px solid #eceaf5;
+      border: 1px solid #2a2e38;
     }
 
 
@@ -1260,7 +1300,7 @@ textarea:focus {
 
       max-width: 650px;
 
-      color: #666;
+      color: #b8bcc4;
 
       font-size: 14px;
 
@@ -1333,11 +1373,11 @@ textarea:focus {
 
       border-radius: 16px;
 
-      background: #f8f8fb;
+      background: #1a1d24;
 
-      border: 1px solid #ececf2;
+      border: 1px solid #2a2e38;
 
-      color: #444;
+      color: #d5d7db;
     }
 
 
@@ -1345,6 +1385,10 @@ textarea:focus {
       flex-shrink: 0;
 
       margin: 0;
+
+      border-color: rgba(255, 255, 255, 0.15);
+
+      border-top-color: #ffffff;
     }
 
 
@@ -1376,7 +1420,7 @@ textarea:focus {
 
       font-weight: 750;
 
-      color: #171717;
+      color: #f0f1f3;
     }
 
 
@@ -1389,9 +1433,9 @@ textarea:focus {
 
       border-radius: 16px;
 
-      background: #ffffff;
+      background: #1a1d24;
 
-      border: 1px solid #ededf1;
+      border: 1px solid #2a2e38;
 
       transition:
         transform 0.18s ease,
@@ -1403,7 +1447,7 @@ textarea:focus {
       transform: translateY(-1px);
 
       box-shadow:
-        0 8px 24px rgba(20, 20, 40, 0.06);
+        0 8px 24px rgba(0, 0, 0, 0.25);
     }
 
 
@@ -1414,7 +1458,7 @@ textarea:focus {
 
       line-height: 1.6;
 
-      color: #18181b;
+      color: #f5f5f5;
     }
 
 
@@ -1425,7 +1469,7 @@ textarea:focus {
 
       line-height: 1.5;
 
-      color: #8a8a92;
+      color: #9aa0ab;
     }
 
 
@@ -1436,20 +1480,20 @@ textarea:focus {
 
       border-radius: 13px;
 
-      background: #f7f5ff;
+      background: #211f33;
 
-      border: 1px solid #ebe7ff;
+      border: 1px solid #322f4d;
 
       font-size: 13px;
 
       line-height: 1.7;
 
-      color: #444;
+      color: #e2e2e6;
     }
 
 
     .interview-answer strong {
-      color: #5b4bb7;
+      color: #b3a1f7;
     }
 
 
@@ -1462,15 +1506,15 @@ textarea:focus {
 
       border-radius: 13px;
 
-      background: #fafafa;
+      background: #1a1d24;
 
-      border: 1px solid #ededed;
+      border: 1px solid #2a2e38;
 
       font-size: 13px;
 
       line-height: 1.6;
 
-      color: #444;
+      color: #d5d7db;
     }
 
 
@@ -1497,7 +1541,7 @@ textarea:focus {
 
       border-radius: 50%;
 
-      background: #111;
+      background: #2f333e;
 
       color: #fff;
 
@@ -1516,15 +1560,15 @@ textarea:focus {
 
       border-radius: 13px;
 
-      background: #fafafa;
+      background: #1a1d24;
 
-      border: 1px solid #ededed;
+      border: 1px solid #2a2e38;
 
       font-size: 13px;
 
       line-height: 1.6;
 
-      color: #444;
+      color: #d5d7db;
     }
 
 
@@ -1551,7 +1595,7 @@ textarea:focus {
 
       border-radius: 50%;
 
-      background: #111;
+      background: #2f333e;
 
       color: #fff;
 
@@ -1736,8 +1780,7 @@ textarea:focus {
   font-weight: 700;
 }
 
-.login-button,
-.demo-button {
+.login-button {
   width: 100%;
 
   padding: 13px;
@@ -1763,47 +1806,6 @@ textarea:focus {
 
 .login-button:hover {
   background: #242832;
-
-  transform: translateY(-1px);
-}
-
-.login-divider {
-  display: flex;
-
-  align-items: center;
-
-  gap: 12px;
-
-  margin: 22px 0;
-
-  color: #a0a5ae;
-
-  font-size: 10px;
-
-  font-weight: 800;
-}
-
-.login-divider::before,
-.login-divider::after {
-  content: "";
-
-  flex: 1;
-
-  height: 1px;
-
-  background: var(--border);
-}
-
-.demo-button {
-  border: 1px solid var(--border);
-
-  background: white;
-
-  color: var(--text);
-}
-
-.demo-button:hover {
-  background: var(--surface-soft);
 
   transform: translateY(-1px);
 }
@@ -1917,25 +1919,6 @@ textarea:focus {
 
   .login-options a {
     color: #f5f5f5;
-  }
-
-  .login-divider {
-    color: #707070;
-  }
-
-  .login-divider::before,
-  .login-divider::after {
-    background: #2b2b2b;
-  }
-
-  .demo-button {
-    background: #202020;
-    border-color: #303030;
-    color: #f5f5f5;
-  }
-
-  .demo-button:hover {
-    background: #292929;
   }
 
   .login-footer {
@@ -2167,11 +2150,11 @@ textarea:focus {
 
       z-index: 500;
 
-      width: 360px;
+      width: 420px;
       max-width: calc(100vw - 48px);
 
-      height: 480px;
-      max-height: calc(100vh - 140px);
+      height: 640px;
+      max-height: calc(100vh - 120px);
 
       display: none;
       flex-direction: column;
@@ -2330,7 +2313,7 @@ textarea:focus {
       display: flex;
       gap: 8px;
 
-      padding: 12px;
+      padding: 8px;
 
       border-top: 1px solid var(--border);
 
@@ -2341,14 +2324,16 @@ textarea:focus {
       flex: 1;
 
       border: 1px solid var(--border);
-      border-radius: 10px;
+      border-radius: 9px;
 
-      padding: 10px 12px;
+      padding: 7px 10px;
+
+      max-height: 34px;
 
       background: var(--surface-soft);
       color: var(--text);
 
-      font-size: 13px;
+      font-size: 12px;
       font-family: inherit;
 
       outline: none;
@@ -2415,16 +2400,16 @@ textarea:focus {
     }
 
     .interview-prep-button.secondary {
-      background: transparent;
-      color: var(--text);
+      background: #242832;
+      color: #ffffff;
 
-      border: 1px solid var(--border);
+      border: 1px solid #2f333e;
 
       box-shadow: none;
     }
 
     .interview-prep-button.secondary:hover {
-      background: var(--surface-soft);
+      background: #2f343f;
       box-shadow: none;
     }
 
@@ -2472,8 +2457,6 @@ textarea:focus {
 
       padding: 20px 14px;
 
-      transition: width 0.2s ease;
-
       position: sticky;
       top: 0;
 
@@ -2481,14 +2464,9 @@ textarea:focus {
       overflow-y: auto;
     }
 
-    .sidebar.collapsed {
-      width: 76px;
-    }
-
     .sidebar-top {
       display: flex;
       align-items: center;
-      justify-content: space-between;
 
       margin-bottom: 26px;
 
@@ -2508,36 +2486,6 @@ textarea:focus {
       font-weight: 800;
       letter-spacing: -0.3px;
       white-space: nowrap;
-    }
-
-    .sidebar.collapsed .sidebar-logo-text {
-      display: none;
-    }
-
-    .sidebar-collapse-btn {
-      border: none;
-      background: transparent;
-      color: var(--muted);
-
-      font-size: 16px;
-
-      cursor: pointer;
-
-      padding: 4px 8px;
-
-      border-radius: 8px;
-
-      flex-shrink: 0;
-
-      transition: transform 0.2s ease, background 0.2s ease;
-    }
-
-    .sidebar-collapse-btn:hover {
-      background: var(--surface-soft);
-    }
-
-    .sidebar.collapsed .sidebar-collapse-btn {
-      transform: rotate(180deg);
     }
 
     .sidebar-nav {
@@ -2617,54 +2565,6 @@ textarea:focus {
       flex-shrink: 0;
     }
 
-    .sidebar.collapsed .sidebar-label {
-      display: none;
-    }
-
-    .sidebar.collapsed .sidebar-item {
-      justify-content: center;
-    }
-
-    .sidebar.collapsed .sidebar-badge {
-      position: absolute;
-      top: 4px;
-      right: 4px;
-
-      margin-left: 0;
-    }
-
-    .sidebar.collapsed .sidebar-item::after {
-      content: attr(data-label);
-
-      position: absolute;
-      left: calc(100% + 10px);
-      top: 50%;
-      transform: translateY(-50%);
-
-      background: #111318;
-      color: white;
-
-      padding: 6px 10px;
-
-      border-radius: 8px;
-
-      font-size: 11px;
-      font-weight: 700;
-
-      white-space: nowrap;
-
-      opacity: 0;
-      pointer-events: none;
-
-      transition: opacity 0.15s ease;
-
-      z-index: 600;
-    }
-
-    .sidebar.collapsed .sidebar-item:hover::after {
-      opacity: 1;
-    }
-
     .shell-main {
       flex: 1;
       min-width: 0;
@@ -2688,19 +2588,6 @@ textarea:focus {
       gap: 14px;
 
       margin-left: auto;
-    }
-
-    .sidebar-mobile-toggle {
-      display: none;
-
-      border: none;
-      background: transparent;
-
-      font-size: 20px;
-
-      cursor: pointer;
-
-      color: var(--text);
     }
 
     .shell-content {
@@ -2739,10 +2626,10 @@ textarea:focus {
       align-items: center;
       gap: 8px;
 
-      border: 1px solid var(--border);
-      background: white;
+      border: 1px solid #2f333e;
+      background: #111318;
 
-      color: var(--text);
+      color: #ffffff;
 
       padding: 8px 12px;
 
@@ -2755,12 +2642,12 @@ textarea:focus {
     }
 
     .profile-menu-trigger:hover {
-      background: var(--surface-soft);
+      background: #242832;
     }
 
     .profile-menu-caret {
       font-size: 10px;
-      color: var(--muted);
+      color: #a0a5ae;
     }
 
     .profile-dropdown {
@@ -3052,33 +2939,46 @@ textarea:focus {
 
     @media (max-width: 900px) {
 
+      .shell {
+        flex-direction: column;
+      }
+
       .sidebar {
-        position: fixed;
-        left: 0;
-        top: 0;
-        z-index: 800;
+        width: 100%;
 
-        width: 240px;
+        height: auto;
 
-        transform: translateX(-100%);
+        position: static;
 
-        transition: transform 0.2s ease;
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        padding: 10px;
       }
 
-      .sidebar.mobile-open {
-        transform: translateX(0);
+      .sidebar-top {
+        width: 100%;
+
+        margin-bottom: 10px;
       }
 
-      .sidebar.collapsed {
-        width: 240px;
+      .sidebar-nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        gap: 6px;
       }
 
-      .sidebar.collapsed .sidebar-label {
-        display: block;
+      .sidebar-item {
+        width: auto;
       }
 
-      .sidebar.collapsed .sidebar-logo-text {
-        display: block;
+      .sidebar-bottom {
+        width: 100%;
+
+        border-top: 1px solid var(--border);
+        margin-top: 10px;
+        padding-top: 10px;
       }
 
       .shell-content {
@@ -3087,14 +2987,6 @@ textarea:focus {
 
       .topbar {
         padding: 14px 16px;
-      }
-
-      .sidebar-mobile-toggle {
-        display: block;
-      }
-
-      .sidebar-collapse-btn {
-        display: none;
       }
 
     }
@@ -3236,18 +3128,6 @@ textarea:focus {
 
     </form>
 
-    <div class="login-divider">
-      <span>OR</span>
-    </div>
-
-    <button
-      type="button"
-      class="demo-button"
-      id="demoLogin"
-    >
-      Continue with Demo
-    </button>
-
     <p class="login-footer">
 
       <span id="accountQuestion">
@@ -3258,7 +3138,7 @@ textarea:focus {
         id="createAccountBtn"
         style="cursor: pointer;"
       >
-        Get started with Clyde AI
+        Start your 3-day free trial
       </strong>
 
     </p>
@@ -3330,15 +3210,6 @@ textarea:focus {
         <span class="sidebar-logo-text">Clyde AI</span>
       </div>
 
-      <button
-        class="sidebar-collapse-btn"
-        id="sidebarCollapseBtn"
-        onclick="toggleSidebar()"
-        aria-label="Collapse sidebar"
-      >
-        ‹
-      </button>
-
     </div>
 
     <nav class="sidebar-nav">
@@ -3351,11 +3222,6 @@ textarea:focus {
       <button class="sidebar-item" data-page="jobAnalysis" data-label="Job Analysis" onclick="showApp()">
         <span class="sidebar-icon">✨</span>
         <span class="sidebar-label">Job Analysis</span>
-      </button>
-
-      <button class="sidebar-item" data-label="Career Assistant" onclick="openCareerChat('coach')">
-        <span class="sidebar-icon">💬</span>
-        <span class="sidebar-label">Career Assistant</span>
       </button>
 
       <button class="sidebar-item" data-page="interviewPrep" data-label="Interview Prep" onclick="navigateTo('interviewPrep')">
@@ -3396,14 +3262,6 @@ textarea:focus {
   <div class="shell-main">
 
     <header class="topbar">
-
-      <button
-        class="sidebar-mobile-toggle"
-        onclick="toggleMobileSidebar()"
-        aria-label="Open menu"
-      >
-        ☰
-      </button>
 
       <div class="topbar-right">
 
@@ -4125,6 +3983,16 @@ textarea:focus {
 </div>
 
 
+<button
+  class="chat-launcher"
+  id="careerChatLauncher"
+  onclick="toggleCareerChat()"
+  aria-label="Career assistant chat"
+  style="display: none;"
+>
+  💬
+</button>
+
 <div class="chat-panel" id="careerChatPanel">
 
   <div class="chat-header">
@@ -4398,118 +4266,6 @@ textarea:focus {
        ANALYZE JOB
     ========================= */
 
-    /* =========================
-       DEMO MOCK DATA
-    ========================= */
-
-    function wait(ms) {
-
-      return new Promise(function (resolve) {
-
-        setTimeout(resolve, ms);
-
-      });
-
-    }
-
-
-    function getMockAnalysis() {
-
-      return {
-
-        jobTitle: "Senior Product Designer (Sample)",
-
-        matchScore: 82,
-
-        matchLevel: "Strong Match",
-
-        summary: "This is sample demo data, not a real analysis of the text you pasted. A signed-in analysis reads your actual profile against the real job description to write a summary like this one, covering how well the role lines up, what stands out, and where the stretch areas are.",
-
-        strengths: [
-          {
-            title: "Relevant Experience",
-            description: "A real analysis points to specific parts of your background that match what this employer is asking for."
-          },
-          {
-            title: "Core Skill Overlap",
-            description: "The tools and skills most emphasized in the listing get checked against your actual profile."
-          },
-          {
-            title: "Team Fit Signals",
-            description: "Clyde also looks for softer signals \u2014 collaboration style, seniority level, and team structure."
-          }
-        ],
-
-        skills: [
-          { name: "Sample Skill A", importance: "High" },
-          { name: "Sample Skill B", importance: "High" },
-          { name: "Sample Skill C", importance: "Medium" },
-          { name: "Sample Skill D", importance: "Medium" },
-          { name: "Sample Skill E", importance: "Low" }
-        ],
-
-        gaps: [
-          {
-            title: "Sample Gap",
-            description: "A real analysis flags anything the listing asks for that isn't clearly covered in your background yet."
-          }
-        ],
-
-        recommendation: "APPLY",
-
-        recommendationReason: "This is a placeholder recommendation. Sign in and analyze a real job description to get a recommendation based on your actual profile."
-
-      };
-
-    }
-
-
-    function getMockCoverLetter() {
-
-      return "This is sample demo content, not a real cover letter written for the job you pasted.\n\nDear Hiring Manager,\n\nI'm excited to apply for this position. A cover letter generated while signed in opens by connecting your specific background to the role you analyzed, walks through two or three concrete examples that match what the listing asks for, and closes with a clear, confident call to action.\n\nSign in (or create an account) and analyze a real job description to generate a letter tailored to it.\n\nSincerely,\n[Your Name]";
-
-    }
-
-
-    function getMockInterviewPrep() {
-
-      return {
-
-        questions: [
-          {
-            question: "Tell me about a time you solved a difficult problem in this field.",
-            why: "This is a sample question. A signed-in analysis pulls questions based on the specific role and your background.",
-            suggestedAnswer: "A real suggested answer would reference your actual experience and the specifics of the job description."
-          },
-          {
-            question: "Why are you interested in this role?",
-            why: "Sample question \u2014 employers ask this to gauge genuine interest and fit.",
-            suggestedAnswer: "A tailored answer would connect your motivations to specifics from the job listing."
-          }
-        ],
-
-        technicalQuestions: [
-          {
-            question: "Walk through your approach to a core task in this role.",
-            suggestedAnswer: "A real answer would be shaped around the actual responsibilities listed in the job description."
-          }
-        ],
-
-        questionsToAsk: [
-          "What does success look like in the first 90 days?",
-          "How is this team structured, and who would I work with most closely?"
-        ],
-
-        interviewTips: [
-          "This is sample demo content. Sign in and analyze a real job to get tips tailored to that role.",
-          "Bring 2-3 concrete examples you can speak to in depth rather than a broad overview."
-        ]
-
-      };
-
-    }
-
-
     async function analyzeJob() {
 
       const job =
@@ -4547,44 +4303,34 @@ textarea:focus {
 
         let data;
 
-        if (isDemoMode) {
+        const response =
+          await fetch(
+            "/api/ai",
+            {
+              method: "POST",
 
-          await wait(900);
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
 
-          data = getMockAnalysis();
-
-        } else {
-
-          const response =
-            await fetch(
-              "/api/ai",
-              {
-                method: "POST",
-
-                headers: {
-                  "Content-Type":
-                    "application/json"
-                },
-
-                body: JSON.stringify({
-                  jobDescription: job
-                })
-              }
-            );
+              body: JSON.stringify({
+                jobDescription: job
+              })
+            }
+          );
 
 
-          data =
-            await response.json();
+        data =
+          await response.json();
 
 
-          if (!response.ok) {
+        if (!response.ok) {
 
-            throw new Error(
-              data.error ||
-              "Something went wrong."
-            );
-
-          }
+          throw new Error(
+            data.error ||
+            "Something went wrong."
+          );
 
         }
 
@@ -5100,50 +4846,40 @@ textarea:focus {
 
         let coverLetterText;
 
-        if (isDemoMode) {
+        const response =
+          await fetch(
+            "/api/cover-letter",
+            {
+              method: "POST",
 
-          await wait(900);
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
 
-          coverLetterText = getMockCoverLetter();
-
-        } else {
-
-          const response =
-            await fetch(
-              "/api/cover-letter",
-              {
-                method: "POST",
-
-                headers: {
-                  "Content-Type":
-                    "application/json"
-                },
-
-                body: JSON.stringify({
-                  jobDescription: job
-                })
-              }
-            );
+              body: JSON.stringify({
+                jobDescription: job
+              })
+            }
+          );
 
 
-          const data =
-            await response.json();
+        const data =
+          await response.json();
 
 
-          if (!response.ok) {
+        if (!response.ok) {
 
-            throw new Error(
-              data.error ||
-              "Cover letter generation failed."
-            );
-
-          }
-
-          coverLetterText =
-            data.coverLetter ||
-            "No cover letter was generated.";
+          throw new Error(
+            data.error ||
+            "Cover letter generation failed."
+          );
 
         }
+
+        coverLetterText =
+          data.coverLetter ||
+          "No cover letter was generated.";
 
 
         content.textContent =
@@ -5291,45 +5027,35 @@ textarea:focus {
 
         let data;
 
-        if (isDemoMode) {
+        const response =
+          await fetch(
+            "/api/interview-prep",
+            {
+              method: "POST",
 
-          await wait(900);
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
 
-          data = getMockInterviewPrep();
-
-        } else {
-
-          const response =
-            await fetch(
-              "/api/interview-prep",
-              {
-                method: "POST",
-
-                headers: {
-                  "Content-Type":
-                    "application/json"
-                },
-
-                body: JSON.stringify({
-                  jobDescription:
-                    jobDescriptionValue
-                })
-              }
-            );
+              body: JSON.stringify({
+                jobDescription:
+                  jobDescriptionValue
+              })
+            }
+          );
 
 
-          data =
-            await response.json();
+        data =
+          await response.json();
 
 
-          if (!response.ok) {
+        if (!response.ok) {
 
-            throw new Error(
-              data.error ||
-              "Interview preparation failed."
-            );
-
-          }
+          throw new Error(
+            data.error ||
+            "Interview preparation failed."
+          );
 
         }
 
@@ -5682,9 +5408,6 @@ const appShell =
 const loginForm =
   document.getElementById("loginForm");
 
-const demoLogin =
-  document.getElementById("demoLogin");
-
 const createAccountBtn =
   document.getElementById("createAccountBtn");
 
@@ -5706,7 +5429,7 @@ const loginOptions =
 
 let createAccountMode = false;
 
-let isDemoMode = false;
+let trialStatus = { active: true, daysLeft: 3, expired: false };
 
 let lastAnalysisResult = null;
 
@@ -5893,23 +5616,6 @@ function showCareerChatTyping(show) {
 
 
 /* =========================
-   CAREER CHAT — MOCK REPLY
-========================= */
-
-function getMockCareerChatReply(mode) {
-
-  if (mode === "interview") {
-
-    return "This is sample content since you're in Demo Mode. In a real session I'd act as your interviewer here \u2014 asking one question at a time based on the job description, then reacting to your answer before moving to the next one. Sign in and analyze a real job to start a live practice interview.";
-
-  }
-
-  return "This is sample content since you're in Demo Mode. Sign in and analyze a real job description to chat about your specific match, ask career questions, and get advice grounded in your actual profile.";
-
-}
-
-
-/* =========================
    CAREER CHAT — SEND
 ========================= */
 
@@ -5942,50 +5648,40 @@ async function sendCareerChatMessage() {
 
     let replyText;
 
-    if (isDemoMode) {
+    const response =
+      await fetch(
+        "/api/chat",
+        {
+          method: "POST",
 
-      await wait(800);
+          headers: {
+            "Content-Type": "application/json"
+          },
 
-      replyText = getMockCareerChatReply(chatState.mode);
+          body: JSON.stringify({
+            mode: chatState.mode,
+            messages: chatState.messages,
+            jobDescription: jobDescription.value.trim() || null,
+            analysis: lastAnalysisResult || null
+          })
+        }
+      );
 
-    } else {
+    const data =
+      await response.json();
 
-      const response =
-        await fetch(
-          "/api/chat",
-          {
-            method: "POST",
+    if (!response.ok) {
 
-            headers: {
-              "Content-Type": "application/json"
-            },
-
-            body: JSON.stringify({
-              mode: chatState.mode,
-              messages: chatState.messages,
-              jobDescription: jobDescription.value.trim() || null,
-              analysis: lastAnalysisResult || null
-            })
-          }
-        );
-
-      const data =
-        await response.json();
-
-      if (!response.ok) {
-
-        throw new Error(
-          data.error ||
-          "Something went wrong."
-        );
-
-      }
-
-      replyText =
-        data.reply ||
-        "Sorry, I didn't get a response.";
+      throw new Error(
+        data.error ||
+        "Something went wrong."
+      );
 
     }
+
+    replyText =
+      data.reply ||
+      "Sorry, I didn't get a response.";
 
     chatState.messages.push({
       role: "assistant",
@@ -6042,16 +5738,16 @@ const faqData = [
     answer: "Clyde AI is a career intelligence assistant. Paste a job description and it analyzes how well you match, generates a tailored cover letter, and preps you for the interview."
   },
   {
-    keywords: ["free", "cost", "price", "pricing", "pay"],
-    answer: "Creating an account is free \u2014 just sign up with an email and password to get started."
+    keywords: ["free", "cost", "price", "pricing", "pay", "trial"],
+    answer: "Every new account starts with a 3-day free trial with full access \u2014 no credit card needed. Just sign up with an email and password to get started."
   },
   {
     keywords: ["demo", "try it", "try without"],
-    answer: "Click \"Continue with Demo\" below the sign-in form to try Clyde AI with sample data \u2014 no account needed."
+    answer: "Click \"Start your 3-day free trial\" below the sign-in form \u2014 it only takes an email and password, and gives you full access to Clyde AI right away."
   },
   {
     keywords: ["sign up", "create account", "register", "get started"],
-    answer: "Click \"Get started with Clyde AI\" below the sign-in form, then enter an email and password to create your account."
+    answer: "Click \"Start your 3-day free trial\" below the sign-in form, then enter an email and password to create your account."
   },
   {
     keywords: ["forgot password", "reset password", "lost password", "can't log in", "cant log in"],
@@ -6283,10 +5979,37 @@ document.getElementById("faqInput").addEventListener(
 
 
 /* =========================
-   APPLY DEMO MODE UI
+   TRIAL STATUS
 ========================= */
 
-function applyDemoModeUI() {
+function computeTrialStatus(createdAtIso) {
+
+  if (!createdAtIso) {
+    return { active: true, daysLeft: 3, expired: false };
+  }
+
+  const createdAt =
+    new Date(createdAtIso).getTime();
+
+  const msInDay =
+    24 * 60 * 60 * 1000;
+
+  const daysElapsed =
+    (Date.now() - createdAt) / msInDay;
+
+  const daysLeft =
+    Math.max(0, Math.ceil(3 - daysElapsed));
+
+  return {
+    active: daysElapsed < 3,
+    daysLeft: daysLeft,
+    expired: daysElapsed >= 3
+  };
+
+}
+
+
+function applyTrialStatusUI(status) {
 
   document.querySelectorAll(".status").forEach(
     function (statusEl) {
@@ -6294,21 +6017,30 @@ function applyDemoModeUI() {
       const textEl =
         statusEl.querySelector(".status-text");
 
-      if (isDemoMode) {
+      statusEl.classList.remove("trial", "trial-ended");
 
-        statusEl.classList.add("demo");
+      if (status.expired) {
 
-        if (textEl) {
-          textEl.textContent = "Demo Mode";
-        }
-
-      } else {
-
-        statusEl.classList.remove("demo");
+        statusEl.classList.add("trial-ended");
 
         if (textEl) {
-          textEl.textContent = "AI Ready";
+          textEl.textContent = "Trial ended";
         }
+
+      } else if (status.active) {
+
+        statusEl.classList.add("trial");
+
+        if (textEl) {
+          textEl.textContent =
+            status.daysLeft <= 1
+              ? "Trial ends today"
+              : status.daysLeft + " days left in trial";
+        }
+
+      } else if (textEl) {
+
+        textEl.textContent = "AI Ready";
 
       }
 
@@ -6361,8 +6093,6 @@ function navigateTo(pageName) {
     behavior: "smooth"
   });
 
-  closeMobileSidebar();
-
   if (pageName === "messages") {
     loadMessages();
   } else if (pageName === "notifications") {
@@ -6370,41 +6100,6 @@ function navigateTo(pageName) {
   } else if (pageName === "applications") {
     loadApplications();
   }
-
-}
-
-
-/* =========================
-   SIDEBAR COLLAPSE
-========================= */
-
-function toggleSidebar() {
-
-  const sidebar =
-    document.getElementById("sidebar");
-
-  const collapsed =
-    sidebar.classList.toggle("collapsed");
-
-  try {
-    localStorage.setItem("clydeSidebarCollapsed", collapsed ? "1" : "0");
-  } catch (error) {
-    // localStorage unavailable — not critical, sidebar still works
-  }
-
-}
-
-
-function toggleMobileSidebar() {
-
-  document.getElementById("sidebar").classList.toggle("mobile-open");
-
-}
-
-
-function closeMobileSidebar() {
-
-  document.getElementById("sidebar").classList.remove("mobile-open");
 
 }
 
@@ -6517,13 +6212,13 @@ function showLogin() {
 
   appShell.classList.remove("open");
 
+  document.getElementById("careerChatLauncher").style.display = "none";
+
   closeCareerChat();
 
   closeSettingsPanel();
 
   closeProfileMenu();
-
-  closeMobileSidebar();
 
 }
 
@@ -6537,6 +6232,8 @@ function showHome() {
   loginScreen.style.display = "none";
 
   appShell.classList.add("open");
+
+  document.getElementById("careerChatLauncher").style.display = "flex";
 
   navigateTo("home");
 
@@ -6572,6 +6269,11 @@ async function updateHomeGreeting() {
     const email =
       data?.user?.email;
 
+    trialStatus =
+      computeTrialStatus(data?.user?.created_at);
+
+    applyTrialStatusUI(trialStatus);
+
     if (greetingEl) {
       greetingEl.textContent =
         email ? ", " + email.split("@")[0] : "";
@@ -6579,12 +6281,12 @@ async function updateHomeGreeting() {
 
     if (profileNameEl) {
       profileNameEl.textContent =
-        email ? email.split("@")[0] : (isDemoMode ? "Demo" : "Account");
+        email ? email.split("@")[0] : "Account";
     }
 
     if (settingsProfileEmailEl) {
       settingsProfileEmailEl.textContent =
-        email || (isDemoMode ? "Demo mode — no account signed in" : "");
+        email || "";
     }
 
   } catch (error) {
@@ -6592,7 +6294,7 @@ async function updateHomeGreeting() {
     if (greetingEl) greetingEl.textContent = "";
 
     if (profileNameEl) {
-      profileNameEl.textContent = isDemoMode ? "Demo" : "Account";
+      profileNameEl.textContent = "Account";
     }
 
   }
@@ -6609,6 +6311,8 @@ function showApp() {
   loginScreen.style.display = "none";
 
   appShell.classList.add("open");
+
+  document.getElementById("careerChatLauncher").style.display = "flex";
 
   navigateTo("jobAnalysis");
 
@@ -6629,10 +6333,10 @@ createAccountBtn.addEventListener(
     if (createAccountMode) {
 
       authTitle.textContent =
-        "Create your Clyde AI account";
+        "Start your free trial";
 
       authSubtitle.textContent =
-        "Create an account to access your AI-powered career intelligence assistant.";
+        "Create an account to start your 3-day free trial of Clyde AI's career intelligence tools.";
 
       authButton.textContent =
         "Create Account";
@@ -6644,9 +6348,6 @@ createAccountBtn.addEventListener(
         "Sign in instead";
 
       loginOptions.style.display =
-        "none";
-
-      demoLogin.style.display =
         "none";
 
     } else {
@@ -6664,13 +6365,10 @@ createAccountBtn.addEventListener(
         "Don't have an account?";
 
       createAccountBtn.textContent =
-        "Get started with Clyde AI";
+        "Start your 3-day free trial";
 
       loginOptions.style.display =
         "flex";
-
-      demoLogin.style.display =
-        "block";
 
     }
 
@@ -6759,13 +6457,10 @@ loginForm.addEventListener(
           "Don't have an account?";
 
         createAccountBtn.textContent =
-          "Get started with Clyde AI";
+          "Start your 3-day free trial";
 
         loginOptions.style.display =
           "flex";
-
-        demoLogin.style.display =
-          "block";
 
       } else {
 
@@ -6785,10 +6480,6 @@ loginForm.addEventListener(
 
         }
 
-
-        isDemoMode = false;
-
-        applyDemoModeUI();
 
         showHome();
 
@@ -6817,34 +6508,12 @@ loginForm.addEventListener(
 
 
 /* =========================
-   DEMO LOGIN
-========================= */
-
-demoLogin.addEventListener(
-  "click",
-  function () {
-
-    isDemoMode = true;
-
-    applyDemoModeUI();
-
-    showHome();
-
-  }
-);
-
-
-/* =========================
    LOG OUT
 ========================= */
 
 async function logout() {
 
   await supabaseClient.auth.signOut();
-
-  isDemoMode = false;
-
-  applyDemoModeUI();
 
   showLogin();
 
@@ -6864,10 +6533,6 @@ async function checkSession() {
 
 
   if (data.session) {
-
-    isDemoMode = false;
-
-    applyDemoModeUI();
 
     showHome();
 
@@ -6910,11 +6575,6 @@ function formatTimestamp(iso) {
 ========================= */
 
 async function saveCurrentJob() {
-
-  if (isDemoMode) {
-    alert("Saving jobs isn't available in Demo Mode. Sign in to save this analysis.");
-    return;
-  }
 
   if (!lastAnalysisResult) {
     alert("Analyze a job first.");
@@ -6984,15 +6644,6 @@ async function loadApplications() {
     document.getElementById("applicationsList");
 
   if (!container) return;
-
-  if (isDemoMode) {
-
-    container.innerHTML =
-      '<div class="empty-state">Applications aren\'t tracked in Demo Mode. Sign in and save a job from its analysis to start building your list here.</div>';
-
-    return;
-
-  }
 
   container.innerHTML =
     '<div class="empty-state">Loading...</div>';
@@ -7164,8 +6815,6 @@ async function createWelcomeContent(userId) {
 
 async function createNotification(title, body, type) {
 
-  if (isDemoMode) return;
-
   try {
 
     const { data: userData } = await supabaseClient.auth.getUser();
@@ -7197,15 +6846,6 @@ async function loadNotifications() {
     document.getElementById("notificationsList");
 
   if (!container) return;
-
-  if (isDemoMode) {
-
-    container.innerHTML =
-      '<div class="empty-state">Notifications aren\'t tracked in Demo Mode. Sign in to get notified when a job analysis finishes.</div>';
-
-    return;
-
-  }
 
   container.innerHTML =
     '<div class="empty-state">Loading...</div>';
@@ -7294,7 +6934,7 @@ async function refreshNotificationsBadge() {
   const badge =
     document.getElementById("notificationsBadge");
 
-  if (!badge || isDemoMode) return;
+  if (!badge) return;
 
   try {
 
@@ -7338,15 +6978,6 @@ async function loadMessages() {
     document.getElementById("messagesList");
 
   if (!container) return;
-
-  if (isDemoMode) {
-
-    container.innerHTML =
-      '<div class="empty-state">Messages aren\'t available in Demo Mode. Sign in to receive updates from the Clyde AI team.</div>';
-
-    return;
-
-  }
 
   container.innerHTML =
     '<div class="empty-state">Loading...</div>';
@@ -7434,7 +7065,7 @@ async function refreshMessagesBadge() {
   const badge =
     document.getElementById("messagesBadge");
 
-  if (!badge || isDemoMode) return;
+  if (!badge) return;
 
   try {
 
@@ -7468,35 +7099,9 @@ async function refreshMessagesBadge() {
 }
 
 
-/* =========================
-   RESTORE SIDEBAR COLLAPSE STATE
-========================= */
-
-(function restoreSidebarState() {
-
-  try {
-
-    if (localStorage.getItem("clydeSidebarCollapsed") === "1") {
-
-      const sidebar =
-        document.getElementById("sidebar");
-
-      if (sidebar) sidebar.classList.add("collapsed");
-
-    }
-
-  } catch (error) {
-
-    // localStorage unavailable — sidebar just stays expanded
-
-  }
-
-})();
-
-
 checkSession();
   </script>
 
 </body>
 
-</html>  
+</html>
