@@ -1622,6 +1622,394 @@ textarea:focus {
   }
 }
 /* =========================
+   LANDING PAGE
+========================= */
+
+.landing-screen {
+  display: none;
+
+  min-height: 100vh;
+
+  background: var(--bg);
+}
+
+.landing-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  max-width: 1160px;
+  margin: 0 auto;
+
+  padding: 24px;
+}
+
+.landing-nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.landing-nav-logo-text {
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+}
+
+.landing-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.landing-nav-signin {
+  border: none;
+  background: transparent;
+
+  color: var(--text);
+
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.landing-nav-signin:hover {
+  opacity: 0.7;
+}
+
+.landing-nav-cta {
+  border: none;
+
+  background: #111318;
+  color: white;
+
+  padding: 10px 18px;
+
+  border-radius: 10px;
+
+  font-size: 13px;
+  font-weight: 800;
+
+  cursor: pointer;
+
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.landing-nav-cta:hover {
+  background: #242832;
+  transform: translateY(-1px);
+}
+
+.landing-hero {
+  max-width: 780px;
+  margin: 0 auto;
+
+  padding: 70px 24px 50px;
+
+  text-align: center;
+}
+
+.landing-eyebrow {
+  display: inline-block;
+
+  font-size: 11px;
+  font-weight: 800;
+
+  text-transform: uppercase;
+  letter-spacing: 1.6px;
+
+  color: var(--muted);
+
+  margin-bottom: 20px;
+
+  padding: 7px 14px;
+
+  border-radius: 999px;
+
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+}
+
+.landing-hero h1 {
+  font-size: clamp(38px, 6vw, 60px);
+
+  line-height: 1.05;
+
+  letter-spacing: -2.5px;
+
+  margin-bottom: 20px;
+}
+
+.landing-hero h1 span {
+  color: #8a8a8a;
+}
+
+.landing-hero-description {
+  font-size: 16px;
+  line-height: 1.7;
+
+  color: var(--muted);
+
+  max-width: 560px;
+  margin: 0 auto 32px;
+}
+
+.landing-hero-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+
+  margin-bottom: 14px;
+}
+
+.landing-hero-cta {
+  border: none;
+
+  background: #111318;
+  color: white;
+
+  padding: 15px 26px;
+
+  border-radius: 12px;
+
+  font-size: 14px;
+  font-weight: 800;
+
+  cursor: pointer;
+
+  box-shadow: 0 10px 26px rgba(17, 19, 24, 0.2);
+
+  transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.landing-hero-cta:hover {
+  transform: translateY(-2px);
+  background: #242832;
+  box-shadow: 0 14px 32px rgba(17, 19, 24, 0.26);
+}
+
+.landing-hero-cta.secondary {
+  background: transparent;
+  color: var(--text);
+
+  border: 1px solid var(--border);
+
+  box-shadow: none;
+}
+
+.landing-hero-cta.secondary:hover {
+  background: var(--surface-soft);
+  box-shadow: none;
+}
+
+.landing-hero-note {
+  font-size: 12px;
+  color: var(--muted-light);
+}
+
+.landing-section {
+  max-width: 1160px;
+  margin: 0 auto;
+
+  padding: 50px 24px;
+}
+
+.landing-section-header {
+  max-width: 560px;
+  margin: 0 auto 40px;
+
+  text-align: center;
+}
+
+.landing-section-title {
+  font-size: clamp(26px, 3.5vw, 34px);
+
+  letter-spacing: -1.2px;
+
+  margin-bottom: 12px;
+}
+
+.landing-section-subtitle {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.landing-features {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 17px;
+}
+
+.landing-feature-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+
+  padding: 24px;
+
+  box-shadow: 0 5px 20px rgba(17, 19, 24, 0.035);
+}
+
+.landing-feature-icon {
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 11px;
+
+  background: var(--surface-soft);
+
+  font-size: 18px;
+
+  margin-bottom: 16px;
+}
+
+.landing-feature-title {
+  font-size: 14px;
+  font-weight: 800;
+
+  margin-bottom: 8px;
+}
+
+.landing-feature-description {
+  font-size: 12.5px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.landing-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.landing-step {
+  text-align: center;
+}
+
+.landing-step-number {
+  width: 36px;
+  height: 36px;
+
+  margin: 0 auto 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #111318;
+  color: white;
+
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.landing-step-title {
+  font-size: 14px;
+  font-weight: 800;
+
+  margin-bottom: 8px;
+}
+
+.landing-step-description {
+  font-size: 12.5px;
+  color: var(--muted);
+  line-height: 1.6;
+
+  max-width: 260px;
+  margin: 0 auto;
+}
+
+.landing-trial-banner {
+  max-width: 900px;
+  margin: 10px auto 0;
+
+  padding: 40px;
+
+  border-radius: 24px;
+
+  background: linear-gradient(135deg, #111318, #1a1d24);
+  color: white;
+
+  text-align: center;
+}
+
+.landing-trial-banner h2 {
+  font-size: clamp(24px, 3vw, 30px);
+
+  letter-spacing: -1px;
+
+  margin-bottom: 12px;
+}
+
+.landing-trial-banner p {
+  font-size: 14px;
+  color: #b8bcc4;
+  line-height: 1.6;
+
+  max-width: 480px;
+  margin: 0 auto 24px;
+}
+
+.landing-footer {
+  max-width: 1160px;
+  margin: 0 auto;
+
+  padding: 40px 24px 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border-top: 1px solid var(--border);
+
+  color: var(--muted-light);
+
+  font-size: 11px;
+
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+@media (max-width: 900px) {
+
+  .landing-features {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .landing-steps {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+}
+
+@media (max-width: 600px) {
+
+  .landing-features {
+    grid-template-columns: 1fr;
+  }
+
+  .landing-nav {
+    padding: 18px 16px;
+  }
+
+  .landing-hero {
+    padding: 50px 16px 40px;
+  }
+
+}
+
+
+/* =========================
    LOGIN SCREEN
 ========================= */
 
@@ -3048,11 +3436,197 @@ textarea:focus {
      LOGIN SCREEN
 ========================= -->
 
+<div class="landing-screen" id="landingScreen">
+
+  <nav class="landing-nav">
+
+    <div class="landing-nav-logo">
+      <div class="logo">
+        <img src="/logo.svg" alt="Clyde AI">
+      </div>
+      <span class="landing-nav-logo-text">Clyde AI</span>
+    </div>
+
+    <div class="landing-nav-actions">
+
+      <button class="landing-nav-signin" onclick="showLogin(); setAuthMode(false);">
+        Sign In
+      </button>
+
+      <button class="landing-nav-cta" onclick="showLogin(); setAuthMode(true);">
+        Start Free Trial
+      </button>
+
+    </div>
+
+  </nav>
+
+
+  <section class="landing-hero">
+
+    <div class="landing-eyebrow">AI Career Intelligence</div>
+
+    <h1>
+      Know if a job is worth
+      <span>your time — before you apply.</span>
+    </h1>
+
+    <p class="landing-hero-description">
+      Paste any job description and Clyde AI breaks it down: your match
+      score, the skills that matter, and the gaps worth addressing.
+      Then generate a tailored cover letter and prep for the interview,
+      all in one place.
+    </p>
+
+    <div class="landing-hero-actions">
+
+      <button class="landing-hero-cta" onclick="showLogin(); setAuthMode(true);">
+        ✨ Start your 3-day free trial
+      </button>
+
+      <button class="landing-hero-cta secondary" onclick="showLogin(); setAuthMode(false);">
+        Sign In
+      </button>
+
+    </div>
+
+    <div class="landing-hero-note">
+      No credit card required · Full access for 3 days
+    </div>
+
+  </section>
+
+
+  <section class="landing-section">
+
+    <div class="landing-section-header">
+      <div class="landing-section-title">Everything you need to apply smarter</div>
+      <div class="landing-section-subtitle">
+        Four tools, one job description. Clyde AI carries the context
+        from analysis through to interview day.
+      </div>
+    </div>
+
+    <div class="landing-features">
+
+      <div class="landing-feature-card">
+        <div class="landing-feature-icon">✨</div>
+        <div class="landing-feature-title">Job Analysis</div>
+        <div class="landing-feature-description">
+          Get a match score, key skills, potential gaps, and a clear
+          apply-or-pass recommendation for any role.
+        </div>
+      </div>
+
+      <div class="landing-feature-card">
+        <div class="landing-feature-icon">✍️</div>
+        <div class="landing-feature-title">Cover Letters</div>
+        <div class="landing-feature-description">
+          Generate a cover letter tailored to the specific job you
+          analyzed, ready to copy and send.
+        </div>
+      </div>
+
+      <div class="landing-feature-card">
+        <div class="landing-feature-icon">🎤</div>
+        <div class="landing-feature-title">Interview Prep</div>
+        <div class="landing-feature-description">
+          Likely questions, suggested answers, and a live mock
+          interview chat that reacts to what you say.
+        </div>
+      </div>
+
+      <div class="landing-feature-card">
+        <div class="landing-feature-icon">💬</div>
+        <div class="landing-feature-title">Career Assistant</div>
+        <div class="landing-feature-description">
+          A chat that's always available — general career advice, or
+          specific questions about a role you've analyzed.
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <section class="landing-section">
+
+    <div class="landing-section-header">
+      <div class="landing-section-title">How it works</div>
+      <div class="landing-section-subtitle">
+        Three steps from job posting to being genuinely ready.
+      </div>
+    </div>
+
+    <div class="landing-steps">
+
+      <div class="landing-step">
+        <div class="landing-step-number">1</div>
+        <div class="landing-step-title">Paste a job description</div>
+        <div class="landing-step-description">
+          Any listing, any source. Clyde AI reads the full text.
+        </div>
+      </div>
+
+      <div class="landing-step">
+        <div class="landing-step-number">2</div>
+        <div class="landing-step-title">Get your analysis</div>
+        <div class="landing-step-description">
+          Match score, strengths, skills, and gaps — in seconds.
+        </div>
+      </div>
+
+      <div class="landing-step">
+        <div class="landing-step-number">3</div>
+        <div class="landing-step-title">Apply prepared</div>
+        <div class="landing-step-description">
+          Generate a cover letter and practice the interview before it counts.
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <section class="landing-section">
+
+    <div class="landing-trial-banner">
+      <h2>Try Clyde AI free for 3 days</h2>
+      <p>
+        Full access to every tool — no credit card, no commitment.
+        Just an email and a password.
+      </p>
+      <button class="landing-hero-cta" onclick="showLogin(); setAuthMode(true);">
+        ✨ Start your free trial
+      </button>
+    </div>
+
+  </section>
+
+
+  <footer class="landing-footer">
+
+    <div>© 2026 Clyde AI</div>
+
+    <div>AI-powered career intelligence</div>
+
+  </footer>
+
+</div>
+
+
 <div class="login-screen" id="loginScreen">
 
   <div class="login-card">
 
-    <div class="login-logo">
+    <div
+      class="login-logo"
+      onclick="showLanding()"
+      style="cursor: pointer;"
+      title="Back to Clyde AI"
+    >
       C
     </div>
 
@@ -5393,6 +5967,9 @@ const supabaseClient =
   );
 
 
+const landingScreen =
+  document.getElementById("landingScreen");
+
 const loginScreen =
   document.getElementById("loginScreen");
 
@@ -6208,6 +6785,8 @@ function toggleSettingsSection(id) {
 
 function showLogin() {
 
+  landingScreen.style.display = "none";
+
   loginScreen.style.display = "flex";
 
   appShell.classList.remove("open");
@@ -6224,10 +6803,34 @@ function showLogin() {
 
 
 /* =========================
+   SHOW LANDING
+========================= */
+
+function showLanding() {
+
+  loginScreen.style.display = "none";
+
+  appShell.classList.remove("open");
+
+  landingScreen.style.display = "block";
+
+  document.getElementById("careerChatLauncher").style.display = "none";
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+}
+
+
+/* =========================
    SHOW HOME
 ========================= */
 
 function showHome() {
+
+  landingScreen.style.display = "none";
 
   loginScreen.style.display = "none";
 
@@ -6308,6 +6911,8 @@ async function updateHomeGreeting() {
 
 function showApp() {
 
+  landingScreen.style.display = "none";
+
   loginScreen.style.display = "none";
 
   appShell.classList.add("open");
@@ -6323,54 +6928,60 @@ function showApp() {
    CREATE ACCOUNT MODE
 ========================= */
 
+function setAuthMode(signupMode) {
+
+  createAccountMode = signupMode;
+
+  if (createAccountMode) {
+
+    authTitle.textContent =
+      "Start your free trial";
+
+    authSubtitle.textContent =
+      "Create an account to start your 3-day free trial of Clyde AI's career intelligence tools.";
+
+    authButton.textContent =
+      "Create Account";
+
+    accountQuestion.textContent =
+      "Already have an account?";
+
+    createAccountBtn.textContent =
+      "Sign in instead";
+
+    loginOptions.style.display =
+      "none";
+
+  } else {
+
+    authTitle.textContent =
+      "Welcome to Clyde AI";
+
+    authSubtitle.textContent =
+      "Your AI-powered career intelligence assistant.";
+
+    authButton.textContent =
+      "Sign In";
+
+    accountQuestion.textContent =
+      "Don't have an account?";
+
+    createAccountBtn.textContent =
+      "Start your 3-day free trial";
+
+    loginOptions.style.display =
+      "flex";
+
+  }
+
+}
+
+
 createAccountBtn.addEventListener(
   "click",
   function () {
 
-    createAccountMode =
-      !createAccountMode;
-
-    if (createAccountMode) {
-
-      authTitle.textContent =
-        "Start your free trial";
-
-      authSubtitle.textContent =
-        "Create an account to start your 3-day free trial of Clyde AI's career intelligence tools.";
-
-      authButton.textContent =
-        "Create Account";
-
-      accountQuestion.textContent =
-        "Already have an account?";
-
-      createAccountBtn.textContent =
-        "Sign in instead";
-
-      loginOptions.style.display =
-        "none";
-
-    } else {
-
-      authTitle.textContent =
-        "Welcome to Clyde AI";
-
-      authSubtitle.textContent =
-        "Your AI-powered career intelligence assistant.";
-
-      authButton.textContent =
-        "Sign In";
-
-      accountQuestion.textContent =
-        "Don't have an account?";
-
-      createAccountBtn.textContent =
-        "Start your 3-day free trial";
-
-      loginOptions.style.display =
-        "flex";
-
-    }
+    setAuthMode(!createAccountMode);
 
   }
 );
@@ -6538,7 +7149,7 @@ async function checkSession() {
 
   } else {
 
-    showLogin();
+    showLanding();
 
   }
 
