@@ -3404,6 +3404,237 @@ textarea:focus {
     }
 
 
+    /* =========================
+       PROFILE PAGE
+    ========================= */
+
+    .profile-page {
+      max-width: 760px;
+    }
+
+    .profile-cover {
+      height: 200px;
+
+      border-radius: 20px;
+
+      background: linear-gradient(135deg, #1a1d24, #2a2e38);
+      background-size: cover;
+      background-position: center;
+
+      position: relative;
+
+      margin-bottom: 60px;
+    }
+
+    .profile-cover-upload-btn {
+      position: absolute;
+      right: 16px;
+      bottom: 16px;
+
+      background: rgba(17, 19, 24, 0.7);
+      color: white;
+
+      padding: 8px 14px;
+
+      border-radius: 999px;
+
+      font-size: 11px;
+      font-weight: 700;
+
+      cursor: pointer;
+
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .profile-cover-upload-btn:hover {
+      background: rgba(17, 19, 24, 0.85);
+    }
+
+    .profile-avatar-wrap {
+      position: relative;
+
+      margin-top: -70px;
+      margin-left: 24px;
+
+      width: 128px;
+      height: 128px;
+    }
+
+    .profile-avatar {
+      width: 128px;
+      height: 128px;
+
+      border-radius: 50%;
+
+      border: 5px solid var(--bg);
+
+      background: #111318;
+      background-size: cover;
+      background-position: center;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 44px;
+      color: white;
+    }
+
+    .profile-avatar.has-image {
+      font-size: 0;
+    }
+
+    .profile-avatar-upload-btn {
+      position: absolute;
+      right: 2px;
+      bottom: 6px;
+
+      width: 32px;
+      height: 32px;
+
+      border-radius: 50%;
+
+      background: #111318;
+      color: white;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 13px;
+
+      cursor: pointer;
+
+      border: 3px solid var(--bg);
+    }
+
+    .profile-avatar-upload-btn:hover {
+      background: #242832;
+    }
+
+    .profile-page-identity {
+      margin-left: 24px;
+      margin-top: 16px;
+      margin-bottom: 34px;
+    }
+
+    .profile-display-name {
+      font-size: 24px;
+      font-weight: 800;
+
+      letter-spacing: -0.5px;
+    }
+
+    .profile-display-headline {
+      font-size: 14px;
+      color: var(--muted);
+
+      margin-top: 4px;
+    }
+
+    .profile-page-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+
+      padding: 24px;
+
+      margin-bottom: 20px;
+
+      box-shadow: 0 5px 20px rgba(17, 19, 24, 0.035);
+    }
+
+    .profile-page-card-title {
+      font-size: 12px;
+      font-weight: 900;
+
+      text-transform: uppercase;
+      letter-spacing: 1px;
+
+      margin-bottom: 18px;
+    }
+
+    .resume-upload-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      margin-bottom: 10px;
+
+      flex-wrap: wrap;
+    }
+
+    .resume-upload-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+
+      border: 1px solid var(--border);
+
+      background: var(--surface-soft);
+      color: var(--text);
+
+      padding: 9px 14px;
+
+      border-radius: 9px;
+
+      font-size: 12px;
+      font-weight: 700;
+
+      cursor: pointer;
+    }
+
+    .resume-upload-btn:hover {
+      background: var(--border);
+    }
+
+    .resume-upload-status {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .linkedin-note {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+
+      padding: 16px;
+
+      border-radius: 14px;
+
+      background: var(--surface-soft);
+      border: 1px solid var(--border);
+
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    @media (max-width: 600px) {
+
+      .profile-cover {
+        height: 140px;
+      }
+
+      .profile-avatar-wrap {
+        width: 96px;
+        height: 96px;
+
+        margin-top: -50px;
+      }
+
+      .profile-avatar {
+        width: 96px;
+        height: 96px;
+
+        font-size: 32px;
+      }
+
+    }
+
+
     @media (max-width: 900px) {
 
       .shell {
@@ -3503,6 +3734,8 @@ textarea:focus {
 }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
 </head>
 
 
@@ -3933,7 +4166,7 @@ textarea:focus {
 
           <div class="profile-dropdown" id="profileDropdown">
 
-            <button onclick="closeProfileMenu(); toggleSettingsPanel();">👤 Profile</button>
+            <button onclick="closeProfileMenu(); navigateTo('profile');">👤 Profile</button>
             <button onclick="closeProfileMenu(); toggleSettingsPanel();">⚙️ Settings</button>
             <button onclick="handleAddAccount()">➕ Add account</button>
             <button onclick="logout()">🚪 Log out</button>
@@ -4561,6 +4794,130 @@ textarea:focus {
 
 
 <!-- =========================
+     PROFILE PAGE
+========================= -->
+
+<section class="page profile-page" id="profileScreen" style="display: none;">
+
+  <div class="profile-cover" id="profileCoverPreview">
+    <label class="profile-cover-upload-btn" for="profileCoverInput">
+      📷 Change Cover
+    </label>
+    <input
+      type="file"
+      id="profileCoverInput"
+      accept="image/*"
+      style="display: none;"
+      onchange="handleCoverChange(event)"
+    >
+  </div>
+
+  <div class="profile-avatar-wrap">
+    <div class="profile-avatar" id="profileAvatarPreview">
+      👤
+    </div>
+    <label class="profile-avatar-upload-btn" for="profileAvatarInput">
+      📷
+    </label>
+    <input
+      type="file"
+      id="profileAvatarInput"
+      accept="image/*"
+      style="display: none;"
+      onchange="handleAvatarChange(event)"
+    >
+  </div>
+
+  <div class="profile-page-identity">
+    <div class="profile-display-name" id="profileDisplayName">Your Name</div>
+    <div class="profile-display-headline" id="profileDisplayHeadline">Add a headline</div>
+  </div>
+
+  <div class="profile-page-card">
+
+    <div class="profile-page-card-title">Basic Info</div>
+
+    <div id="settingsProfileEmail" style="font-weight: 700; color: var(--text); margin-bottom: 14px; font-size: 12px;"></div>
+
+    <div class="profile-form-field">
+      <label>Full Name</label>
+      <input
+        type="text"
+        id="profileFullName"
+        placeholder="Jane Doe"
+        oninput="syncProfilePreview()"
+      />
+    </div>
+
+    <div class="profile-form-field">
+      <label>Current Title / Headline</label>
+      <input
+        type="text"
+        id="profileHeadline"
+        placeholder="Senior Product Designer"
+        oninput="syncProfilePreview()"
+      />
+    </div>
+
+    <div class="profile-form-field" style="margin-bottom: 0;">
+      <label>Key Skills</label>
+      <input type="text" id="profileSkills" placeholder="Figma, User Research, Design Systems" />
+    </div>
+
+  </div>
+
+  <div class="profile-page-card">
+
+    <div class="profile-page-card-title">Resume &amp; Background</div>
+
+    <div class="resume-upload-row">
+      <label class="resume-upload-btn" for="profileResumeFile">
+        📄 Upload Resume (PDF or Word)
+      </label>
+      <input
+        type="file"
+        id="profileResumeFile"
+        accept=".pdf,.docx"
+        style="display: none;"
+        onchange="handleResumeFileChange(event)"
+      >
+      <span id="resumeUploadStatus" class="resume-upload-status"></span>
+    </div>
+
+    <div class="profile-form-field" style="margin-bottom: 0;">
+      <textarea
+        id="profileResumeText"
+        rows="10"
+        placeholder="Paste your resume, or upload one above and it'll auto-fill here. This is what Clyde AI reads to personalize your job analysis, cover letters, and interview prep."
+      ></textarea>
+    </div>
+
+  </div>
+
+  <div class="profile-page-card">
+
+    <div class="profile-page-card-title">LinkedIn</div>
+
+    <div class="linkedin-note">
+      🔗 Full LinkedIn import isn't available — LinkedIn restricts API
+      access to work history and skills for most apps. The fastest
+      equivalent: export your LinkedIn profile as a PDF (LinkedIn →
+      your profile → the "More" button → Save to PDF) and upload it
+      above — it'll extract the same way any other resume PDF does.
+    </div>
+
+  </div>
+
+  <button class="profile-save-btn" onclick="saveProfile()" style="max-width: 300px;">
+    Save Profile
+  </button>
+
+  <div id="profileSaveStatus" class="profile-save-status"></div>
+
+</section>
+
+
+<!-- =========================
      MESSAGES PAGE
 ========================= -->
 
@@ -4716,44 +5073,9 @@ textarea:focus {
       preferences. Nothing to configure yet.
     </div>
 
-    <button class="settings-item" onclick="toggleSettingsSection('settingsProfile')">
+    <button class="settings-item" onclick="closeSettingsPanel(); navigateTo('profile');">
       👤 Profile
     </button>
-    <div class="settings-sub-content" id="settingsProfile">
-
-      <div id="settingsProfileEmail" style="font-weight: 700; color: var(--text); margin-bottom: 14px;"></div>
-
-      <div class="profile-form-field">
-        <label>Full Name</label>
-        <input type="text" id="profileFullName" placeholder="Jane Doe" />
-      </div>
-
-      <div class="profile-form-field">
-        <label>Current Title / Headline</label>
-        <input type="text" id="profileHeadline" placeholder="Senior Product Designer" />
-      </div>
-
-      <div class="profile-form-field">
-        <label>Key Skills</label>
-        <input type="text" id="profileSkills" placeholder="Figma, User Research, Design Systems" />
-      </div>
-
-      <div class="profile-form-field">
-        <label>Resume / Background</label>
-        <textarea
-          id="profileResumeText"
-          rows="7"
-          placeholder="Paste your resume, or write a summary of your experience. This is what Clyde AI reads to personalize your job analysis, cover letters, and interview prep."
-        ></textarea>
-      </div>
-
-      <button class="profile-save-btn" onclick="saveProfile()">
-        Save Profile
-      </button>
-
-      <div id="profileSaveStatus" class="profile-save-status"></div>
-
-    </div>
 
     <button class="settings-item" onclick="toggleSettingsSection('settingsNotifications')">
       🔔 Notifications
@@ -6087,6 +6409,12 @@ const supabaseClient =
   );
 
 
+if (window.pdfjsLib) {
+  pdfjsLib.GlobalWorkerOptions.workerSrc =
+    "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+}
+
+
 const landingScreen =
   document.getElementById("landingScreen");
 
@@ -6759,6 +7087,7 @@ const pageIds = {
   home: "homeScreen",
   jobAnalysis: "app",
   interviewPrep: "interviewPrepScreen",
+  profile: "profileScreen",
   messages: "messagesScreen",
   notifications: "notificationsScreen",
   applications: "applicationsScreen"
@@ -6800,6 +7129,8 @@ function navigateTo(pageName) {
     loadNotifications();
   } else if (pageName === "applications") {
     loadApplications();
+  } else if (pageName === "profile") {
+    loadProfilePage();
   }
 
 }
@@ -6897,13 +7228,7 @@ function toggleSettingsSection(id) {
   );
 
   if (!alreadyOpen) {
-
     target.classList.add("open");
-
-    if (id === "settingsProfile") {
-      populateProfileForm();
-    }
-
   }
 
 }
@@ -6944,19 +7269,297 @@ async function loadProfile() {
 }
 
 
-async function populateProfileForm() {
+async function loadProfilePage() {
 
-  const profile = await loadProfile();
+  const { data: userData } =
+    await supabaseClient.auth.getUser();
+
+  const email =
+    userData?.user?.email;
+
+  const profile =
+    await loadProfile();
 
   const fullNameEl = document.getElementById("profileFullName");
   const headlineEl = document.getElementById("profileHeadline");
   const skillsEl = document.getElementById("profileSkills");
   const resumeEl = document.getElementById("profileResumeText");
+  const emailEl = document.getElementById("settingsProfileEmail");
+  const avatarEl = document.getElementById("profileAvatarPreview");
+  const coverEl = document.getElementById("profileCoverPreview");
 
   if (fullNameEl) fullNameEl.value = profile?.full_name || "";
   if (headlineEl) headlineEl.value = profile?.headline || "";
   if (skillsEl) skillsEl.value = profile?.skills || "";
   if (resumeEl) resumeEl.value = profile?.resume_text || "";
+  if (emailEl) emailEl.textContent = email || "";
+
+  if (avatarEl) {
+
+    if (profile?.avatar_url) {
+      avatarEl.style.backgroundImage = "url('" + profile.avatar_url + "')";
+      avatarEl.classList.add("has-image");
+    } else {
+      avatarEl.style.backgroundImage = "";
+      avatarEl.classList.remove("has-image");
+    }
+
+  }
+
+  if (coverEl) {
+
+    if (profile?.cover_url) {
+      coverEl.style.backgroundImage = "url('" + profile.cover_url + "')";
+    } else {
+      coverEl.style.backgroundImage = "";
+    }
+
+  }
+
+  syncProfilePreview();
+
+}
+
+
+function syncProfilePreview() {
+
+  const displayNameEl = document.getElementById("profileDisplayName");
+  const displayHeadlineEl = document.getElementById("profileDisplayHeadline");
+
+  const fullNameEl = document.getElementById("profileFullName");
+  const headlineEl = document.getElementById("profileHeadline");
+
+  if (!displayNameEl || !fullNameEl) return;
+
+  const fullName = fullNameEl.value.trim();
+  const headline = headlineEl.value.trim();
+
+  displayNameEl.textContent = fullName || "Your Name";
+  displayHeadlineEl.textContent = headline || "Add a headline";
+
+}
+
+
+/* =========================
+   PROFILE PHOTOS
+========================= */
+
+async function uploadProfileImage(file, kind) {
+
+  const { data: userData } = await supabaseClient.auth.getUser();
+  const userId = userData?.user?.id;
+
+  if (!userId) {
+    alert("Please sign in to upload a photo.");
+    return null;
+  }
+
+  if (file.size > 5 * 1024 * 1024) {
+    alert("Please choose an image under 5MB.");
+    return null;
+  }
+
+  const fileExt =
+    file.name.split(".").pop();
+
+  const filePath =
+    userId + "/" + kind + "-" + Date.now() + "." + fileExt;
+
+  try {
+
+    const { error: uploadError } =
+      await supabaseClient.storage
+        .from("profile-media")
+        .upload(filePath, file, { upsert: true });
+
+    if (uploadError) throw uploadError;
+
+    const { data: urlData } =
+      supabaseClient.storage
+        .from("profile-media")
+        .getPublicUrl(filePath);
+
+    return urlData?.publicUrl || null;
+
+  } catch (error) {
+
+    console.error("Upload error:", error);
+
+    alert("Couldn't upload that image: " + (error.message || "please try again."));
+
+    return null;
+
+  }
+
+}
+
+
+async function persistProfileImageUrl(column, url) {
+
+  try {
+
+    const { data: userData } = await supabaseClient.auth.getUser();
+    const userId = userData?.user?.id;
+
+    if (!userId) return;
+
+    const update = {
+      user_id: userId,
+      updated_at: new Date().toISOString()
+    };
+
+    update[column] = url;
+
+    const { error } =
+      await supabaseClient.from("profiles").upsert(update);
+
+    if (error) throw error;
+
+  } catch (error) {
+
+    console.error("Persist image url error:", error);
+
+  }
+
+}
+
+
+async function handleAvatarChange(event) {
+
+  const file = event.target.files[0];
+
+  if (!file) return;
+
+  const url = await uploadProfileImage(file, "avatar");
+
+  if (!url) return;
+
+  const avatarEl = document.getElementById("profileAvatarPreview");
+
+  avatarEl.style.backgroundImage = "url('" + url + "')";
+  avatarEl.classList.add("has-image");
+
+  await persistProfileImageUrl("avatar_url", url);
+
+}
+
+
+async function handleCoverChange(event) {
+
+  const file = event.target.files[0];
+
+  if (!file) return;
+
+  const url = await uploadProfileImage(file, "cover");
+
+  if (!url) return;
+
+  document.getElementById("profileCoverPreview").style.backgroundImage =
+    "url('" + url + "')";
+
+  await persistProfileImageUrl("cover_url", url);
+
+}
+
+
+/* =========================
+   RESUME FILE UPLOAD
+========================= */
+
+async function extractPdfText(file) {
+
+  const arrayBuffer = await file.arrayBuffer();
+
+  const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+
+  let text = "";
+
+  for (let i = 1; i <= pdf.numPages; i++) {
+
+    const page = await pdf.getPage(i);
+    const content = await page.getTextContent();
+
+    text +=
+      content.items.map(function (item) { return item.str; }).join(" ") +
+      "\n\n";
+
+  }
+
+  return text;
+
+}
+
+
+async function extractDocxText(file) {
+
+  const arrayBuffer = await file.arrayBuffer();
+
+  const result = await mammoth.extractRawText({ arrayBuffer: arrayBuffer });
+
+  return result.value;
+
+}
+
+
+async function handleResumeFileChange(event) {
+
+  const file = event.target.files[0];
+
+  if (!file) return;
+
+  const statusEl = document.getElementById("resumeUploadStatus");
+  const textarea = document.getElementById("profileResumeText");
+
+  statusEl.textContent = "Reading file...";
+
+  try {
+
+    let text = "";
+
+    const lowerName = file.name.toLowerCase();
+
+    if (file.type === "application/pdf" || lowerName.endsWith(".pdf")) {
+
+      text = await extractPdfText(file);
+
+    } else if (lowerName.endsWith(".docx")) {
+
+      text = await extractDocxText(file);
+
+    } else {
+
+      statusEl.textContent =
+        "Unsupported file type — please upload a PDF or .docx file.";
+
+      return;
+
+    }
+
+    if (!text.trim()) {
+
+      statusEl.textContent =
+        "Couldn't read any text from that file — try pasting your resume text directly instead.";
+
+      return;
+
+    }
+
+    textarea.value = text.trim();
+
+    statusEl.textContent = "✓ Loaded — review below, then click Save Profile.";
+
+    setTimeout(function () {
+      statusEl.textContent = "";
+    }, 5000);
+
+  } catch (error) {
+
+    console.error("Resume file read error:", error);
+
+    statusEl.textContent =
+      "Couldn't read that file — try pasting your resume text directly instead.";
+
+  }
 
 }
 
@@ -7002,6 +7605,8 @@ async function saveProfile() {
 
     statusEl.style.color = "var(--green)";
     statusEl.textContent = "✓ Profile saved";
+
+    syncProfilePreview();
 
     setTimeout(function () {
       statusEl.textContent = "";
