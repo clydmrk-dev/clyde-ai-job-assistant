@@ -5,7 +5,7 @@ export default async function handler(req, res) {
     return;
   }
 
-  const { mode, messages, jobDescription, analysis } = req.body || {};
+  const { mode, messages, jobDescription, analysis, profileContext } = req.body || {};
 
   if (!Array.isArray(messages) || messages.length === 0) {
     res.status(400).json({ error: "No messages provided." });
@@ -19,7 +19,7 @@ export default async function handler(req, res) {
     return;
   }
 
-  const systemPrompt = buildSystemPrompt(mode, jobDescription, analysis);
+  const systemPrompt = buildSystemPrompt(mode, jobDescription, analysis, profileContext);
 
   const groqMessages = [
     { role: "system", content: systemPrompt },
@@ -77,7 +77,7 @@ export default async function handler(req, res) {
 
 }
 
-function buildSystemPrompt(mode, jobDescription, analysis) {
+function buildSystemPrompt(mode, jobDescription, analysis, profileContext) {
 
   const base =
     "You are Clyde, the AI career assistant inside the Clyde AI job intelligence app. Be warm, direct, and practical. Keep replies concise — usually under 150 words unless the user asks for more detail.";
@@ -93,6 +93,10 @@ function buildSystemPrompt(mode, jobDescription, analysis) {
     } else {
       prompt +=
         " No job description has been provided yet — ask the candidate to paste one and analyze it first before starting the interview.";
+    }
+
+    if (profileContext) {
+      prompt += `\n\nHere is what the candidate has shared about their own background — tailor feedback and follow-up questions to it where relevant:\n${profileContext}`;
     }
 
     return prompt;
@@ -114,6 +118,10 @@ function buildSystemPrompt(mode, jobDescription, analysis) {
   if (!jobDescription) {
     prompt +=
       " No specific job has been analyzed yet, so keep advice general unless the user describes their situation.";
+  }
+
+  if (profileContext) {
+    prompt += `\n\nHere is what the user has shared about their own background — ground your advice in it where relevant:\n${profileContext}`;
   }
 
   return prompt;
