@@ -3324,6 +3324,85 @@ textarea:focus {
       display: block;
     }
 
+    .profile-form-field {
+      margin-bottom: 14px;
+    }
+
+    .profile-form-field label {
+      display: block;
+
+      margin-bottom: 6px;
+
+      font-size: 11px;
+      font-weight: 800;
+
+      color: var(--text);
+
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .profile-form-field input,
+    .profile-form-field textarea {
+      width: 100%;
+
+      padding: 10px 12px;
+
+      border: 1px solid var(--border);
+      border-radius: 10px;
+
+      background: var(--surface-soft);
+      color: var(--text);
+
+      font-size: 13px;
+      font-family: inherit;
+
+      outline: none;
+      resize: vertical;
+
+      transition: border-color 0.2s ease;
+    }
+
+    .profile-form-field input:focus,
+    .profile-form-field textarea:focus {
+      border-color: rgba(99, 102, 241, 0.45);
+    }
+
+    .profile-save-btn {
+      width: 100%;
+
+      border: none;
+
+      background: #111318;
+      color: white;
+
+      padding: 11px;
+
+      border-radius: 10px;
+
+      font-size: 12px;
+      font-weight: 800;
+
+      cursor: pointer;
+
+      margin-top: 4px;
+    }
+
+    .profile-save-btn:hover {
+      background: #242832;
+    }
+
+    .profile-save-status {
+      margin-top: 10px;
+
+      font-size: 11px;
+      font-weight: 700;
+
+      color: var(--green);
+
+      min-height: 14px;
+    }
+
 
     @media (max-width: 900px) {
 
@@ -4641,10 +4720,39 @@ textarea:focus {
       👤 Profile
     </button>
     <div class="settings-sub-content" id="settingsProfile">
-      <div id="settingsProfileEmail" style="font-weight: 700; color: var(--text); margin-bottom: 6px;"></div>
-      Your profile (name, resume, work history) will show up here once
-      profile editing is built — for now, Clyde AI uses just your email
-      and password.
+
+      <div id="settingsProfileEmail" style="font-weight: 700; color: var(--text); margin-bottom: 14px;"></div>
+
+      <div class="profile-form-field">
+        <label>Full Name</label>
+        <input type="text" id="profileFullName" placeholder="Jane Doe" />
+      </div>
+
+      <div class="profile-form-field">
+        <label>Current Title / Headline</label>
+        <input type="text" id="profileHeadline" placeholder="Senior Product Designer" />
+      </div>
+
+      <div class="profile-form-field">
+        <label>Key Skills</label>
+        <input type="text" id="profileSkills" placeholder="Figma, User Research, Design Systems" />
+      </div>
+
+      <div class="profile-form-field">
+        <label>Resume / Background</label>
+        <textarea
+          id="profileResumeText"
+          rows="7"
+          placeholder="Paste your resume, or write a summary of your experience. This is what Clyde AI reads to personalize your job analysis, cover letters, and interview prep."
+        ></textarea>
+      </div>
+
+      <button class="profile-save-btn" onclick="saveProfile()">
+        Save Profile
+      </button>
+
+      <div id="profileSaveStatus" class="profile-save-status"></div>
+
     </div>
 
     <button class="settings-item" onclick="toggleSettingsSection('settingsNotifications')">
@@ -4877,6 +4985,9 @@ textarea:focus {
 
         let data;
 
+        const profileContext =
+          await getProfileForAI();
+
         const response =
           await fetch(
             "/api/ai",
@@ -4889,7 +5000,8 @@ textarea:focus {
               },
 
               body: JSON.stringify({
-                jobDescription: job
+                jobDescription: job,
+                profileContext: profileContext
               })
             }
           );
@@ -5420,6 +5532,9 @@ textarea:focus {
 
         let coverLetterText;
 
+        const profileContext =
+          await getProfileForAI();
+
         const response =
           await fetch(
             "/api/cover-letter",
@@ -5432,7 +5547,8 @@ textarea:focus {
               },
 
               body: JSON.stringify({
-                jobDescription: job
+                jobDescription: job,
+                profileContext: profileContext
               })
             }
           );
@@ -5601,6 +5717,9 @@ textarea:focus {
 
         let data;
 
+        const profileContext =
+          await getProfileForAI();
+
         const response =
           await fetch(
             "/api/interview-prep",
@@ -5614,7 +5733,8 @@ textarea:focus {
 
               body: JSON.stringify({
                 jobDescription:
-                  jobDescriptionValue
+                  jobDescriptionValue,
+                profileContext: profileContext
               })
             }
           );
@@ -6225,6 +6345,9 @@ async function sendCareerChatMessage() {
 
     let replyText;
 
+    const profileContext =
+      await getProfileForAI();
+
     const response =
       await fetch(
         "/api/chat",
@@ -6239,7 +6362,8 @@ async function sendCareerChatMessage() {
             mode: chatState.mode,
             messages: chatState.messages,
             jobDescription: jobDescription.value.trim() || null,
-            analysis: lastAnalysisResult || null
+            analysis: lastAnalysisResult || null,
+            profileContext: profileContext
           })
         }
       );
@@ -6773,8 +6897,143 @@ function toggleSettingsSection(id) {
   );
 
   if (!alreadyOpen) {
+
     target.classList.add("open");
+
+    if (id === "settingsProfile") {
+      populateProfileForm();
+    }
+
   }
+
+}
+
+
+/* =========================
+   PROFILE
+========================= */
+
+async function loadProfile() {
+
+  try {
+
+    const { data: userData } = await supabaseClient.auth.getUser();
+    const userId = userData?.user?.id;
+
+    if (!userId) return null;
+
+    const { data, error } =
+      await supabaseClient
+        .from("profiles")
+        .select("*")
+        .eq("user_id", userId)
+        .maybeSingle();
+
+    if (error) throw error;
+
+    return data || null;
+
+  } catch (error) {
+
+    console.error("Load profile error:", error);
+
+    return null;
+
+  }
+
+}
+
+
+async function populateProfileForm() {
+
+  const profile = await loadProfile();
+
+  const fullNameEl = document.getElementById("profileFullName");
+  const headlineEl = document.getElementById("profileHeadline");
+  const skillsEl = document.getElementById("profileSkills");
+  const resumeEl = document.getElementById("profileResumeText");
+
+  if (fullNameEl) fullNameEl.value = profile?.full_name || "";
+  if (headlineEl) headlineEl.value = profile?.headline || "";
+  if (skillsEl) skillsEl.value = profile?.skills || "";
+  if (resumeEl) resumeEl.value = profile?.resume_text || "";
+
+}
+
+
+async function saveProfile() {
+
+  const statusEl =
+    document.getElementById("profileSaveStatus");
+
+  const fullName =
+    document.getElementById("profileFullName").value.trim();
+
+  const headline =
+    document.getElementById("profileHeadline").value.trim();
+
+  const skills =
+    document.getElementById("profileSkills").value.trim();
+
+  const resumeText =
+    document.getElementById("profileResumeText").value.trim();
+
+  try {
+
+    const { data: userData } = await supabaseClient.auth.getUser();
+    const userId = userData?.user?.id;
+
+    if (!userId) {
+      statusEl.style.color = "var(--red)";
+      statusEl.textContent = "Please sign in to save your profile.";
+      return;
+    }
+
+    const { error } = await supabaseClient.from("profiles").upsert({
+      user_id: userId,
+      full_name: fullName || null,
+      headline: headline || null,
+      skills: skills || null,
+      resume_text: resumeText || null,
+      updated_at: new Date().toISOString()
+    });
+
+    if (error) throw error;
+
+    statusEl.style.color = "var(--green)";
+    statusEl.textContent = "✓ Profile saved";
+
+    setTimeout(function () {
+      statusEl.textContent = "";
+    }, 3000);
+
+  } catch (error) {
+
+    console.error("Save profile error:", error);
+
+    statusEl.style.color = "var(--red)";
+    statusEl.textContent =
+      "Couldn't save your profile: " + (error.message || "please try again.");
+
+  }
+
+}
+
+
+async function getProfileForAI() {
+
+  const profile = await loadProfile();
+
+  if (!profile) return null;
+
+  const parts = [];
+
+  if (profile.full_name) parts.push("Name: " + profile.full_name);
+  if (profile.headline) parts.push("Current title: " + profile.headline);
+  if (profile.skills) parts.push("Key skills: " + profile.skills);
+  if (profile.resume_text) parts.push("Background:\n" + profile.resume_text);
+
+  return parts.length ? parts.join("\n\n") : null;
 
 }
 
