@@ -1,5 +1,3 @@
-import profile from "../profile.js";
-
 const GROQ_URL =
   "https://api.groq.com/openai/v1/chat/completions";
 
@@ -13,7 +11,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { jobDescription } = req.body || {};
+    const { jobDescription, profileContext } = req.body || {};
 
     if (!jobDescription || !jobDescription.trim()) {
       return res.status(400).json({
@@ -29,11 +27,11 @@ export default async function handler(req, res) {
       });
     }
 
-    const profileContext = JSON.stringify(
-      profile,
-      null,
-      2
-    );
+    const hasProfile = !!(profileContext && profileContext.trim());
+
+    const profileSection = hasProfile
+      ? `Candidate profile:\n\n${profileContext}`
+      : `No candidate profile has been provided yet. For suggestedAnswer fields, do not invent a personal story — instead give a short framework for how to structure a strong answer (what kind of example to draw on, how to lay it out), and note that connecting a profile (Settings → Profile) will let Clyde AI suggest a real, personalized answer instead.`;
 
     const controller = new AbortController();
 
@@ -81,9 +79,7 @@ IMPORTANT:
 - Keep answers concise but useful.
 - Make the answers sound natural and conversational.
 
-Candidate profile:
-
-${profileContext}
+${profileSection}
 
 Return ONLY valid JSON.
 
