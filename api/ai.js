@@ -1,4 +1,3 @@
-import profile from "../profile.js";
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({
@@ -7,7 +6,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { jobDescription } = req.body;
+    const { jobDescription, profileContext } = req.body;
 
     if (!jobDescription) {
       return res.status(400).json({
@@ -15,7 +14,11 @@ export default async function handler(req, res) {
       });
     }
 
-    const profileContext = JSON.stringify(profile, null, 2);
+    const hasProfile = !!(profileContext && profileContext.trim());
+
+    const profileSection = hasProfile
+      ? `The candidate's professional profile is:\n\n${profileContext}`
+      : `No candidate profile has been provided yet. Do not invent one. Instead, describe strengths and gaps in terms of what this role generally requires, keep the summary general rather than personal, and mention that connecting a profile (Settings → Profile) will make this analysis personalized.`;
 
     const response = await fetch(
       "https://api.groq.com/openai/v1/chat/completions",
@@ -52,11 +55,9 @@ IMPORTANT:
   actually have evidence for.
 - Match the candidate based on actual evidence from the profile.
 
-The candidate's professional profile is:
+${profileSection}
 
-${profileContext}
-
-Analyze the job description against this profile.
+Analyze the job description against this profile if one was provided.
 
 Return ONLY valid JSON.
 
