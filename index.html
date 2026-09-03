@@ -97,21 +97,6 @@ body {
        HEADER
     ========================= */
 
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 55px;
-    }
-
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-
     .logo {
       width: 42px;
       height: 42px;
@@ -134,20 +119,6 @@ body {
   display: block;
   border-radius: 12px;
 }
-
-    .brand-name {
-      font-size: 18px;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-    }
-
-
-    .brand-subtitle {
-      font-size: 11px;
-      color: var(--muted);
-      margin-top: 2px;
-    }
-
 
     .status {
       display: flex;
@@ -2210,41 +2181,6 @@ textarea:focus {
   color: var(--text);
 }
     /* =========================
-   HEADER ACTIONS
-========================= */
-
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.logout-button {
-  border: 1px solid var(--border);
-
-  background: white;
-
-  color: var(--text);
-
-  padding: 8px 13px;
-
-  border-radius: 9px;
-
-  font-size: 11px;
-
-  font-weight: 800;
-
-  cursor: pointer;
-
-  transition: 0.2s;
-}
-
-.logout-button:hover {
-  background: var(--surface-soft);
-
-  transform: translateY(-1px);
-}
-    /* =========================
        MOBILE
     ========================= */
 /* =========================
@@ -2379,30 +2315,11 @@ textarea:focus {
   .analyze-button:hover {
     background: #2f343f;
   }
-
-  .logout-button {
-    background: #242832;
-    color: #ffffff;
-  }
-
-  .logout-button:hover {
-    background: #2f343f;
-  }
 }
     @media (max-width: 780px) {
 
       .app {
         padding: 22px 16px 60px;
-      }
-
-
-      header {
-        margin-bottom: 40px;
-      }
-
-
-      .status {
-        display: none;
       }
 
 
@@ -4816,7 +4733,7 @@ textarea:focus {
     <div class="profile-avatar" id="profileAvatarPreview">
       👤
     </div>
-    <label class="profile-avatar-upload-btn" for="profileAvatarInput">
+    <label class="profile-avatar-upload-btn" for="profileAvatarInput" aria-label="Change profile photo">
       📷
     </label>
     <input
@@ -6458,6 +6375,8 @@ let trialStatus = { active: true, daysLeft: 3, expired: false };
 
 let lastAnalysisResult = null;
 
+let isSavingJob = false;
+
 let chatState = {
   mode: "coach",
   messages: [],
@@ -8056,6 +7975,10 @@ async function saveCurrentJob() {
     return;
   }
 
+  if (isSavingJob) return;
+
+  isSavingJob = true;
+
   try {
 
     const { data: userData } = await supabaseClient.auth.getUser();
@@ -8092,6 +8015,10 @@ async function saveCurrentJob() {
     console.error("Save job error:", error);
 
     alert("Couldn't save this job: " + (error.message || "please try again."));
+
+  } finally {
+
+    isSavingJob = false;
 
   }
 
