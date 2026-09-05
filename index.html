@@ -1024,6 +1024,118 @@ textarea:focus {
       display: none;
     }
 
+    .profile-nudge-banner {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+
+      padding: 18px 20px;
+      margin-bottom: 24px;
+
+      border-radius: 16px;
+
+      background: linear-gradient(135deg, #111318, #1a1d24);
+      color: white;
+    }
+
+    .profile-nudge-content {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .profile-nudge-icon {
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 11px;
+
+      background: rgba(255, 255, 255, 0.1);
+
+      font-size: 18px;
+    }
+
+    .profile-nudge-title {
+      font-size: 13px;
+      font-weight: 800;
+
+      margin-bottom: 3px;
+    }
+
+    .profile-nudge-text {
+      font-size: 12px;
+      color: #b8bcc4;
+
+      line-height: 1.5;
+
+      max-width: 420px;
+    }
+
+    .profile-nudge-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      flex-shrink: 0;
+    }
+
+    .profile-nudge-cta {
+      border: none;
+
+      background: white;
+      color: #111318;
+
+      padding: 9px 16px;
+
+      border-radius: 9px;
+
+      font-size: 12px;
+      font-weight: 800;
+
+      cursor: pointer;
+
+      white-space: nowrap;
+    }
+
+    .profile-nudge-cta:hover {
+      background: #e5e5e5;
+    }
+
+    .profile-nudge-dismiss {
+      border: none;
+      background: transparent;
+      color: rgba(255, 255, 255, 0.7);
+
+      font-size: 14px;
+
+      cursor: pointer;
+
+      padding: 4px 8px;
+
+      border-radius: 8px;
+    }
+
+    .profile-nudge-dismiss:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+    }
+
+    @media (max-width: 600px) {
+
+      .profile-nudge-banner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+    }
+
     .quick-actions {
       display: grid;
 
@@ -3451,6 +3563,45 @@ textarea:focus {
       margin-top: 4px;
     }
 
+    .profile-completion-bar {
+      margin-left: 24px;
+      margin-bottom: 24px;
+    }
+
+    .profile-completion-header {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--muted);
+
+      margin-bottom: 8px;
+
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .profile-completion-track {
+      width: 100%;
+      max-width: 400px;
+      height: 8px;
+
+      border-radius: 999px;
+
+      background: var(--surface-soft);
+      border: 1px solid var(--border);
+
+      overflow: hidden;
+    }
+
+    .profile-completion-fill {
+      height: 100%;
+
+      background: linear-gradient(90deg, #111318, #4a4f5c);
+
+      border-radius: 999px;
+
+      transition: width 0.3s ease;
+    }
+
     .profile-page-card {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -4118,6 +4269,41 @@ textarea:focus {
   </section>
 
 
+  <div class="profile-nudge-banner" id="profileNudgeBanner" style="display: none;">
+
+    <div class="profile-nudge-content">
+
+      <div class="profile-nudge-icon">👤</div>
+
+      <div>
+        <div class="profile-nudge-title" id="profileNudgeTitle">Complete your profile</div>
+        <div class="profile-nudge-text" id="profileNudgeText">
+          Add your background so Job Analysis, Cover Letters, and
+          Interview Prep are personalized to you.
+        </div>
+      </div>
+
+    </div>
+
+    <div class="profile-nudge-actions">
+
+      <button class="profile-nudge-cta" onclick="navigateTo('profile')">
+        Complete Profile
+      </button>
+
+      <button
+        class="profile-nudge-dismiss"
+        onclick="dismissProfileNudge()"
+        aria-label="Dismiss"
+      >
+        ✕
+      </button>
+
+    </div>
+
+  </div>
+
+
   <div class="quick-actions">
 
     <div class="quick-action-card" onclick="showApp()">
@@ -4748,6 +4934,15 @@ textarea:focus {
   <div class="profile-page-identity">
     <div class="profile-display-name" id="profileDisplayName">Your Name</div>
     <div class="profile-display-headline" id="profileDisplayHeadline">Add a headline</div>
+  </div>
+
+  <div class="profile-completion-bar" id="profileCompletionBar" style="display: none;">
+    <div class="profile-completion-header" id="profileCompletionLabel">
+      Profile 0% complete
+    </div>
+    <div class="profile-completion-track">
+      <div class="profile-completion-fill" id="profileCompletionFill" style="width: 0%;"></div>
+    </div>
   </div>
 
   <div class="profile-page-card">
@@ -7188,6 +7383,41 @@ async function loadProfile() {
 }
 
 
+/* =========================
+   PROFILE COMPLETION
+========================= */
+
+function computeProfileCompletion(profile) {
+
+  const fields = [
+    { key: "full_name", label: "Name" },
+    { key: "headline", label: "Headline" },
+    { key: "skills", label: "Skills" },
+    { key: "resume_text", label: "Resume/Background" }
+  ];
+
+  let filled = 0;
+
+  const missing = [];
+
+  fields.forEach(function (f) {
+
+    if (profile && profile[f.key] && profile[f.key].trim()) {
+      filled++;
+    } else {
+      missing.push(f.label);
+    }
+
+  });
+
+  return {
+    percent: Math.round((filled / fields.length) * 100),
+    missing: missing
+  };
+
+}
+
+
 async function loadProfilePage() {
 
   const { data: userData } =
@@ -7206,6 +7436,9 @@ async function loadProfilePage() {
   const emailEl = document.getElementById("settingsProfileEmail");
   const avatarEl = document.getElementById("profileAvatarPreview");
   const coverEl = document.getElementById("profileCoverPreview");
+  const completionBarEl = document.getElementById("profileCompletionBar");
+  const completionLabelEl = document.getElementById("profileCompletionLabel");
+  const completionFillEl = document.getElementById("profileCompletionFill");
 
   if (fullNameEl) fullNameEl.value = profile?.full_name || "";
   if (headlineEl) headlineEl.value = profile?.headline || "";
@@ -7232,6 +7465,20 @@ async function loadProfilePage() {
     } else {
       coverEl.style.backgroundImage = "";
     }
+
+  }
+
+  if (completionBarEl && completionLabelEl && completionFillEl) {
+
+    const completion = computeProfileCompletion(profile);
+
+    completionBarEl.style.display = "block";
+    completionFillEl.style.width = completion.percent + "%";
+
+    completionLabelEl.textContent =
+      completion.percent >= 100
+        ? "Profile complete ✓"
+        : "Profile " + completion.percent + "% complete — missing: " + completion.missing.join(", ");
 
   }
 
@@ -7527,6 +7774,28 @@ async function saveProfile() {
 
     syncProfilePreview();
 
+    const completionBarEl = document.getElementById("profileCompletionBar");
+    const completionLabelEl = document.getElementById("profileCompletionLabel");
+    const completionFillEl = document.getElementById("profileCompletionFill");
+
+    if (completionBarEl && completionLabelEl && completionFillEl) {
+
+      const completion = computeProfileCompletion({
+        full_name: fullName,
+        headline: headline,
+        skills: skills,
+        resume_text: resumeText
+      });
+
+      completionFillEl.style.width = completion.percent + "%";
+
+      completionLabelEl.textContent =
+        completion.percent >= 100
+          ? "Profile complete ✓"
+          : "Profile " + completion.percent + "% complete — missing: " + completion.missing.join(", ");
+
+    }
+
     setTimeout(function () {
       statusEl.textContent = "";
     }, 3000);
@@ -7628,6 +7897,73 @@ function showHome() {
   refreshNotificationsBadge();
 
   refreshMessagesBadge();
+
+  checkProfileNudge();
+
+}
+
+
+/* =========================
+   PROFILE NUDGE
+========================= */
+
+let profileNudgeDismissed = false;
+
+
+async function checkProfileNudge() {
+
+  const banner =
+    document.getElementById("profileNudgeBanner");
+
+  if (!banner) return;
+
+  if (profileNudgeDismissed) {
+    banner.style.display = "none";
+    return;
+  }
+
+  const profile = await loadProfile();
+
+  const completion = computeProfileCompletion(profile);
+
+  if (completion.percent >= 100) {
+    banner.style.display = "none";
+    return;
+  }
+
+  const titleEl = document.getElementById("profileNudgeTitle");
+  const textEl = document.getElementById("profileNudgeText");
+
+  if (completion.percent === 0) {
+
+    titleEl.textContent = "Complete your profile";
+
+    textEl.textContent =
+      "Add your background so Job Analysis, Cover Letters, and Interview Prep are personalized to you — Cover Letters won't generate at all without it.";
+
+  } else {
+
+    titleEl.textContent =
+      "Your profile is " + completion.percent + "% complete";
+
+    textEl.textContent =
+      "Still missing: " + completion.missing.join(", ") + ".";
+
+  }
+
+  banner.style.display = "flex";
+
+}
+
+
+function dismissProfileNudge() {
+
+  profileNudgeDismissed = true;
+
+  const banner =
+    document.getElementById("profileNudgeBanner");
+
+  if (banner) banner.style.display = "none";
 
 }
 
@@ -8195,7 +8531,7 @@ async function createWelcomeContent(userId) {
     await supabaseClient.from("notifications").insert({
       user_id: userId,
       title: "Welcome to Clyde AI",
-      body: "Your account is ready. Paste a job description on the Job Analysis page to get started.",
+      body: "Your account is ready. Start by adding your background on the Profile page — it's what makes your analysis, cover letters, and interview prep personal instead of generic.",
       type: "success"
     });
 
@@ -8203,7 +8539,7 @@ async function createWelcomeContent(userId) {
       user_id: userId,
       sender: "Clyde AI Team",
       subject: "Welcome to Clyde AI 👋",
-      body: "Thanks for signing up! Paste a job description on the Job Analysis page to get a match score, generate a tailored cover letter, and prep for your interview — all in one place. If you have questions, the Career Assistant chat is available any time."
+      body: "Thanks for signing up! First, head to your Profile (click your name in the top right) and add your background — a resume upload takes seconds. Then paste a job description on the Job Analysis page to get a match score, generate a tailored cover letter, and prep for your interview, all personalized to you. If you have questions, the Career Assistant chat is available any time."
     });
 
   } catch (error) {
