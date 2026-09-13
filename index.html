@@ -171,6 +171,23 @@ body {
     }
 
 
+    .status.pro {
+      background: var(--green-bg);
+      border-color: rgba(22, 160, 93, 0.35);
+      color: var(--green);
+    }
+
+
+    .status.pro .status-dot {
+      background: var(--green);
+    }
+
+
+    .status {
+      cursor: pointer;
+    }
+
+
     /* =========================
        HERO
     ========================= */
@@ -3404,6 +3421,202 @@ textarea:focus {
       right: 0;
     }
 
+
+    /* =========================
+       UPGRADE MODAL
+    ========================= */
+
+    .upgrade-overlay {
+      display: none;
+
+      position: fixed;
+      inset: 0;
+
+      background: rgba(17, 19, 24, 0.5);
+
+      z-index: 950;
+    }
+
+    .upgrade-overlay.open {
+      display: block;
+    }
+
+    .upgrade-modal {
+      display: none;
+
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      width: 480px;
+      max-width: calc(100vw - 32px);
+      max-height: calc(100vh - 60px);
+
+      overflow-y: auto;
+
+      background: var(--surface);
+      border-radius: 20px;
+
+      box-shadow: 0 30px 80px rgba(17, 19, 24, 0.3);
+
+      z-index: 951;
+    }
+
+    .upgrade-modal.open {
+      display: block;
+    }
+
+    .upgrade-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      padding: 20px 22px;
+
+      border-bottom: 1px solid var(--border);
+    }
+
+    .upgrade-modal-title {
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .upgrade-modal-body {
+      padding: 22px;
+    }
+
+    .upgrade-modal-intro {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+
+      margin-bottom: 20px;
+    }
+
+    .upgrade-plans {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .upgrade-plan-card {
+      position: relative;
+
+      border: 1px solid var(--border);
+      border-radius: 16px;
+
+      padding: 22px 16px 20px;
+
+      text-align: center;
+    }
+
+    .upgrade-plan-card.featured {
+      border-color: #111318;
+      border-width: 2px;
+    }
+
+    .upgrade-plan-badge {
+      position: absolute;
+      top: -11px;
+      left: 50%;
+      transform: translateX(-50%);
+
+      background: #111318;
+      color: white;
+
+      font-size: 9px;
+      font-weight: 800;
+
+      padding: 3px 10px;
+
+      border-radius: 999px;
+
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+
+      white-space: nowrap;
+    }
+
+    .upgrade-plan-name {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--muted);
+
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+
+      margin-bottom: 10px;
+    }
+
+    .upgrade-plan-price {
+      font-size: 26px;
+      font-weight: 900;
+
+      letter-spacing: -1px;
+
+      margin-bottom: 4px;
+    }
+
+    .upgrade-plan-price span {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+    }
+
+    .upgrade-plan-savings {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--green);
+
+      margin-bottom: 14px;
+      min-height: 14px;
+    }
+
+    .upgrade-plan-btn {
+      width: 100%;
+
+      border: 1px solid var(--border);
+      background: var(--surface-soft);
+      color: var(--text);
+
+      padding: 10px;
+
+      border-radius: 10px;
+
+      font-size: 12px;
+      font-weight: 800;
+
+      cursor: pointer;
+    }
+
+    .upgrade-plan-btn.primary {
+      background: #111318;
+      color: white;
+      border-color: #111318;
+    }
+
+    .upgrade-plan-btn:hover {
+      opacity: 0.85;
+    }
+
+    .upgrade-modal-footnote {
+      font-size: 10.5px;
+      color: var(--muted-light);
+
+      text-align: center;
+
+      margin-top: 16px;
+    }
+
+    @media (max-width: 480px) {
+
+      .upgrade-plans {
+        grid-template-columns: 1fr;
+      }
+
+    }
+
     .settings-panel-header {
       display: flex;
       align-items: center;
@@ -4337,7 +4550,7 @@ textarea:focus {
 
       <div class="topbar-right">
 
-        <div class="status" id="topbarStatus">
+        <div class="status" id="topbarStatus" onclick="handleBillingClick()">
           <span class="status-dot"></span>
           <span class="status-text">AI Ready</span>
         </div>
@@ -5307,6 +5520,10 @@ textarea:focus {
       👤 Profile
     </button>
 
+    <button class="settings-item" onclick="closeSettingsPanel(); handleBillingClick();">
+      💳 Billing
+    </button>
+
     <button class="settings-item" onclick="toggleSettingsSection('settingsNotifications')">
       🔔 Notifications
     </button>
@@ -5372,6 +5589,66 @@ textarea:focus {
       Clyde AI is your AI-powered career intelligence assistant —
       analyze job descriptions, generate tailored cover letters, and
       prep for interviews, all in one place.
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     UPGRADE MODAL
+========================= -->
+
+<div class="upgrade-overlay" id="upgradeOverlay" onclick="closeUpgradeModal()"></div>
+
+<div class="upgrade-modal" id="upgradeModal">
+
+  <div class="upgrade-modal-header">
+    <div class="upgrade-modal-title">Upgrade to Clyde AI Pro</div>
+    <button
+      class="chat-close-btn"
+      style="color: var(--text);"
+      onclick="closeUpgradeModal()"
+      aria-label="Close"
+    >
+      ✕
+    </button>
+  </div>
+
+  <div class="upgrade-modal-body">
+
+    <p class="upgrade-modal-intro" id="upgradeModalIntro">
+      Your free trial has ended. Subscribe to keep using Job Analysis,
+      Cover Letters, Interview Prep, and the Career Assistant.
+    </p>
+
+    <div class="upgrade-plans">
+
+      <div class="upgrade-plan-card">
+        <div class="upgrade-plan-name">Monthly</div>
+        <div class="upgrade-plan-price">$9<span>/month</span></div>
+        <div class="upgrade-plan-savings"></div>
+        <button class="upgrade-plan-btn" onclick="startCheckout('monthly')">
+          Subscribe Monthly
+        </button>
+      </div>
+
+      <div class="upgrade-plan-card featured">
+        <div class="upgrade-plan-badge">Best Value</div>
+        <div class="upgrade-plan-name">Annual</div>
+        <div class="upgrade-plan-price">$90<span>/year</span></div>
+        <div class="upgrade-plan-savings">Save ~17%</div>
+        <button class="upgrade-plan-btn primary" onclick="startCheckout('annual')">
+          Subscribe Annually
+        </button>
+      </div>
+
+    </div>
+
+    <div class="upgrade-modal-footnote">
+      Prices shown are placeholders — update them to match what you set
+      up in Stripe.
     </div>
 
   </div>
@@ -5515,6 +5792,9 @@ textarea:focus {
         return;
 
       }
+
+
+      if (!(await requireActiveAccess())) return;
 
 
       errorBox.style.display =
@@ -6030,6 +6310,9 @@ textarea:focus {
       }
 
 
+      if (!(await requireActiveAccess())) return;
+
+
       const card =
         document.getElementById(
           "coverLetterCard"
@@ -6247,6 +6530,9 @@ textarea:focus {
         return;
 
       }
+
+
+      if (!(await requireActiveAccess())) return;
 
 
       loading.style.display =
@@ -6684,7 +6970,7 @@ const loginOptions =
 
 let createAccountMode = false;
 
-let trialStatus = { active: true, daysLeft: 3, expired: false };
+let accessStatus = { tier: "trial", active: true, daysLeft: 3, expired: false, plan: null };
 
 let lastAnalysisResult = null;
 
@@ -6885,6 +7171,8 @@ async function sendCareerChatMessage() {
     input.value.trim();
 
   if (!text || chatState.sending) return;
+
+  if (!(await requireActiveAccess())) return;
 
   chatState.messages.push({
     role: "user",
@@ -7270,7 +7558,38 @@ function computeTrialStatus(createdAtIso) {
 }
 
 
-function applyTrialStatusUI(status) {
+function computeAccessStatus(createdAtIso, subscription) {
+
+  const isSubscribed =
+    subscription &&
+    (subscription.status === "active" || subscription.status === "trialing");
+
+  if (isSubscribed) {
+
+    return {
+      tier: "pro",
+      plan: subscription.plan,
+      active: true,
+      daysLeft: null,
+      expired: false
+    };
+
+  }
+
+  const trial = computeTrialStatus(createdAtIso);
+
+  return {
+    tier: "trial",
+    plan: null,
+    active: trial.active,
+    daysLeft: trial.daysLeft,
+    expired: trial.expired
+  };
+
+}
+
+
+function applyAccessStatusUI(status) {
 
   document.querySelectorAll(".status").forEach(
     function (statusEl) {
@@ -7278,9 +7597,18 @@ function applyTrialStatusUI(status) {
       const textEl =
         statusEl.querySelector(".status-text");
 
-      statusEl.classList.remove("trial", "trial-ended");
+      statusEl.classList.remove("trial", "trial-ended", "pro");
 
-      if (status.expired) {
+      if (status.tier === "pro") {
+
+        statusEl.classList.add("pro");
+
+        if (textEl) {
+          textEl.textContent =
+            status.plan === "annual" ? "Pro (Annual)" : "Pro (Monthly)";
+        }
+
+      } else if (status.expired) {
 
         statusEl.classList.add("trial-ended");
 
@@ -7307,6 +7635,221 @@ function applyTrialStatusUI(status) {
 
     }
   );
+
+}
+
+
+/* =========================
+   ACCESS GATING (TRIAL / PRO)
+========================= */
+
+async function checkAccessStatus() {
+
+  try {
+
+    const { data: userData } = await supabaseClient.auth.getUser();
+    const userId = userData?.user?.id;
+
+    if (!userId) {
+      return { tier: "trial", active: false, expired: true, daysLeft: 0, plan: null };
+    }
+
+    const { data: subRow } =
+      await supabaseClient
+        .from("subscriptions")
+        .select("*")
+        .eq("user_id", userId)
+        .maybeSingle();
+
+    return computeAccessStatus(userData.user.created_at, subRow || null);
+
+  } catch (error) {
+
+    console.error("Check access status error:", error);
+
+    // Fail OPEN on a transient network error — don't lock someone out
+    // of a feature they're paying for just because one request hiccuped.
+    return { tier: "trial", active: true, expired: false, daysLeft: 1, plan: null };
+
+  }
+
+}
+
+
+async function requireActiveAccess() {
+
+  const status = await checkAccessStatus();
+
+  accessStatus = status;
+
+  applyAccessStatusUI(status);
+
+  if (status.active) return true;
+
+  openUpgradeModal();
+
+  return false;
+
+}
+
+
+/* =========================
+   UPGRADE MODAL
+========================= */
+
+function openUpgradeModal() {
+
+  const introEl =
+    document.getElementById("upgradeModalIntro");
+
+  if (introEl) {
+
+    introEl.textContent =
+      accessStatus && accessStatus.expired
+        ? "Your free trial has ended. Subscribe to keep using Job Analysis, Cover Letters, Interview Prep, and the Career Assistant."
+        : "Subscribe any time to lock in full access to Job Analysis, Cover Letters, Interview Prep, and the Career Assistant.";
+
+  }
+
+  document.getElementById("upgradeModal").classList.add("open");
+  document.getElementById("upgradeOverlay").classList.add("open");
+
+  closeSettingsPanel();
+  closeProfileMenu();
+
+}
+
+
+function closeUpgradeModal() {
+
+  document.getElementById("upgradeModal").classList.remove("open");
+  document.getElementById("upgradeOverlay").classList.remove("open");
+
+}
+
+
+async function handleBillingClick() {
+
+  const status = await checkAccessStatus();
+
+  accessStatus = status;
+
+  applyAccessStatusUI(status);
+
+  if (status.tier === "pro") {
+    openBillingPortal();
+  } else {
+    openUpgradeModal();
+  }
+
+}
+
+
+/* =========================
+   STRIPE CHECKOUT / PORTAL
+========================= */
+
+async function startCheckout(plan) {
+
+  try {
+
+    const { data: sessionData } = await supabaseClient.auth.getSession();
+
+    const accessToken = sessionData?.session?.access_token;
+
+    if (!accessToken) {
+      alert("Please sign in again.");
+      return;
+    }
+
+    const response = await fetch("/api/create-checkout-session", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ plan: plan, accessToken: accessToken })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || "Could not start checkout.");
+    }
+
+    window.location.href = data.url;
+
+  } catch (error) {
+
+    console.error("Checkout error:", error);
+
+    alert("Couldn't start checkout: " + (error.message || "please try again."));
+
+  }
+
+}
+
+
+async function openBillingPortal() {
+
+  try {
+
+    const { data: sessionData } = await supabaseClient.auth.getSession();
+
+    const accessToken = sessionData?.session?.access_token;
+
+    if (!accessToken) {
+      alert("Please sign in again.");
+      return;
+    }
+
+    const response = await fetch("/api/create-portal-session", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ accessToken: accessToken })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || "Could not open billing management.");
+    }
+
+    window.location.href = data.url;
+
+  } catch (error) {
+
+    console.error("Billing portal error:", error);
+
+    alert("Couldn't open billing management: " + (error.message || "please try again."));
+
+  }
+
+}
+
+
+function handleCheckoutReturn() {
+
+  const params =
+    new URLSearchParams(window.location.search);
+
+  const checkoutResult =
+    params.get("checkout");
+
+  if (!checkoutResult) return;
+
+  window.history.replaceState({}, "", window.location.pathname);
+
+  if (checkoutResult === "success") {
+
+    alert("🎉 Payment successful! Activating your Pro access now.");
+
+    setTimeout(function () {
+
+      if (appShell.classList.contains("open")) {
+        updateHomeGreeting();
+      }
+
+    }, 1500);
+
+  }
 
 }
 
@@ -8109,10 +8652,28 @@ async function updateHomeGreeting() {
     const email =
       data?.user?.email;
 
-    trialStatus =
-      computeTrialStatus(data?.user?.created_at);
+    const userId =
+      data?.user?.id;
 
-    applyTrialStatusUI(trialStatus);
+    let subscriptionRow = null;
+
+    if (userId) {
+
+      const { data: subRows } =
+        await supabaseClient
+          .from("subscriptions")
+          .select("*")
+          .eq("user_id", userId)
+          .maybeSingle();
+
+      subscriptionRow = subRows || null;
+
+    }
+
+    accessStatus =
+      computeAccessStatus(data?.user?.created_at, subscriptionRow);
+
+    applyAccessStatusUI(accessStatus);
 
     if (greetingEl) {
       greetingEl.textContent =
@@ -9050,6 +9611,8 @@ async function refreshMessagesBadge() {
 
 }
 
+
+handleCheckoutReturn();
 
 checkSession();
   </script>
