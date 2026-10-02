@@ -20,19 +20,26 @@ function signState(userId, createdAt) {
     .update(payload)
     .digest("base64url");
 
-  return Buffer.from(JSON.stringify({ userId, createdAt, signature })).toString("base64url");
+  return Buffer.from(
+    JSON.stringify({ userId, createdAt, signature })
+  ).toString("base64url");
 }
 
 export default async function handler(req, res) {
-  if (req.method !== "GET") {
-    return res.status(405).json({ error: "Method not allowed." });
+  if (req.method !== "POST") {
+    return res.status(405).json({
+      error: "Method not allowed."
+    });
   }
 
   try {
     const { user } = await requireUser(req, res);
     if (!user) return;
 
-    if (!process.env.LINKEDIN_CLIENT_ID || !process.env.LINKEDIN_CLIENT_SECRET) {
+    if (
+      !process.env.LINKEDIN_CLIENT_ID ||
+      !process.env.LINKEDIN_CLIENT_SECRET
+    ) {
       return res.status(500).json({
         error: "LinkedIn OAuth is not configured on the server."
       });
@@ -52,14 +59,22 @@ export default async function handler(req, res) {
       scope: "openid profile email"
     });
 
-    return res.redirect(
-      302,
-      "https://www.linkedin.com/oauth/v2/authorization?" + params.toString()
-    );
+    return res.status(200).json({
+      url:
+        "https://www.linkedin.com/oauth/v2/authorization?" +
+        params.toString()
+    });
+
   } catch (error) {
-    console.error("LinkedIn OAuth start error:", error);
+
+    console.error(
+      "LinkedIn OAuth start error:",
+      error
+    );
+
     return res.status(500).json({
       error: "Could not start LinkedIn connection."
     });
+
   }
 }
