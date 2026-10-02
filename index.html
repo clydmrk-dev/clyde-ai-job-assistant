@@ -5342,12 +5342,25 @@ textarea:focus {
     <div class="profile-page-card-title">LinkedIn</div>
 
     <div class="linkedin-note">
-      🔗 Full LinkedIn import isn't available — LinkedIn restricts API
-      access to work history and skills for most apps. The fastest
-      equivalent: export your LinkedIn profile as a PDF (LinkedIn →
-      your profile → the "More" button → Save to PDF) and upload it
-      above — it'll extract the same way any other resume PDF does.
+      🔗 Connect your LinkedIn account to import your LinkedIn identity
+      into your Clyde AI profile. LinkedIn still limits what most apps can
+      access, so this does not import your full work history or skills.
     </div>
+
+    <button
+      type="button"
+      class="profile-save-btn"
+      onclick="connectLinkedIn()"
+      style="max-width: 300px; margin-top: 14px;"
+    >
+      🔗 Connect LinkedIn
+    </button>
+
+    <div
+      id="linkedinConnectionStatus"
+      class="profile-save-status"
+      style="margin-top: 10px;"
+    ></div>
 
   </div>
 
@@ -5771,6 +5784,107 @@ textarea:focus {
 
       }
     );
+
+
+    /* =========================
+       LINKEDIN CONNECTION
+    ========================= */
+
+    async function connectLinkedIn() {
+
+      const statusEl =
+        document.getElementById("linkedinConnectionStatus");
+
+      try {
+
+        if (statusEl) {
+          statusEl.textContent = "Opening LinkedIn...";
+        }
+
+        const response =
+          await fetch(
+            "/api/auth/linkedin",
+            {
+              method: "POST",
+              headers: await getAuthHeaders()
+            }
+          );
+
+        const data =
+          await response.json();
+
+        if (!response.ok || !data.url) {
+          throw new Error(
+            data.error ||
+            "Could not start LinkedIn connection."
+          );
+        }
+
+        const popup =
+          window.open(
+            data.url,
+            "clydeLinkedIn",
+            "width=600,height=760,resizable=yes,scrollbars=yes"
+          );
+
+        if (!popup) {
+          throw new Error(
+            "Your browser blocked the LinkedIn popup. Please allow popups for Clyde AI."
+          );
+        }
+
+        const onMessage =
+          function (event) {
+
+            if (
+              event.origin !== window.location.origin
+            ) {
+              return;
+            }
+
+            if (
+              event.data?.type ===
+              "clyde-linkedin-connected"
+            ) {
+
+              window.removeEventListener(
+                "message",
+                onMessage
+              );
+
+              if (statusEl) {
+                statusEl.textContent =
+                  "LinkedIn connected. Your profile has been updated.";
+              }
+
+              loadProfile();
+              updateHomeGreeting();
+
+            }
+
+          };
+
+        window.addEventListener(
+          "message",
+          onMessage
+        );
+
+      } catch (error) {
+
+        console.error(
+          "LinkedIn connection error:",
+          error
+        );
+
+        if (statusEl) {
+          statusEl.textContent =
+            error.message ||
+            "Could not connect LinkedIn.";
+        }
+
+      }
+
+    }
 
 
     /* =========================
