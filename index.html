@@ -5826,10 +5826,7 @@ textarea:focus {
             {
               method: "POST",
 
-              headers: {
-                "Content-Type":
-                  "application/json"
-              },
+              headers: await getAuthHeaders(),
 
               body: JSON.stringify({
                 jobDescription: job,
@@ -6376,10 +6373,7 @@ textarea:focus {
             {
               method: "POST",
 
-              headers: {
-                "Content-Type":
-                  "application/json"
-              },
+              headers: await getAuthHeaders(),
 
               body: JSON.stringify({
                 jobDescription: job,
@@ -6564,10 +6558,7 @@ textarea:focus {
             {
               method: "POST",
 
-              headers: {
-                "Content-Type":
-                  "application/json"
-              },
+              headers: await getAuthHeaders(),
 
               body: JSON.stringify({
                 jobDescription:
@@ -7202,9 +7193,7 @@ async function sendCareerChatMessage() {
         {
           method: "POST",
 
-          headers: {
-            "Content-Type": "application/json"
-          },
+          headers: await getAuthHeaders(),
 
           body: JSON.stringify({
             mode: chatState.mode,
@@ -8470,6 +8459,26 @@ async function saveProfile() {
       "Couldn't save your profile: " + (error.message || "please try again.");
 
   }
+
+}
+
+
+async function getAuthHeaders() {
+
+  const { data } =
+    await supabaseClient.auth.getSession();
+
+  const accessToken =
+    data?.session?.access_token;
+
+  if (!accessToken) {
+    throw new Error("Your session has expired. Please sign in again.");
+  }
+
+  return {
+    "Content-Type": "application/json",
+    "Authorization": "Bearer " + accessToken
+  };
 
 }
 
