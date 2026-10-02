@@ -1,3 +1,5 @@
+import { requireUser } from "./_lib/auth.js";
+
 export default async function handler(req, res) {
 
   if (req.method !== "POST") {
@@ -32,6 +34,9 @@ export default async function handler(req, res) {
       )
       .slice(-20)
   ];
+
+  const user = await requireUser(req, res);
+  if (!user) return;
 
   try {
 
