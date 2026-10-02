@@ -3,11 +3,11 @@ import { requireUser } from "./auth.js";
 const SUPABASE_URL = "https://bicdawajnksfzvjmgjsk.supabase.co";
 const TRIAL_DAYS = 3;
 
-async function supabaseGet(path) {
+async function supabaseGet(path, accessToken) {
   const response = await fetch(`${SUPABASE_URL}/rest/v1/${path}`, {
     headers: {
       apikey: process.env.SUPABASE_ANON_KEY,
-      Authorization: `Bearer ${process.env.SUPABASE_ANON_KEY}`
+      Authorization: `Bearer ${accessToken}`
     }
   });
 
@@ -19,12 +19,16 @@ async function supabaseGet(path) {
 }
 
 export async function requireActiveAccess(req, res) {
+  const header = req.headers.authorization || "";
+  const accessToken = header.startsWith("Bearer ") ? header.slice(7).trim() : "";
+
   const user = await requireUser(req, res);
   if (!user) return null;
 
   try {
     const rows = await supabaseGet(
-      `subscriptions?user_id=eq.${encodeURIComponent(user.id)}&select=status,plan&limit=1`
+      `subscriptions?user_id=eq.${encodeURIComponent(user.id)}&select=status,plan&limit=1`,
+      accessToken
     );
 
     const subscription = rows?.[0] || null;
