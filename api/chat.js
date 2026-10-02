@@ -1,4 +1,4 @@
-import { requireUser } from "./_lib/auth.js";
+import { requireActiveAccess } from "./_lib/access.js";
 
 export default async function handler(req, res) {
 
@@ -35,8 +35,8 @@ export default async function handler(req, res) {
       .slice(-20)
   ];
 
-  const user = await requireUser(req, res);
-  if (!user) return;
+  const access = await requireActiveAccess(req, res);
+  if (!access) return;
 
   try {
 
