@@ -1,3 +1,5 @@
+import { requireUser } from "./_lib/auth.js";
+
 const GROQ_URL =
   "https://api.groq.com/openai/v1/chat/completions";
 
@@ -9,6 +11,9 @@ export default async function handler(req, res) {
       error: "Method not allowed",
     });
   }
+
+  const user = await requireUser(req, res);
+  if (!user) return;
 
   try {
     const { jobDescription, profileContext } = req.body || {};
